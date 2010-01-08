@@ -1,0 +1,141 @@
+\documentclass[a4paper]{article}
+	\usepackage{Lapin}
+	\newenvironment{Correction}{\par\tiny\blue\rule[1ex]{\textwidth}{1pt}\par\normalsize\textbf{\sffamily{}Correction de l'exercice~\theExo{} -- }}{\par\tiny\blue\rule[1ex]{\textwidth}{1pt}\par}
+	\newtheorem{Exo}{{\sffamily{Exercice}}}
+	\title{Tableaux et boucles}
+	\author{Philippe \Nom{Rinaudo}\and{}Jean \Nom{Simard}}
+	\date{\Date[l]{13}{10}{2009}}
+\begin{document}
+	\maketitle
+	\section{Rappel}
+		\subsection{Les tableaux}
+			Un tableau va nous permettre de stocker plusieurs valeurs d'un même type dans un même ensemble.
+			C'est une succession de variables.
+			Par exemple, on pourrait utiliser un tableau pour y stocker \nombre{100}~nombres entiers à partir du crible d'Èratosthène.
+
+			Pour commencer, il nous faut déclarer ce tableau.
+			\begin{Code*}
+unsigned int iDimension = 100;
+unsigned int iEratosthene[iDimension];
+			\end{Code*}
+			Cette déclaration créé un tableau de \nombre{100}~valeurs de type \code{unsigned int}.
+			Pour initialiser ce tableau, on va effectuer les opérations suivantes
+			\begin{Code*}
+iEratosthene[0] = 2;
+iEratosthene[1] = 3;
+iEratosthene[2] = 5;
+iEratosthene[3] = 7;
+iEratosthene[4] = 11;
+...
+			\end{Code*}
+			On peut remarquer que la première case du tableau est numéroté zéro.
+			Donc un tableau de \nombre{100}~valeurs est numérotée de \nombre{0} à \nombre{99}.
+		\subsection{Les tableaux à plusieurs dimensions}
+			Maintenant, imaginons que nous voulions stocker les valeurs d'une matrice.
+			Prenons l'exemple d'une matrice $M$ telle que
+			\begin{Equation}
+				M = \left(
+					\begin{array}{ccc}
+						1 & 2 & 3 \\
+						4 & 5 & 6 \\
+						7 & 8 & 9
+					\end{array}
+					\right)
+			\end{Equation}
+
+			On peut bien évidemment, déclarer un tableau de \nombre{9}~valeurs et faire ensuite la calculs nécessaures pour accéder aux bonnes cases du tableau.
+			Mais le langage \bsc{c} nous offre la possibilité de déclarer des tableaux à plusieurs dimensions.
+			Pour cela on écrit
+			\begin{Code*}
+double dMatrice[3][3];
+			\end{Code*}
+			On peut alors remplir cette matrice avec
+			\begin{Code*}
+dMatrice[0][0] = 1.0;
+dMatrice[0][1] = 2.0;
+dMatrice[0][2] = 3.0;
+dMatrice[1][0] = 4.0;
+dMatrice[1][1] = 5.0;
+dMatrice[1][2] = 6.0;
+dMatrice[2][0] = 7.0;
+dMatrice[2][1] = 8.0;
+dMatrice[2][2] = 9.0;
+			\end{Code*}
+		\subsection{La boucle \code{for}}
+			La boucle \code{for} va permettre d'effectuer un certains nombre d'itérations de boucle.
+			En effet, pour l'instant, nous avons vu les boucles \code{while} et \code{do...while}.
+			La boucle \code{for} possède deux différences avec les deux autres boucles déjà vues.
+			Premièrement, la boucle \code{for} offre la possibilité de faire une initialisation avant de commencer la boucle.
+			Deuxièmement, la boucle \code{for} donne la possibilité d'effectuer simplement une opération à chaque itération.
+
+			La boucle \code{for} est souvent utilisée pour effectuer un nombre défini d'itérations.
+			Elle va donc souvent être utilisée pour parcourir un tableau.
+			Par exemple, affichons toutes les cases du tableau précédemment créé pour le crible d'Èrasthostène.
+			L'initialisation de la boucle \code{for} sera la mise à zéro d'une variable \code{i}.
+			Cette variable \code{i} sera incrémentée (ajouter \nombre{1}) pour parcourir les valeurs de \nombre{0} à \nombre{99}.
+			Voici le code source
+			\begin{Code*}
+for( i = 0; i < 100; i++ )
+{
+	printf( "%f\n", iErathostene[i] );
+}
+			\end{Code*}
+			
+			\begin{Exo}
+				Écrire un programme qui permet de calculer la somme des nombres de \nombre{0} à \nombre{100}.
+			\end{Exo}
+			\begin{Correction}
+				\FichierCode{Somme.c}{cod-SommeC}
+			\end{Correction}
+			\begin{Exo}
+				Remplir une matrice $5\times 5$ avec les valeurs de \nombre{1} à \nombre{25}.
+			\end{Exo}
+			\begin{Correction}
+				\FichierCode{Matrice.c}{cod-MatriceC}
+			\end{Correction}
+			\begin{Exo}
+				Écrire un programme qui permette de calculer la factorielle d'un nombre.
+				L'utilisateur devra pouvoir choisir la valeur.
+				Il faut vérifier que la valeur entrée par l'utilisateur est comprise dans l'intervalle $[0,15]$.
+				
+				\textbf{Rappel --} La factorielle d'un nombre se note $n!$ et est égal au produit des nombres entiers de l'intervalle $[1,n]$.
+			\end{Exo}
+			\begin{Correction}
+				\FichierCode{Factorielle.c}{cod-FactorielleC}
+			\end{Correction}
+	\section{Approfondissement}
+		\begin{Exo}
+			Nous allons créer un petit jeu où l'objectif sera de deviner un nombre entre \nombre{0} et \nombre{100}.
+			Pour que le jeu ait un intérêt, on va initialiser la solution avec une valeur aléatoire.
+			Pour cela, il va falloir utiliser les bibliothèques \code{stdlib.h} et \code{time.h}.
+			Puis pour initialiser la valeur de la solution, il faudra utiliser le code source suivant
+			\begin{Code*}
+int iSolution = 0;
+srand( time( NULL ) );
+iSolution = (int)( (double)rand() / ( (double)RAND_MAX + 1.0 ) * 100.0 );
+			\end{Code*}
+			L'utilisateur devra avoir cinq essais pour trouver la solution.
+			À chaque essai le programme lui répondra si la solution est supérieure ou inférieure au nombre proposé.
+		\end{Exo}
+		\begin{Correction}
+			\FichierCode{Jeu.c}{cod-JeuC}
+		\end{Correction}
+		\begin{Exo}
+			Écrire un programme qui effectue la multiplication de deux matrices de dimension $5\times 5$.
+			On réutilisera le code source précédant permettant d'initialiser la matrice.
+		\end{Exo}
+		\begin{Correction}
+			\FichierCode{Multiplication.c}{cod-MultiplicationC}
+		\end{Correction}
+		\begin{Exo}
+			Écrire un programme qui calcule le \bsc{pgcd} de deux nombres.
+
+			\textbf{Rappel --} Le \bsc{pgcd} de deux nombres est le Plus Grand Commun Diviseur.
+			C'est le plus grand nombre possible qui est un diviseur de chacun des deux nombres considérés.
+			Par exemple, le \bsc{pgcd} de \nombre{51} et \nombre{34} est \nombre{17}.
+			Le \bsc{pgcd} de \nombre{24} et \nombre{60} est \nombre{12}.
+		\end{Exo}
+		\begin{Correction}
+			\FichierCode{PGCD.c}{cod-PGCDC}
+		\end{Correction}
+\end{document}

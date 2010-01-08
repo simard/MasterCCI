@@ -1,0 +1,142 @@
+{\rtf1\ansi\ansicpg1252\deff0
+{\fonttbl
+{\f0\fnil\fcharset0\fprq0\fttruetype Times New Roman;}
+{\f1\fnil\fcharset0\fprq0\fttruetype rtxi;}
+{\f2\fnil\fcharset0\fprq0\fttruetype txtt;}
+{\f3\fnil\fcharset0\fprq0\fttruetype Courier New;}
+{\f4\fnil\fcharset0\fprq0\fttruetype rtxr;}
+{\f5\fnil\fcharset0\fprq0\fttruetype txsy;}
+{\f6\fnil\fcharset0\fprq0\fttruetype rtxmi;}
+{\f7\fnil\fcharset0\fprq0\fttruetype Nimbus Sans L;}
+{\f8\fnil\fcharset0\fprq0\fttruetype Dingbats;}
+{\f9\fnil\fcharset0\fprq0\fttruetype Symbol;}}
+{\colortbl
+\red0\green0\blue0;
+\red255\green255\blue255;}
+{\stylesheet
+{\s1\fi-430\li720\sbasedon33\snext33Contents 1;}
+{\s2\fi-430\li1440\sbasedon33\snext33Contents 2;}
+{\s3\fi-430\li2160\sbasedon33\snext33Contents 3;}
+{\s8\fi-430\li720\sbasedon33Lower Roman List;}
+{\s5\tx431\sbasedon29\snext33Numbered Heading 1;}
+{\s6\tx431\sbasedon30\snext33Numbered Heading 2;}
+{\s7\fi-430\li720Square List;}
+{\*\cs11\sbasedon33Endnote Text;}
+{\s4\fi-430\li2880\sbasedon33\snext33Contents 4;}
+{\s9\fi-430\li720Diamond List;}
+{\s10\fi-430\li720Numbered List;}
+{\*\cs12\fs20\superEndnote Reference;}
+{\s13\f0\fs20\lang1036\sbasedon33Corps de texte;}
+{\s14\fi-430\li720Triangle List;}
+{\s15\tx431\sbasedon31\snext33Numbered Heading 3;}
+{\s16\fi-430\li720Dashed List;}
+{\s17\fi-430\li720\sbasedon10Upper Roman List;}
+{\s32\fi-430\li720Tick List;}
+{\s19\fi-430\li720Heart List;}
+{\s40\fi-430\li720Box List;}
+{\s21\f0\fs24\b\lang1036\sbasedon33TT1;}
+{\*\cs22\fs20Reference;}
+{\s39\fi-430\li720Implies List;}
+{\s24\f0\fs24\b\lang1036\sbasedon33\snext33Titre 5;}
+{\s25\fi-430\li720\sbasedon10Upper Case List;}
+{\s26\fi-430\li720Bullet List;}
+{\s27\fi-430\li720Hand List;}
+{\*\cs28\fs20\sbasedon33Footnote Text;}
+{\s29\sb440\sa60\f0\fs28\b\lang1036\sbasedon33\snext33Heading 1;}
+{\s30\qj\sb440\sa60\f0\fs20\b\lang1036\sbasedon33\snext33Heading 2;}
+{\s20\qc\sb240\sa119\f7\fs32\b\sbasedon33\snext33Contents Header;}
+{\s18\qj\sb440\sa60\f0\fs24\b\lang1036\sbasedon33\snext33Heading 4;}
+{\s31\qj\sb440\sa60\f0\fs28\b\lang1036\sbasedon33\snext33Heading 3;}
+{\s34\fi-430\li720\sbasedon10Lower Case List;}
+{\s35\li1440\ri1440\sa119\sbasedon33Block Text;}
+{\s36\qc\f0\fs34\lang1036\sbasedon33Titre;}
+{\s42\f3\sbasedon33Plain Text;}
+{\s38\tx1584\sbasedon5\snext33Section Heading;}
+{\s23\qc\f0\fs34\lang1036\sbasedon33Sous-titre;}
+{\s33\f0\fs24\lang1036Normal;}
+{\s41\fi-430\li720Star List;}
+{\*\cs37\fs20\superFootnote Reference;}
+{\s43\tx1584\sbasedon5\snext33Chapter Heading;}}
+{\*\listtable
+{\list\listtemplateid1011\listsimple{\listlevel\levelnfc0\levelstartat1\levelspace0\levelfollow0\fi-360\li360{\leveltext\'02\'00.;}{\levelnumbers\'01;}}\listid1000}}
+{\*\listoverridetable
+{\listoverride\listoverridecount0\listid1000\levelnfc0\levelstartat1\levelspace0\levelfollow0\fi-360\li360{\leveltext\'02\'00.;}{\levelnumbers\'01;}\ls1}}
+
+\kerning0\cf0\ftnbj\fet2\ftnstart1\ftnnar\aftnnar\ftnstart1\aftnstart1\aenddoc\revprop3{\info\uc1}\deftab720\viewkind1\paperw12240\paperh15840\margl1440\margr1440\widowctrl
+\sectd\sbknone\colsx360\footery695\margtsxn1415\margbsxn1415\marglsxn1415\margrsxn1415\pgncont\ltrsect
+\pard\plain\ltrpar\qc\s36\sl240\slmult1\itap0{\s36\f0\fs34\lang1036{\*\listtag0}\abinodiroverride\ltrch CCI - Principes des langages de programmation}{\s36\f0\fs34\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\qc\s23\sl240\slmult1\itap0{\s23\f0\fs34\lang1036{\*\listtag0}\abinodiroverride\ltrch TD 5 : Fonctions}{\s23\f0\fs34\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\qc\s33\sl240\slmult1\itap0{\s33\f0\fs24\lang1036{\*\listtag0}\abinodiroverride\ltrch Nicolas Bredeche, Thomas Tang}{\s33\f0\fs24\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\qc\s33\sl240\slmult1\itap0{\s33\f0\fs24\lang1036{\*\listtag0}\abinodiroverride\ltrch 29 septembre 2006}{\s33\f0\fs24\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\s33\sl240\slmult1\itap0{\s33\f0\fs24\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s29\sl240\slmult1\itap0{\s29\f0\fs28\b\lang1036{\*\listtag0}\abinodiroverride\ltrch Pour bien assimiler\uc1\u8230\'85}{\s29\f0\fs28\b\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\fi-705\li705\s33\sl240\slmult1\itap0{\s33\f0\fs28\b\lang1036{\*\listtag0}\par}
+{\listtext\pard\fi-360\li360 1.	}\pard\plain{\ltrpar\ql\fi-360\li360\s21{\*\abilist\abilistid1000\abilistparentid0\abilistlevel1\abistartat1{\abifieldfont Times New Roman}{\abilistdecimal .}{\abilistdelim %L.}{\abiliststyle Numbered List}}{\*\pn\pnql\pnstart1\pnlvlbody\pndec{\pntxtb }{\pntxta .}}\fn-360\li360\ls1\ilvl0\sl240\slmult1\itap0\tx360{\s21\f0\fs24\b\lang1036{\*\listtag0}\abinodiroverride\ltrch Fonctions}{\s21\f0\fs28\b\lang1036{\*\listtag0}\par}
+}\pard\plain\ltrpar\qj\fi-705\li705\s33\sl240\slmult1\itap0{\s33\f0\fs24\b\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s33\sl240\slmult1\itap0{\s33\f0\fs24\b\lang1036{\*\listtag0}\abinodiroverride\ltrch Exercice 1}{\s33\f0\fs20\b\lang1036{\*\listtag0} }{\s33\f0\fs24\b\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s33\sl240\slmult1\itap0{\s33\f0\fs24\lang1036{\*\listtag0}\abinodiroverride\ltrch \tab }{\s33\f0\fs20\i\lang1036{\*\listtag0}Ecrire une fonction qui prend deux tableaux de 10 caract\'e8res repr\'e9sentant un nom et un pr\'e9nom et a}{\s33\f1\fs20\lang1036{\*\listtag0}ffi}{\s33\f0\fs20\i\lang1036{\*\listtag0}che : \tab Je m\uc1\u8217\'92appelle [pr\'e9nom] [nom]}{\s33\f0\fs24\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s33\sl240\slmult1\itap0{\s33\f0\fs20\i\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s33\sl240\slmult1\itap0{\s33\f0\fs24\b\lang1036{\*\listtag0}\abinodiroverride\ltrch Exercice 2}{\s33\f0\fs20\b\lang1036{\*\listtag0} }{\s33\f0\fs24\b\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s33\sl240\slmult1\itap0{\s33\f0\fs24\lang1036{\*\listtag0}\abinodiroverride\ltrch \tab }{\s33\f0\fs20\i\lang1036{\*\listtag0}Ecrire une fonction qui prend un r\'e9el en entr\'e9e et renvoie sa valeur absolue.}{\s33\f0\fs24\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s33\sl240\slmult1\itap0{\s33\f0\fs20\i\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s33\sl240\slmult1\itap0{\s33\f0\fs24\b\lang1036{\*\listtag0}\abinodiroverride\ltrch Exercice 3}{\s33\f0\fs20\b\lang1036{\*\listtag0} }{\s33\f0\fs24\b\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s33\sl240\slmult1\itap0{\s33\f0\fs24\lang1036{\*\listtag0}\abinodiroverride\ltrch \tab }{\s33\f0\fs20\i\lang1036{\*\listtag0}Ecrire une fonction factorielle (bas\'e9e sur le calcul de la factorielle avec une boucle vu au TD pr\'e9c\'e9dant.)}{\s33\f0\fs24\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s33\sl240\slmult1\itap0{\s33\f0\fs20\i\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s33\sl240\slmult1\itap0{\s33\f0\fs24\b\lang1036{\*\listtag0}\abinodiroverride\ltrch Exercice 4}{\s33\f0\fs20\b\lang1036{\*\listtag0} }{\s33\f0\fs24\b\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s33\sl240\slmult1\itap0{\s33\f0\fs24\lang1036{\*\listtag0}\abinodiroverride\ltrch \tab }{\s33\f0\fs20\i\lang1036{\*\listtag0}Ecrire une fonction puissance qui prend deux entiers x et y et renvoie x \'e0 la puissance y.}{\s33\f0\fs24\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\s33\sl240\slmult1\itap0{\s33\f0\fs20\i\lang1036{\*\listtag0}\par}
+{\listtext\pard\fi-360\li360 2.	}\pard\plain{\ltrpar\ql\fi-360\li360\s21{\*\abilist\abilistid1000\abilistparentid0\abilistlevel1\abistartat1{\abifieldfont Times New Roman}{\abilistdecimal .}{\abilistdelim %L.}{\abiliststyle Numbered List}}{\*\pn\pnql\pnstart1\pnlvlbody\pndec{\pntxtb }{\pntxta .}}\fn-360\li360\ls1\ilvl0\sl240\slmult1\itap0\tx360{\s21\f0\fs24\b\lang1036{\*\listtag0}\abinodiroverride\ltrch 2.Fonctions r\'e9cursives}{\s21\f0\fs20\i\lang1036{\*\listtag0}\par}
+}\pard\plain\ltrpar\ql\s21\sl240\slmult1\itap0{\s21\f0\fs24\b\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\s24\sl240\slmult1\itap0{\s24\f0\fs24\b\lang1036{\*\listtag0}\abinodiroverride\ltrch Exercice 5}{\s24\f0\fs24\b\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\s33\sl240\slmult1\itap0{\s33\f0\fs24\lang1036{\*\listtag0}\abinodiroverride\ltrch \tab }{\s33\f0\fs20\i\lang1036{\*\listtag0}Ecrire une fonction r\'e9cursive qui calcule la somme des n}{\s33\f2\fs20\lang1036{\*\listtag0} }{\s33\f0\fs20\i\lang1036{\*\listtag0}premiers entiers.}{\s33\f0\fs24\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\s33\sl240\slmult1\itap0{\s33\f0\fs20\i\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\s33\sl240\slmult1\itap0{\s33\f0\fs24\b\lang1036{\*\listtag0}\abinodiroverride\ltrch 3.    Passage par valeurs}{\s33\f0\fs24\b\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\s21\sl240\slmult1\itap0{\s21\f0\fs24\b\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\s24\sl240\slmult1\itap0{\s24\f0\fs24\b\lang1036{\*\listtag0}\abinodiroverride\ltrch Exercice 6}{\s24\f0\fs24\b\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\s33\sl240\slmult1\itap0{\s33\f0\fs20\i\lang1036{\*\listtag0}\abinodiroverride\ltrch Soit la fonction suivante :}{\s33\f0\fs20\i\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\s33\sl240\slmult1\itap0{\s33\f2\fs20\lang2057{\*\listtag0}\abinodiroverride\ltrch void f (int x) \{}{\s33\f2\fs20\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi708\s33\sl240\slmult1\itap0{\s33\f2\fs20\lang2057{\*\listtag0}\abinodiroverride\ltrch x += 3 ;}{\s33\f2\fs20\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\s33\sl240\slmult1\itap0{\s33\f2\fs20\lang2057{\*\listtag0}\abinodiroverride\ltrch \}}{\s33\f2\fs20\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\fi-705\li705\s33\sl240\slmult1\itap0{\s33\f0\fs24\lang1036{\*\listtag0}\abinodiroverride\ltrch \tab }{\s33\f0\fs20\i\lang1036{\*\listtag0}Ecrire un programme contenant cette fonction. Dans votre fonction main}{\s33\f0\fs20\lang1036{\*\listtag0} ()}{\s33\f2\fs20\lang1036{\*\listtag0} }{\s33\f0\fs20\i\lang1036{\*\listtag0}vous d\'e9finirez une variable }{\s33\f3\fs20\lang1036{\*\listtag0}y}{\s33\f2\fs20\lang1036{\*\listtag0} }{\s33\f0\fs20\i\lang1036{\*\listtag0}initialis\'e9e \'e0 0, vous a}{\s33\f1\fs20\lang1036{\*\listtag0}ffi}{\s33\f0\fs20\i\lang1036{\*\listtag0}cherez cette variable avant et apr\'e8s avoir appel\'e9 la fonction }{\s33\f3\fs20\lang1036{\*\listtag0}f}{\s33\f2\fs20\lang1036{\*\listtag0}.}{\s33\f0\fs24\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi705\s33\sl240\slmult1\itap0{\s33\f0\fs20\i\lang1036{\*\listtag0}\abinodiroverride\ltrch Que remarquez-vous ? Pourquoi ?}{\s33\f0\fs20\i\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\s21\sl240\slmult1\itap0\tx2144{\s21\f0\fs20\i\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\s21\sl240\slmult1\itap0\tx360{\s21\f0\fs24\b\lang1036{\*\listtag0}\abinodiroverride\ltrch 4.\tab Passage par adresse}{\s21\f0\fs24\b\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s33\sl240\slmult1\itap0{\s33\f0\fs24\b\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\s24\sl240\slmult1\itap0{\s24\f0\fs24\b\lang1036{\*\listtag0}\abinodiroverride\ltrch Exercice 7}{\s24\f0\fs24\b\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\s33\sl240\slmult1\itap0{\s33\f0\fs20\i\lang1036{\*\listtag0}\abinodiroverride\ltrch A partir du programme de l\uc1\u8217\'92exercice 6, vous modifierez la fonction }{\s33\f2\fs20\lang1036{\*\listtag0}f }{\s33\f0\fs20\i\lang1036{\*\listtag0}comme suit :}{\s33\f0\fs20\i\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\s33\sl240\slmult1\itap0{\s33\f2\fs20\lang2057{\*\listtag0}\abinodiroverride\ltrch void f (int * x) \{}{\s33\f2\fs20\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi708\s33\sl240\slmult1\itap0{\s33\f2\fs20\lang2057{\*\listtag0}\abinodiroverride\ltrch *x += 3 ;}{\s33\f2\fs20\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\s33\sl240\slmult1\itap0{\s33\f2\fs20\lang1036{\*\listtag0}\abinodiroverride\ltrch \}}{\s33\f2\fs20\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\s33\sl240\slmult1\itap0{\s33\f0\fs24\lang1036{\*\listtag0}\abinodiroverride\ltrch \tab }{\s33\f0\fs20\i\lang1036{\*\listtag0}Recompiler. Que remarquez-vous ? Pourquoi ?}{\s33\f0\fs24\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s33\sl240\slmult1\itap0\tx1633{\s33\f0\fs20\i\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s31\sl240\slmult1\itap0{\s31\f0\fs28\b\lang1036{\*\listtag0}\abinodiroverride\ltrch Pour approfondir\uc1\u8230\'85}{\s31\f0\fs28\b\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\s33\sl240\slmult1\itap0{\s33\f0\fs28\b\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s33\sl240\slmult1\itap0{\s33\f0\fs24\b\lang1036{\*\listtag0}\abinodiroverride\ltrch Exercice 8}{\s33\f0\fs24\b\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\fi-705\li705\s33\sl240\slmult1\itap0{\s33\f0\fs24\lang1036{\*\listtag0}\abinodiroverride\ltrch \tab }{\s33\f0\fs20\i\lang1036{\*\listtag0}Reprendre la fonction \'e9crite dans l\uc1\u8217\'92exercice 1 et utiliser une structure pour le passage par parametre, c\uc1\u8217\'92est \'e0 dire que le prototype de la fonction doit \'eatre }{\s33\f0\fs24\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi708\li1414\s33\sl240\slmult1\itap0{\s33\f3\fs20\lang1036{\*\listtag0}\abinodiroverride\ltrch void afficherPresentation ( Struct personne p) ;}{\s33\f3\fs20\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\s33\sl240\slmult1\itap0{\s33\f3\fs20\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\s33\sl240\slmult1\itap0{\s33\f0\fs24\b\lang1036{\*\listtag0}\abinodiroverride\ltrch Exercice 9}{\s33\f0\fs20\b\lang1036{\*\listtag0} }{\s33\f0\fs24\b\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\s33\sl240\slmult1\itap0{\s33\f0\fs24\lang1036{\*\listtag0}\abinodiroverride\ltrch \tab }{\s33\f0\fs20\i\lang1036{\*\listtag0}Ecrivez une fonction qui prend \'e9change les valeurs de deux r\'e9els.}{\s33\f0\fs24\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\s33\sl240\slmult1\itap0{\s33\f0\fs20\i\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\s33\sl240\slmult1\itap0{\s33\f0\fs24\b\lang1036{\*\listtag0}\abinodiroverride\ltrch Exercice 10}{\s33\f0\fs20\b\lang1036{\*\listtag0} }{\s33\f0\fs24\b\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\s33\sl240\slmult1\itap0{\s33\f0\fs24\lang1036{\*\listtag0}\abinodiroverride\ltrch \tab }{\s33\f0\fs20\i\lang1036{\*\listtag0}Ecrire la fonction factorielle \'e0 l\uc1\u8217\'92aide d\uc1\u8217\'92une fonction r\'e9cursive.}{\s33\f0\fs24\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\s33\sl240\slmult1\itap0{\s33\f0\fs20\i\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\s33\sl240\slmult1\itap0{\s33\f0\fs24\b\lang1036{\*\listtag0}\abinodiroverride\ltrch Exercice 11}{\s33\f0\fs24\b\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\s33\sl240\slmult1\itap0{\s33\f0\fs24\lang1036{\*\listtag0}\abinodiroverride\ltrch \tab }{\s33\f0\fs20\i\lang1036{\*\listtag0}Ecrire une fonction qui calcule le PGCD et une autre calculant le PPCM en utilisant la pr\'e9c\'e9dente.}{\s33\f0\fs24\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\s33\sl240\slmult1\itap0{\s33\f0\fs20\i\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\s33\sl240\slmult1\itap0{\s33\f0\fs24\b\lang1036{\*\listtag0}\abinodiroverride\ltrch Exercice 12}{\s33\f0\fs20\b\lang1036{\*\listtag0} }{\s33\f0\fs24\b\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\s33\sl240\slmult1\itap0{\s33\f0\fs20\i\lang1036{\*\listtag0}\abinodiroverride\ltrch La suite de Fibonacci est d\'e9finie comme suit :}{\s33\f0\fs20\i\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi708\s33\sl240\slmult1\itap0{\s33\f0\fs20\i\lang1036{\*\listtag0}\abinodiroverride\ltrch F}{\s33\f0\fs14\lang1036{\*\listtag0}0 }{\s33\f4\fs20\lang1036{\*\listtag0}= }{\s33\f0\fs20\lang1036{\*\listtag0}0}{\s33\f0\fs20\i\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi708\s33\sl240\slmult1\itap0{\s33\f0\fs20\i\lang1036{\*\listtag0}\abinodiroverride\ltrch F}{\s33\f0\fs14\lang1036{\*\listtag0}1 }{\s33\f4\fs20\lang1036{\*\listtag0}= }{\s33\f0\fs20\lang1036{\*\listtag0}1}{\s33\f0\fs20\i\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi708\s33\sl240\slmult1\itap0{\s33\f0\fs20\i\lang1036{\*\listtag0}\abinodiroverride\ltrch F}{\s33\f0\fs14\i\lang1036{\*\listtag0}n }{\s33\f4\fs20\lang1036{\*\listtag0}= }{\s33\f0\fs20\i\lang1036{\*\listtag0}F}{\s33\f0\fs14\i\lang1036{\*\listtag0}n}{\s33\f5\fs14\lang1036{\*\listtag0}\uc0\u8722 }{\s33\f0\fs14\lang1036{\*\listtag0}1 }{\s33\f4\fs20\lang1036{\*\listtag0}+ }{\s33\f0\fs20\i\lang1036{\*\listtag0}F}{\s33\f0\fs14\i\lang1036{\*\listtag0}n}{\s33\f5\fs14\lang1036{\*\listtag0}\uc0\u8722 }{\s33\f0\fs14\lang1036{\*\listtag0}2  }{\s33\f0\fs20\i\lang1036{\*\listtag0}pour n }{\s33\f6\fs20\lang1036{\*\listtag0}> }{\s33\f0\fs20\lang1036{\*\listtag0}1}{\s33\f0\fs20\i\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\s33\sl240\slmult1\itap0{\s33\f0\fs24\lang1036{\*\listtag0}\abinodiroverride\ltrch \tab }{\s33\f0\fs20\i\lang1036{\*\listtag0}Ecrire une fonction r\'e9cursive qui calcule la suite de Fibonacci au rang }{\s33\f2\fs20\lang1036{\*\listtag0}n}{\s33\f0\fs20\i\lang1036{\*\listtag0}.}{\s33\f0\fs24\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\sl240\slmult1\itap0{\f0\fs20\i\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\sl240\slmult1\itap0{\f0\fs24\b\lang1036{\*\listtag0}\abinodiroverride\ltrch Exercice 13}{\f0\fs24\b\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi-705\li705\s33\sl240\slmult1\itap0{\s33\f0\fs24\lang1036{\*\listtag0}\abinodiroverride\ltrch \tab }{\s33\f0\fs20\i\lang1036{\*\listtag0}Ecrivez une fonction qui transpose un tableau de dimension x*y (avec x et y modifiables). Vous le remplirez au pr\'e9alable par la suite des premiers nombres impairs dans l'ordre de remplissage que vous voulez (ligne ou colonne)}{\s33\f0\fs24\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi-705\li705\s33\sl240\slmult1\itap0{\s33\f0\fs20\i\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi-705\li705\s33\sl240\slmult1\itap0{\s33\f0\fs24\b\lang1036{\*\listtag0}\abinodiroverride\ltrch Exercice 14}{\s33\f0\fs24\b\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi-705\li705\s33\sl240\slmult1\itap0{\s33\f0\fs24\lang1036{\*\listtag0}\abinodiroverride\ltrch \tab }{\s33\f0\fs20\i\lang1036{\*\listtag0}Ecrivez une fonction qui calcule l'aire de la fonction 1/(1+x) pour x entier positif en utilisant la m\'e9thode des trap\'e8zes.}{\s33\f0\fs24\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi-705\li705\s33\sl240\slmult1\itap0{\s33\f0\fs20\i\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi-705\li705\s33\sl240\slmult1\itap0{\s33\f0\fs24\b\lang1036{\*\listtag0}\abinodiroverride\ltrch Exercice 15}{\s33\f0\fs24\b\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\fi-705\li705\s33\sl240\slmult1\itap0{\s33\f0\fs24\lang1036{\*\listtag0}\abinodiroverride\ltrch \tab }{\s33\f0\fs20\i\lang1036{\*\listtag0}Rassemblez toutes vos fonctions dans un fichier o\'f9 le main est un menu qui permet d\uc1\u8217\'92acc\'e9der aux diff\'e9rents exercices de ce TD ainsi que du TD pr\'e9c\'e9dent.}{\s33\f0\fs24\lang1036{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\li705\s33\sl240\slmult1\itap0{\s33\f0\fs20\i\lang1036{\*\listtag0}\abinodiroverride\ltrch  \'abq\'bb pour quitter le programme, reboucle tant que l\uc1\u8217\'92utilisateur choisit un exercice ou une autre lettre que \'abq\'bb.}{\s33\f0\fs20\i\lang1036{\*\listtag0}\par}}

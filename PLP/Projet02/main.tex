@@ -1,0 +1,280 @@
+\documentclass[a4paper]{article}
+	\usepackage{Lapin}
+	\newenvironment{Correction}{\par\tiny\blue\rule[1ex]{\textwidth}{1pt}\par\normalsize\textbf{\sffamily{}Correction de l'exercice~\theExo{} -- }}{\par\tiny\blue\rule[1ex]{\textwidth}{1pt}\par}
+	\newtheorem{Exo}{{\sffamily{Exercice}}}
+	\title{Mini-projet~2}
+	\author{Philippe \Nom{Rinaudo}\and{}Jean \Nom{Simard}}
+	\date{\Date[l]{27}{10}{2009}}
+\begin{document}
+	\maketitle
+	\section{Rendre le TP}
+		\textbf{Le travail devra être rendu \Date[l]{03}{11}{2009} avant 09h30.}
+		\subsection{Informations}
+			Pour commencer, il faudra commenter votre code source.
+			Il est conseillé de bien commenter chaque fonction.
+			Vous n'oublierez pas d'indiquer en haut du fichier :
+			\begin{itemize}
+				\item votre nom ;
+				\item votre prénom ;
+				\item le nom de l'exercice.
+			\end{itemize}
+			Vous pouvez également ajouter tous les détails que vous jugerez nécessaires.
+
+		\subsection{Contraintes générales}
+			\begin{itemize}
+				\item Le code doit être bien commenté ;
+				\item Le code doit être bien indenté ;
+				\item Le nom des variables doit être judicieusement choisi ;
+				\item Le code doit être aéré (\emph{i.e.} bien espacé).
+			\end{itemize}
+
+		\subsection{Envoyer le projet}
+			Pour rendre les fichiers, un format spécifique devra être respecté.
+			\begin{enumerate}
+				\item Placez tous vos fichiers dans un répertoire nommé par votre nom et votre prénom (sous la forme \code{NOM_Prenom}) ;
+				\item Compressez le répertoire à l'aide de la commande suivante.
+				\begin{Code*}
+$~$ tar -cvjf Projet02-NOM_Prenom.tar.bz2 NOM_Prenom/
+				\end{Code*}
+				Vous pouvez également créer un fichier au format \bsc{zip} ;
+				\item Envoyez le fichier compressé \code{Projet02-NOM_Prenom.tar.bz2} par mail à l'adresse \href{mailto:simard.jean.travail@gmail.com}{simard.jean.travail@gmail.com} avec le sujet suivant.
+				\begin{Code*}
+[CCI] Projet 02 - Nom Prenom
+				\end{Code*}
+			\end{enumerate}
+
+			\textbf{Tâchez de respecter précisément le format des noms de fichiers, de répertoires et de mail.}
+		
+			\newpage
+
+	\section{Snake}
+		\begin{Exo}
+			Nous désirons observer l'évolution de serpents dans un environnement en deux dimensions.
+			Pour cela, nous allons développer un petit programme qui va nous permettre de les voir évoluer, se déplacer puis terminer leur déplacement lorsqu'ils ne peuvent plus avancer.
+			On peut voir un exemple de l'évolution de serpents dans leur environnement sur les \CodRef{cod-ExempleDEvolutionDeSerpentsDansLeurEnvironnementa}, \CodRef{cod-ExempleDEvolutionDeSerpentsDansLeurEnvironnementc} et \CodRef{cod-ExempleDEvolutionDeSerpentsDansLeurEnvironnementd}.
+		\end{Exo}
+
+		\FichierCode[language={},caption={Étape 1}]{Exemple1.txt}{cod-ExempleDEvolutionDeSerpentsDansLeurEnvironnementa}
+		\FichierCode[language={},caption={Étape 3}]{Exemple3.txt}{cod-ExempleDEvolutionDeSerpentsDansLeurEnvironnementc}
+		\FichierCode[language={},caption={Étape 10}]{Exemple10.txt}{cod-ExempleDEvolutionDeSerpentsDansLeurEnvironnementd}
+
+		\subsection{Description du problème}
+			Plusieurs éléments doivent être décrits pour développer cette évolution.
+			\begin{itemize}
+				\item La taille de leur environnement (une largeur et une hauteur) ;
+				\item Le nombre de serpents ;
+				\item La stratégie de déplacement des serpents.
+			\end{itemize}
+
+			\subsubsection{Les déplacements}
+				En ce qui concerne la stratégie de déplacement des serpents, elle est définie par les points suivants :
+				\begin{itemize}
+					\item Un serpent se déplace toujours en ligne droite tant qu'il le peut.
+					\item Lorsqu'un serpent ne peut plus se déplacer en ligne droite, il tourne vers la gauche (\ie dans le sens anti-horaire) ;
+					\item Lorsqu'un serpent ne peut pas tourner vers la gauche, il tourne vers la droite (\ie dans le sens horaire) ;
+					\item On considère qu'un serpent ne peut pas se déplacer si la case suivante est occupée par un mur ou un autre serpent.
+				\end{itemize}
+
+			\subsubsection{La taille de l'environnement}
+				La taille de l'environnement sera donnée au moment de l'exécution du programme.
+				Ce sera le premier argument.
+				Par exemple, si on veut donner une taille de \nombre{10} pour la largeur et de \nombre{25} pour la hauteur, on exécutera le fichier binaire avec la ligne suivante.
+				\begin{Code*}
+$~$ ./snake 10x25
+				\end{Code*}
+
+			\subsubsection{Le nombre de serpents}
+				De la même façon que la taille de l'environnement, le nombre de serpents dépendra de la volonté de l'utilisateur et sera une information fournie lors de l'exécution du fichier binaire.
+				On peut donc définir l'exécution du programme de la façon suivante.
+				\begin{Code*}
+$~$ ./snake <LARGEUR>x<HAUTEUR> <NB_SERPENTS>
+				\end{Code*}
+				Par exemple, si on souhaite \nombre{5}~serpents sur un environnement de largeur~\nombre{50} et de hauteur~\nombre{50}, on écrira la ligne suivante.
+				\begin{Code*}
+$~$ ./snake 50x50 5
+				\end{Code*}
+
+		\subsection{Fonctionnement du programme}
+			Le programme se déroulera sous la forme d'une animation\footnote{Étant donné qu'il est difficile d'afficher une animation sur un document \bsc{pdf}, n'hésitez pas à demander au responsable du \bsc{td} pour qu'il vous montre des exemples d'animation de ce programme !}.
+			C'est-à-dire que lorsqu'on lance le programme, on va pouvoir observer les serpents qui avancent en temps réel.
+			\subsubsection{L'animation}
+				Pour pouvoir effectuer notre animation, il va falloir être capable d'afficher successivement des images.
+				Afin de pouvoir faire cette succession d'image, il faut être capable de dessiner l'image, puis d'effacer l'écran, puis de dessiner l'image suivante, puis d'effacer l'écran et ainsi de suite.
+				Cependant, si on effectue réellement cette succession d'opération, l'affichage sera tellement rapide que notre œil n'aura pas le temps de voir l'exécution du programme ; on aura l'impression que le programme est terminé juste après avoir été lancé.
+
+				Nous allons donc devoir ralentir cette succession d'opération (affichage, effacement, affichage\dots{}).
+				Pour cela, l'image devra être affichée pendant un intervalle de temps que nous définirons.
+				Ainsi, la succession d'opérations ressemblera plus à la suivante~:
+				\begin{enumerate}
+					\item Affichage de l'image ;\label{enum-AffichageDeLImage}
+					\item Attendre pendant un intervalle de temps prédéfini ;
+					\item Effacer l'écran ;
+					\item Recommencer à l'étape~\ref{enum-AffichageDeLImage}.
+				\end{enumerate}
+
+				\paragraph{Effacement de l'écran}
+					Tout d'abord, il nous faut savoir comment effacer l'écran.
+					Cette opération est réalisé en utilisant une commande du \emph{shell} (terminal de commande).
+					Cette commande est \code{clear}.
+					Cependant, nous ne savons actuellement pas comment faire appel à une commande du \emph{shell} à partir d'un programme en \bsc{c}.
+					Ceci peut être réalisé à l'aide de la fonction \code{system()} qui se trouve dans la bibliothèque \code{stdlib.h}.
+
+					Pour certains d'entre vous, vous allez peut-être développer sur \Nom{Windows} et sur \Nom{Linux}.
+					La commande \code{clear} ne fonctionne que sur \Nom{Linux}.
+					Il faudra la remplacer par \code{cls} sous \Nom{Windows}.
+					Si vous désirez un programme qui fonctionne sous les deux systèmes en même temps, vous pouvez inclure une condition concernant le système d'exploitation comme ci-dessous.
+					\begin{Code*}
+# ifdef __linux__
+# define CLRSCR "clear"
+# else
+# define CLRSCR "clr"
+# endif
+					\end{Code*}
+
+					Ensuite, vous pouvez appeler la fonction \code{system()} de la façon suivante.
+					\begin{Code*}
+system( CLRSCR );
+					\end{Code*}
+
+				\paragraph{Fonction d'attente}
+					Pour attendre dans un programme, nous allons avoir besoin de la fonction \code{clock()} qui se trouve dans la bibliothèque \code{time.h}.
+					La fonction \code{clock()} est une fonction qui renvoie le nombre de \emph{tics} d'horloge depuis le début du programme.
+					Afin de pouvoir convertir ce nombre de \emph{tics} dans une unité comme la seconde qui nous est plus familière, il existe une constante \code{CLOCKS_PER_SEC} indiquant le nombre de \emph{tics} d'horloge qui ont lieu durant \nombre{1}~seconde.
+
+					Maintenant que nous avons tous les éléments en main, nous pouvons réaliser une fonction qui nous permettra d'attendre pendant une durée déterminée.
+					La fonction devra tout d'abord prendre l'heure courante.
+					Ensuite, elle calculera l'heure à laquelle elle doit se terminer.
+					Puis elle entrera dans une boucle qui ne se terminera que lorsque l'heure de fin sera atteinte.
+					La voici sous forme algorithmique \CodRef[v]{cod-FonctionDAttente}.
+					\begin{Code}[language=algo]{Fonction d'attente (en milli-secondes)}{cod-FonctionDAttente}
+Fonction attendre
+	Entier ms
+Debut fonction
+	F <- Heure courante + Temps d'attente (ms)
+	Tant que Heure courante < F Faire
+		Rien
+	Fin tant que
+	Retour
+Fin fonction
+					\end{Code}
+
+					Le temps en milli-secondes d'attente entre chaque image sera le troisième et dernier argument donné par l'utilisateur lors de l'exécution du programme.
+					Ainsi, si on désire lancer le programme avec \nombre{5}~serpents sur un environnement de \nombre{20}~cases par \nombre{10}~cases avec une image toute les demi-seconde, on écrira la ligne suivante.
+					\begin{Code*}
+$~$ ./snake 20x10 5 500
+					\end{Code*}
+
+			\subsubsection{L'environnement}
+				L'environnement va permettre d'enregistrer tous les déplacements des serpents.
+				Pour créer cet environnement, nous aurons besoin d'un tableau à deux dimensions.
+				Cependant, étant donné que nous souhaitons utiliser les pointeurs pour des questions de rapidité d'exécution du code, il va nous falloir gérer les deux dimensions \emph{à la main}.
+
+				Par exemple, si nous avions un échiquier à créer\footnote{Un échiquier possède \nombre{64}~cases disposée en carré (\nombre{8} par \nombre{8})}.
+				Considérant que nous utilisons un tableau de caractère où des caractères ont été définis pour chacune des pièces du jeu.
+				Au lieu d'écrire
+				\begin{Code*}
+char cEchiquier[8][8];
+				\end{Code*}
+				on écrira plutôt
+				\begin{Code*}
+char cEchiquier[8*8];
+				\end{Code*}
+				De cette manière, l'initialisation du tableau devient
+				\begin{Code*}
+for( i = 0; i < 8; i++ )
+{
+	for( j = 0; j < 8; j++ )
+	{
+		cEchiquier[i*8+j] = '\0';
+	}
+}
+				\end{Code*}
+				Un tel tableau unidimensionnel pour ainsi être donné en référence dans une fonction et ainsi éviter une perte de temps et de mémoire avec la copie d'un tableau qui ne le nécessite pas.
+
+			\subsubsection{Les déplacements}
+				Pour le déplacement des serpents, la situation est relativement complexe.
+				Les configurations sont multiples.
+				Il y a déjà \nombre{4}~cas de direction qui se séparent en \nombre{4}~nouveaux cas s'il sont dans l'incapacité d'avancer afin de tourner à gauche.
+				Et enfin, à nouveau \nombre{4}~cas s'il ne peuvent pas tourner à gauche afin de tourner à droite.
+				
+				Étant donné la complexité, il est fortement conseillé de multiplier les fonctions afin de diviser et donc de simplifier la lecture du code source.
+				Vous pourrez par exemple, créer \nombre{3}~fonctions pour les déplacements, la première pour avancer, la seconde pour tourner à gauche et la dernière pour tourner à droite.
+				Une fonction principale contrôlant l'évolution se chargera d'organiser l'appel de ces \nombre{3}~fonctions.
+
+				L'objectif du projet est de simuler des serpents qui se déplacent.
+				Il vous est conseillé d'utiliser les types composés \code{struct} pour définir un serpent (sa position et sa taille).
+				Enfin, il vous faudra prévoir une manière de détecter la fin de la simulation.
+				La simulation se termine lorsque tous les serpents sont bloqués (\ie ne peuvent plus bouger).
+				Chacune des trois fonctions retournera une valeur en fonction du mouvement ou non du serpent.
+
+			\subsubsection{Les directions}
+				Il est demandé de gérer les directions dans votre code source à l'aide du type composé \code{enum}.
+				Il faut cependant savoir que vous pouvez affecter une valeur particulière à chaque élément dans un type \code{enum} (et donc, ne pas laisser les valeurs par défaut).
+				Par exemple, si on défini le type \code{enum} de la façon suivante
+				\begin{Code*}
+typedef enum eCarte
+{
+	PIQUE,
+	COEUR,
+	TREFLE,
+	CARREAU
+} Carte;
+				\end{Code*}
+				alors \code{PIQUE=0}, \code{COEUR=1}, \code{TREFLE=2} et \code{CARREAU=3}.
+				Mais pour des raisons pratiques de positionnement des bits par exemple, il peut être intéressant de déclarer ce type de la façon suivante
+				\begin{Code*}
+typedef enum eCarte
+{
+	PIQUE = 1,
+	COEUR = 2,
+	TREFLE = 4,
+	CARREAU = 8
+} Carte;
+				\end{Code*}
+				où \code{PIQUE=1}, \code{COEUR=2}, \code{TREFLE=4} et \code{CARREAU=8}.
+
+				Dans notre cas, il pourrait être intéressant d'utiliser les valeur \Nom{ascii} correspondants au caractères à afficher.
+
+			\subsubsection{Lecture des arguments}
+				Afin de lire les arguments, nous allons utiliser la fonction \code{sscanf()} présente dans la bibliothèque \code{stdio.h}.
+				Nous connaissons déjà la fonction \code{scanf()} qui attend que l'utilisateur entre des caractères au clavier et effectue un déchiffrage lorsque ce dernier appuie sur la touche \emph{Entrée}.
+				Dans le cas de la fonction \code{sscanf()}, le déchiffrage est effectué exactement de la même façon.
+				Simplement, il va déchiffrer une chaîne de caractères au lieu de déchiffrer ce que l'utilisateur entre au clavier.
+				Cette chaîne de caractère sera donnée en premier argument.
+
+				Par exemple, si une chaîne de caractères \code{cChaine} contient \code{"27-10-2009"}, on va pouvoir la déchiffrer de la manière suivante.
+				\begin{Code*}
+unsigned int iJour = 0;
+unsigned int iMois = 0;
+unsigned int iAnnee = 0;
+sscanf( cChaine, "%d-%d-%d", &iJour, &iMois, &iAnnee );
+				\end{Code*}
+
+				C'est donc avec cette fonction que nous allons pouvoir déchiffrer d'une manière beaucoup plus complexe les mystérieux arguments \code{argv[1]} et \code{argv[2]}.
+
+				On oubliera pas de vérifier le nombre d'arguments entré par l'utilisateur avant d'effectuer ces déchiffrages.
+
+		\subsection{Les statistiques}
+			Lorsque les serpents ont terminé leur trajet, on va chercher à savoir avec quel pourcentage ils ont rempli l'espace qui était disponible.
+			Vous devrez donc afficher à la fin de la simulation, le pourcentage de case remplie par un serpent.
+			Parmi ces cases remplies, vous devrez également indiquer le pourcentage dans chaque direction \CodRef[v]{cod-ResultatFinalDuProgrammeSnake}.
+
+			\FichierCode[language={},caption={Résultat final du programme \code{Snake}}]{Resultat.txt}{cod-ResultatFinalDuProgrammeSnake}
+
+	\section{Contraintes}
+		\begin{itemize}
+			\item Utiliser \code{enum} pour les directions ;
+			\item Vérifier le nombre d'arguments avant le déchiffrage ;
+			\item Utiliser la fonction \code{sscanf()} ;
+			\item Utiliser la fonction \code{rand()} pour placer les serpents ;
+			\item Utiliser la fonction \code{clock()} ;
+			\item Utiliser la fonction \code{system()} ;
+			\item Utiliser un tableau unidimensionnel ;
+			\item Utiliser des passages par référence.
+		\end{itemize}
+
+		\begin{Correction}
+			\FichierCode{snake.c}{cod-SnakeC}
+		\end{Correction}
+
+\end{document}

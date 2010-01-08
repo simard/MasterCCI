@@ -1,0 +1,42 @@
+LES LISTES CHAINEE -Language C
+=================================================
+contact : Walid ZOUGHLACHE w.zoughlache@gmail.com
+=================================================
+1 - Présentation
+2 - Deroulement
+
+
+
+
+
+1 - Présentation
+================
+
+Ce programme permet de creer une liste simplement chainee  en utilisant des fonctions,puis que
+chaque cellule contient des informations qui concerne l'utilisateur comme le nom ,le prenom,
+et l'adresse email.
+
+les fonctions utiliser dans ce programme consiste a creer un contact ,supprimer un contact ,
+modifier un contact et afficher la liste des contacts.
+
+
+2 - Deroulement/Execution:
+==========================  
+
+L'execution du programme consiste a ecrir une ligne et la faire executer.
+
+A-la premiere ligne:
+
+gcc -o (nom a choisir) CONTACT.c 
+par exemple: gcc -o contact CONTACT.c
+
+B-la deuxieme ligne:
+
+./ contact
+
+FIN.
+
+ 
+
+
+

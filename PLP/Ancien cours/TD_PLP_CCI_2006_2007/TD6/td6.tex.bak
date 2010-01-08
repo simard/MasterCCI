@@ -1,0 +1,196 @@
+%% td6.tex
+
+\documentclass[a4paper,10pt]{article}
+\usepackage[latin1]{inputenc}
+\usepackage[francais]{babel}
+\usepackage{fullpage}
+
+\usepackage{moreverb}
+\usepackage{alltt}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{pifont}
+\usepackage{longtable}
+\usepackage[all]{xy}
+\usepackage{textcomp}
+\usepackage{color}
+\usepackage{longtable}
+\usepackage{placeins}
+\usepackage{txfonts}
+
+\newcommand{\unix}{{\sc Unix}}
+
+\newtheorem{exercice}{Exercice}
+
+\title{CCI - Principes des langages de programmation\\ TD 6 :
+  Structures avanc\'{e}es, pointeurs et tri}
+
+\date{12 octobre 2006}
+
+\author{Nicolas Bredeche\footnote{bredeche@lri.fr}, Thomas Tang\footnote{ttang@club-internet.fr}}
+
+\begin{document}
+
+\maketitle
+
+\section{Pour bien assimiler...}
+
+\subsection{Tableaux et Pointeurs}
+
+\begin{exercice}
+Soit le programme suivant :
+  \begin{listing}{0}
+  int main(){
+    int i = 1 ;
+    int * pt ;
+    pt = malloc (sizeof(int));
+    if (pt != NULL){
+        *pt = i ;
+        printf("i = %i\t*pt = %i\n",i,*pt) ;
+        *pt = 2 ;
+        printf("i = %i\t*pt = %i\n",i,*pt) ;
+        pt = &i ;
+        *pt = 3 ;
+        printf("i = %i\t*pt = %i\n",i,*pt) ;
+        exit(0) ;
+    }
+    else{
+        printf("Probl\`{e}me d'allocation de la m\'{e}moire\n");
+        exit(-1);
+    }
+  }
+  \end{listing}
+
+  La valeur affich\'{e}e de i change-t-elle lors du deuxi\`{e}me affichage ?
+  Et lors du troisi\`{e}me affichage ? Pourquoi ?
+
+\end{exercice}
+
+En C un tableau est en fait un pointeur sur le premier
+\'{e}l\'{e}ment du tableau, l'acc\`{e}s au $i$-i\`{e}me
+\'{e}l\'{e}ment se fait en ajoutant $i$ \`{a} l'adresse de ce
+pointeur. Notez que les chaînes de caract\`{e}res sont en fait des
+tableaux (une chaîne d\'{e}finit avec {\tt char *} est en
+fait un pointeur sur le premier caract\`{e}re de la chaine.\\
+\\
+On peut se d\'{e}placer dans un tableau \`{a} l'aide de l'addition
+sur les pointeurs. Concr\`{e}tement, si {\tt tab} est un tableau
+d'entiers, l'expression {\tt *(tab + i)} est \'{e}quivalente \`{a}
+{\tt tab[i]}
+
+\begin{exercice}
+\`{A} l'aide de l'addition sur les pointeurs, utilisez un pointeur
+pour
+remplir et afficher un tableau des N premiers entiers, avec N demand\'{e} \`{a} l'utilisateur.\\
+\\
+Puis remplir et afficher un tableau de N caract\`{e}res avec la
+lettre 'i' (resp. 'p') pour toutes les positions impaires (resp.
+paires).
+\end{exercice}
+
+\begin{exercice}
+  \'{E}crire un programme qui \`{a} l'aide d'une boucle affiche tous les
+  caract\`{e}res de 0 \`{a} 255 ainsi que leur num\'{e}ro.
+\end{exercice}
+
+\begin{exercice}
+  Remplir un tableau avec l'alphabet en minuscules (utilisez l'affichage de l'exercice pr\'{e}c\'{e}dent pour
+  connaître les caract\`{e}res correspondants).
+  Passer ensuite tous les caract\`{e}res en majuscules.
+\end{exercice}
+
+\subsection{Tris}
+
+\begin{exercice}
+  Dans cette exercice on se propose de trier un tableau \`{a} l'aide de
+  deux pointeurs. Le but est de classer les entiers contenu dans le
+  tableau par ordre croissant. On va trier le tableau par la fin, pour
+  ça on a besoin d'un pointeur sur le dernier \'{e}l\'{e}ment du tableau ({\tt
+  dernier = tab + (taille - 1)}). On commence par chercher le plus
+  grand \'{e}l\'{e}ment du tableau et on l'\'{e}change avec le dernier \'{e}l\'{e}ment,
+  puis on recommence en d\'{e}calant le dernier \'{e}l\'{e}ment ({\tt dernier =
+  dernier - 1}) jusqu'\`{a} ce que le tableau soit tri\'{e}.
+\end{exercice}
+
+\subsection{Structures et structures r\'{e}cursives}
+
+\begin{exercice}
+  Vous d\'{e}finirez deux structures {\tt personne} et {\tt adresse} li\'{e}es
+  entre elles (une personne habite \`{a} une adresse.) Votre structure
+  personne contiendra \'{e}galement les liens de filiations (p\`{e}re et
+  m\`{e}re.) Dans votre programme vous cr\'{e}erez 5 personnes dont 3
+  habitent \`{a} la m\^{e}me adresse et 2 ont les m\^{e}mes parents. Utilisez des
+  pointeurs dans vos structures pour qu'une m\^{e}me adresse n'existe pas
+  plusieurs fois en m\'{e}moire. Pr\'{e}voir une fonction qui affiche une
+  personne et l'appeler pour toutes les personnes d\'{e}finies.
+\end{exercice}
+
+\section{Pour bien approfondir...}
+
+\begin{exercice}
+Algorithme de classement des valeurs d'un tableau dans l'ordre
+croissant par recherche de minimum (tri par extraction)\\
+\\
+\begin{enumerate}
+\item Etat initial du tableau, recherche sur l'ensemble du tableau de
+la plus petite valeur et permutation avec le premier
+\'{e}l\'{e}ment.
+\item Le traitement pr\'{e}c\'{e}dent est de nouveau appliqu\'{e} mais sur le
+tableau r\'{e}duit du premier \'{e}l\'{e}ment d\'{e}j\`{a}
+plac\'{e}.
+\item Le traitement
+est identique avec \`{a} chaque permutation le tableau r\'{e}duit
+d'un \'{e}l\'{e}ment. le traitment s'arr\^{e}te lorsque le nombre
+d'\'{e}l\'{e}ments restant \`{a} classer est \'{e}gal \`{a} 1.
+\end{enumerate}
+Commencez \`{a} trier \`{a} la main le tableau suivant en respectant
+les
+r\`{e}gles de l'algorithme:\\
+5,4,7,10,1\\
+Ecrivez une fonction \textbf{void tri_extraction (int
+*tab)} qui r\'{e}alise ce tri.
+\end{exercice}
+
+
+\begin{exercice}
+Algorithme de classement des valeurs d'un tableau par permutation et retour en arri\`{e}re (tri par bulles ou par \'{e}change)\\
+\\
+\begin{enumerate}
+\item Comparer deux \'{e}l\'{e}ments voisins
+\item Si les \'{e}l\'{e}ments sont class\'{e}s, passage \`{a} l'\'{e}l\'{e}ment suivant
+(sauf au bas du tableau)
+\item Si les \'{e}l\'{e}ments ne sont pas class\'{e}s, permutez les deux
+\'{e}l\'{e}ments, et revenez vers l'\'{e}l\'{e}ment
+pr\'{e}c\'{e}dent (sauf en haut du tableau où l'on passe \`{a}
+l'\'{e}l\'{e}ment suivant)
+\item Le traitement s'arr\^{e}te quand la comparaison des deux \'{e}l\'{e}ments
+du bas de tableau n'entraîne pas de permutation.
+\end{enumerate}
+Commencez \`{a} trier \`{a} la main le tableau suivant en respectant
+les
+r\`{e}gles de l'algorithme.\\
+5,4,7,10,1\\
+Ecrivez une fonction \textbf{void tri_bulles (int
+*tab)} qui r\'{e}alise ce tri.
+\end{exercice}
+
+
+\begin{exercice}
+Listes chaîn\'{e}es\\
+\\
+Une liste chain\'{e}e est form\'{e}e de cellules li\'{e}es les unes
+aux autres par des pointeurs. On a une cellule ent\^{e}te et une
+cellule queue. Chaque cellule de la liste est de type :
+\begin{listing}{0}
+struct cellule{
+    int id;                 //information correspondant \`{a} la cellule
+    struct cellule *suivant //pointeur vers la cellule suivante de
+    la liste
+};
+\end{listing}
+Cr\'{e}ez une liste chaîn\'{e}e de 10 \'{e}l\'{e}ments, où l'entier
+de chaque cellule est demand\'{e} \`{a} l'utilisateur. Affichez
+ensuite cette chaîne.
+\end{exercice}
+
+\end{document}

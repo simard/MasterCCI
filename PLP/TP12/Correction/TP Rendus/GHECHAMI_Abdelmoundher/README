@@ -1,0 +1,102 @@
+================================================================================
+* Abdelmoundher GHECHAMI
+* M2 CCI
+* TP4 - Principe des Langages de Programation
+* Mini-projet 3
+* Programme : Carnet d adresses de courriel "TP12.c"
+================================================================================
+
+Ce programme permet de creer et de gerer un carnet d adresses (rajout, modification, supprission d'un 
+contact) et l enregistrer sous forme d'un fichier.
+
+==================================
+/*Commandes de Compilation et d'execution*/
+==================================
+La ligne de commande pour compiler le programme:
+>  gcc -Wall -o contact TP12.c
+
+La ligne de commande pour l'execution du programme:
+>  ./contact
+
+=======================
+/* Description du programme*/
+=======================
+le programme affiche au demarage un menu qui permet a l utilisateur de choisir entre plusieurs operations 
+permettant la gestion  un carnet d adresses de courriel unique.
+
+Ce carnet d'adresse, est donc, enregistre sous forme d'un fichier nomme "Carnet d adresse.txt", et il est 
+accessible par reference grace a une varible globale pContact qui est un pointeur sur ce fichier.
+
+Le menu du programme est le suivant:
+
+### Carnet d adresses de courriel ###
+1- Afficher la liste des contacts
+2- Creer un nouveau contact
+3- Modifier un contact
+4- Supprimer un contact
+5- Charger un carnet d adresses
+6- Enregistrer le carnet d adresses
+7- Quitter le programme
+
+Entrer votre choix :
+
+Suivant le choix de l utilisateur (organisation du main par un switch), le programme peut creer un nouveau
+carnet d adresse (s il n etait pas deja creer) ou mettre a jour l ancien apres l avoir charger (a partir du 
+fichier "Carnet d adresse.txt").
+
+Pour manipuler facilement les contacts, ils sont charges ou cres sous forme d'une liste de contacts 
+simplement chainnee accessible par referencement via la variable globale pDebut qui poite sur le premier 
+maillon de la liste et donc sur le premier contact. (Chaque contact est represente par un nom, un prenom 
+et un courriel et il accede au contact suivant).
+
+Grace a cet approche, l acces memoire est completement controle; allocation d une taille precise de la
+memoire pour repondre au besoin d ajout d un contact de taille precise et cet espace memoire est
+automatiquement libere une fois un contact est supprime ou le programme est quitte.
+Donc, apres l acces au programme on recupere les donnees dans le fichier "Carnet d adresse" et toute la 
+memoire reservee durant l execution du programme est completemnt rendue a la fin.
+
+1- Afficher la liste des contacts:
+Affiche les contacts sous la forme "Nom :   Prenom :   Courriel :  ". (A l aide d une boucle while qui parcourt 
+toute la liste des contacts simplement chainnee).
+(NB: Je maitrise pas encore le positionnement de curseur sur le terminal pour avoir un affichage propre 
+sous forme d un tableau!!) 
+En cas ou la liste des contacts est vide (Carnet d adresse vide ou pas encore charge), un message 
+explicatif s afficheras.
+
+2- Creer un nouveau contact :
+Demande a l utilisateur d entrer les donnees du nouveau contact, elle Permet  sa creation et son rajout 
+dans la liste des contacts simplement chainnee.
+NB: si la liste est vide (pDebut == NULL), cette operation permet de creer le premier element de la liste.
+
+3- Modifier un contact :
+Demande a l utilisateur d entrer le nom du contact a modifier, et si ce nom fait partie de la liste des 
+contacts, on demande d entrer les nouvelles donnees (nom, prenom et courriel) pour maitre a jour 
+l ancien contact. (Utilisation de la fonction realloc pour ajuster la taille du bloc de mémoire reserve pour
+ce contact).
+NB: si le nom entre ne figure pas dans la liste des contacts un message explicatif s afficheras.
+
+4- Supprimer un contact :
+Demande a l utilisateur d entrer le nom du contact a supprimer, et si ce nom fait partie de la liste des 
+contacts, on le supprime et on libere le bloc de mémoire occupe par ce contact).
+NB: si le nom entre ne figure pas dans la liste des contacts un message explicatif s afficheras.
+
+5- Charger un carnet d adresses:
+Permet d ouvrir le fichier "Carnet d adresses.txt" (pCarnet = fopen ( "Carnet d adresses.txt", "a+" )) en
+mode "a+" (Ouvre le fichier en lecture et ajout (écriture en fin de fichier). Le fichier est créé s'il n'existait
+pas. Le pointeur de flux est placé à la fin du fichier).
+Ensuite, a partir de ce fichier, on cree la liste de contact simplement chainnee avec allocation de memoire
+ajustee.
+A la fin, on ferme le fichier "Carnet d adresses.txt" en utilisant la fonction "fclose"
+
+6- Enregistrer le carnet d adresses :
+On utilise la fonction "fopen" avec le mode "w" (Ouvre le fichier en écriture. Le fichier est créé s'il n'existait
+pas. S'il existait déjà, sa longueur est ramenée à 0. Le pointeur de flux est placé au début du fichier), ce 
+qui permet a chaque enregistrement de remplacer l ancien fichier par la liste des contacts en gardant le 
+meme nom.
+A la fin, on ferme le ficher.
+
+7- Quitter le programme :
+Permet de liberer la memoire et sortir du programme.
+
+
+

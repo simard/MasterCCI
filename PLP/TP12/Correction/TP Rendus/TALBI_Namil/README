@@ -1,0 +1,37 @@
+Raport du mini-project 3.
+
+
+
+Nom : TALBI
+Prenom : Namil
+
+
+
+Dans ce mini project on ecrit un programme qui gere un carnet d'adresse qui offre des fonctionalité qui gere un carnet d'adresse simple.
+
+
+Dans ce programme on ecit 6 fonction principal qui sont appelé par un programe principale main
+
+  1. la fonction 'CreerContact' : ele permet de creer un nouveau contact et
+      et l'ajouté dans la liste.
+
+  2.la fonction 'AfficherContact' : elle permet d'afficher la liste des 
+     contact qui existe dans l'adressbook.
+
+  3. la fonction 'Enregistrer': elle enregistrele les contact dans un 
+     un fichier.
+
+  4. la fonction 'modifie' : elle permet de modefie les champs d'un 
+     contact comme le nom ,l'email.
+
+  5.  la fonction 'ChargerCarnet' elle perlet de charger la liste des 
+      contact qui ce trouve dans un fichier.
+
+ 6.  la fonction 'suprimer' : si on veut supremet un contact on fait appel
+     a cette fonction.
+ 7. la fonction 'Liberer' :elle permet de liberer l'espace memoire alloue 
+    par la fonction mallc.
+  
+
+
+

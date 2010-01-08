@@ -1,0 +1,118 @@
+                                         ********************************
+                                         *  Université de Paris-Sud 11  *                              03 / 11 / 09
+                                         * Faculté des Sciences d'Orsay *                                                  
+                                         *  Master CCI 2009-2010        *
+                                         *+++++++++++++++++++++++++++++++                             
+                                         *------KARRAB Houcine------    *                        
+                                         ********************************
+                                          *********************************************************************************************************************************                  
+*                                         --- Mini-projet 2 ------                                                                   *********************************************************************************************************************************
+
+
+Exercice 1 : Snake
+
+ a) Explications et commentaires
+
+
+-librairie permettant l'utilisation les fonctions printf et scanf
+-librairies permettant le tirage aléatoire
+ 
+-déclaration des types
+-déclarations des fonctions
+
+ affichageCadre
+ tournerDroite
+ tournerGauche
+ avancer
+ deplacerSerpent
+ attendre 	
+ iArrondi
+
+-fonction principale
+
+-déclaration des variables utilisées
+
+définitions des fonctions
+
+
+
+ b) Commandes utilisées 
+
+Création du fichier:
+[hkarrab@dc14 Projet02]$ emacs snake.c&
+
+
+Compilation :  gcc snake.c -lm -o snake
+Exécution   :  ./snake 52x22 5 50
+
+--------------------------------
+Exemple d'exécution du programme
+--------------------------------
+
+Exemple1
+--------
+Exécution   :  ./snake 12x12 3 500
+
+############
+#<<<<<<<<<^#
+#V^>>>>>>>^#
+#V^<<<<<<V^#
+#V>>>>>>>>>#
+#<<<^<<<<<^#
+#V  ^V<<<^^#
+#V  ^VV>>^^#
+#V  ^V>>>>^#
+#V  ^<<<<<^#
+#V>>>V>>>>>#
+############
+Le plateau est rempli à 202.0 (202/100) dont : 
+- 0.04 '^' (17/202)
+- 0.1 'v' (31/202)
+- 0.2 '^' (62/202)
+- 0.2 '^' (92/202)
+[hkarrab@dc14 Projet02]$ 
+
+Exemple2
+--------
+
+
+Exécution   :  ./snake 52x22 5 50
+
+####################################################
+#<^<<<<<<<<<<<<<<<<<<<^<<^<<<<<<<<<<<<<<<<<<<<<<<<^#
+#V^V^>>>>>>>>>>>>>>>>>^<^^V<<<<<<<<<<<<<<<<<<<<<<^^#
+#V^V^^>>>>>>>>>>>>>>>V^V^^VV>>>>>>>>>>>>>>>>>>>>>^^#
+#V^V^^^>>>>>>>>>>>>>VV^V^^V>>>>>>>>>>>>>>>>>>>>>>>^#
+#V^V^^^^>>>>>>>>>>>VVV^V^^V                       ^#
+#V^V^^^^^>>>>>>>>>VVVV^V^^V                       ^#
+#V^V^^^^^^>>>>>>>VVVVV^V^^V                       ^#
+#V^V^^^^^^^>>>>>VVVVVV^V^^V                       ^#
+#V^V^^^^^^^<<<<VVVVVVV^V^^V                       ^#
+#V^V^^^^^^<<<<<<VVVVVV^V^^V                       ^#
+#V^V^^^^^<<<<<<<<VVVVV^V^^V                       ^#
+#V^V^^^^<<<<<<<<<<VVVV^V^^V                       ^#
+#V^V^^^<<<<<<<<<<<<VVV^V^^V                       ^#
+#V^V^^<<<<<<<<<<<<<<VV^V^^V                       ^#
+#V^V^<<<<<<<<<<<<<<<<V^V^^V                       ^#
+#V^V<<<<<<<<<<<<<<<<<<^V^^V                       ^#
+#V^V>>>>>>>>>>>>>>>>>>>V^^V                       ^#
+#V^<<<<<<<<<<<<<<<<<<<<V^^V                       ^#
+#V^V>>>>>>>>>>>>>>>>>>>>>^V                       ^#
+#V>>>>>>>>>>>>>>>>>>>>>>>>V>>>>>>>>>>>>>>>>>>>>>>>>#
+####################################################
+Le plateau est rempli à 151.8 (152/100) dont : 
+- 0.06 '^' (148/152)
+- 0.1 'v' (269/152)
+- 0.2 '^' (446/152)
+- 0.3 '^' (655/152)
+[hkarrab@dc14 Projet02]$ 
+
+
+
+J'ai confronté un problème de répitition du jeu , ce qui amène à une statistique fausse.
+
+
+
+
+
+

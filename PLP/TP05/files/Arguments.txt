@@ -1,0 +1,11 @@
+$~$ ./arguments Abonnement 0 9
+Abonnement
+$~$
+$~$ ./arguments Abonnement 2 3
+on
+$~$
+$~$ ./arguments Abonnement 1 9
+bonnement
+$~$
+$~$ ./arguments Abonnement 0 2
+Abo

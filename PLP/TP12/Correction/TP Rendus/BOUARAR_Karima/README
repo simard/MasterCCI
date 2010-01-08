@@ -1,0 +1,25 @@
+/* Mini-projet 3 */
+
+Bouarar Karima
+
+    j'ai commencé par créer une structure qui comporte le nom, le prenom et l'adresse courriel d'un contact
+
+Puis une autre qui ajoute du contact au debut ou à la fin de la chaine
+
+ensuite celle qui affiche un seul contact et une autre qui affiche tous les contacts
+
+ensuite j'ai passé à celle qui modifie un contact et celle qui le supprime puis j'ai enregistré le
+
+carnet d'adresse dans un fichier et j'ai chargé ce dernier à partir d'un fichier
+
+ensuite on a liberé l'espace memoire et on finit par quitter le programme.
+
+Je compile mon programme avec la commande gcc -o tp12 TP12-Bouarar_Karima.c -Wall -ansi
+
+Je compresse mon programme avec la commande tar -cvjf TP12-Bouarar_Karima.tar.bz2 ./Bouarar_Karima/
+
+
+		
+
+	
+		

@@ -1,0 +1,6 @@
+> ./contacts
+Entrer votre nom : SIMARD
+Entrer votre prenom : Jean
+Entrer votre courriel : jean.simard@limsi.fr
+L'adresse de courriel de SIMARD Jean est jean.simard@limsi.fr
+>

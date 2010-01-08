@@ -1,0 +1,13 @@
+Nom: KEFSI
+Prenom: MOURAD
+Formation: Master 2 Compétences Complémentaires en Informatique 
+TP n°12: Mini Projet 3
+
+Objectif du TP : l'objectif du TP est de créer un programme en langage C qui gère un carnet d'adresses.  
+
+
+La premiere étape consiste a créer tout les fonction qu'on aura besoin plus tard lore du l'exicution du programme, une fois elle sont crées il suffit juste de faireappel a ces fonctions.
+En second et en fonction du choix de l'utilisateur le programme exicute les taches qui lui ont été demander (Sauvegarder un contact, moudifier ou supprimer ...etc).
+
+Je compile mon programme avec la commande :   gcc -o tp12 TP12.c -Wall -ansi   et son exicution par la commande   ./tp12
+

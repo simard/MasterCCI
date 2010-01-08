@@ -1,0 +1,109 @@
+\documentclass[a4paper]{article}
+	\usepackage{Lapin}
+	\newenvironment{Correction}{\par\tiny\blue\rule[1ex]{\textwidth}{1pt}\par\normalsize\textbf{\sffamily{}Correction de l'exercice~\theExo{} -- }}{\par\tiny\blue\rule[1ex]{\textwidth}{1pt}\par}
+	\newtheorem{Exo}{{\sffamily{Exercice}}}
+	\title{Boucles et chaînes de caractères}
+	\author{Philippe \Nom{Rinaudo}\and{}Jean \Nom{Simard}}
+	\date{\Date[l]{16}{10}{2009}}
+\begin{document}
+	\maketitle
+	\section{Les chaînes de caractères}
+		Nous allons travailler sur les chaînes de caractères et en profiter pour revenir un peu sur les boucles en utilisant plus particulièrement les boucles \code{for} que nous avons un peu laissé de côté jusqu'à maintenant.
+		Une chaîne de caractère est un tableau de caractères (\code{char}).
+		Mais ce tableau possède une particularité puisqu'il possède un caractère pour préciser où se trouve la fin.
+		En effet, le dernier caractère d'une chaîne de caractères est le caractère \code{'\0'}.
+		Le caractère \code{'\0'} n'est pas un caractère qu'on peut afficher ou visualiser car il fait parti des premiers caractères de la table \Nom{ascii} qui ne sont pas affichables.
+
+		Par exemple, la chaîne de caractère \code{"Bonjour"} possède 8~caractères dont le huitième n'est pas visible \TabRef[v]{tab-Bonjour}.
+
+		\begin{Table}{Chaîne de caractère \code{"Bonjour"}}{tab-Bonjour}{|l||c|c|c|c|c|c|c|c|}
+			\hline
+			Numéro & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\
+			\hline
+			Caractère & \red\verb$'B'$ & \red\verb$'o'$ & \red\verb$'n'$ & \red\verb$'j'$ & \red\verb$'o'$ & \red\verb$'u'$ & \red\verb$'r'$ & \red\verb$'\0'$ \\
+			\hline
+			Affichage & \verb$B$ & \verb$o$ & \verb$n$ & \verb$j$ & \verb$o$ & \verb$u$ & \verb$r$ & \\
+			\hline
+		\end{Table}
+
+		\begin{Exo}
+			Écrire un programme qui déclare un tableau de 64~\code{char} initialisé avec la chaîne de caractères \code{"Vive les RERs"}.
+			L'objectif est de lire cette chaîne de caractères avec une boucle \code{for} caractère par caractère puis d'afficher seulement ceux dont la valeur entière est inférieur ou égal à~90.
+
+			Expliquer le résultat obtenu.
+		\end{Exo}
+		\begin{Correction}
+			Nous parcourons la chaîne de caractères grâce à une boucle \code{for} qui aura comme condition d'arrêt le caractère \code{'\0'}.
+			Puis nous les afficherons grâce à la fonction \code{printf} et du caractère de contrôle \code{%c}.
+			\FichierCode{LectureMajuscules.c}{cod-LectureMajusculesC}
+			Dans ce programme, nous affichons tous les caractères dont le code \Nom{ascii} est inférieur ou égal à~90.
+			En faisant ceci, nous éliminons les lettres minuscules (entre~97 et~122) et conservont seulement les lettres majuscules qui se trouvent entre~65 et~90.
+		\end{Correction}
+
+	\section{La bibliothèque \code{string.h}}
+		Pour utiliser aisément les chaînes de caractères, une bibliothèque existe nous proposant différentes fonctions.
+		Par exemple, la fonction \code{strlen} permet de calculer la taille d'une chaîne de caractères.
+		\code{strlen( "Bonjour" )} va renvoyer la valeur~7.
+		\begin{Exo}
+			Écrire un programme qui calcule la longueur d'une chaîne de caractères sans utiliser la fonction \code{strlen}.
+			Pour vérifier votre résultat, comparer ce résultat à la fonction \code{strlen} et afficher «~\emph{C'est égal}~» ou «~\emph{C'est différent}~» suivant le cas.
+		\end{Exo}
+		\begin{Correction}
+			Dans la correction de cet exercice, il faut utiliser une boucle.
+			Ici, c'est une boucle \code{while} qui est utilisée mais les autres types de boucles peuvent aussi être utilisées.
+			\FichierCode{Longueur.c}{cod-LongueurC}
+		\end{Correction}
+
+	\section{Les arguments de la fonction \code{main}}
+		Nous allons utiliser pour la première fois les arguments de la fonction \code{main} qui sont \code{argc} et \code{argv}.
+		Le paramètre \code{argc} est un paramètre qui contient le nombre d'arguments donnés au programme lors de son exécution.
+		Le nom du programme constitue le premier argument.
+		Par exemple, si on exécute le programme nommé \code{arguments}
+		\begin{Code*}
+$~$ ./arguments "Chaine assez longue" 8 25
+		\end{Code*}
+		le paramètre \code{argc} contient la valeur~4.
+		Et c'est le paramètre \code{argv} qui contient les arguments sous forme d'un tableau de chaîne de caractères.
+		C'est donc un tableau à deux dimensions de type \code{char}.
+		Voici un tableau récapitulatif des arguments \TabRef{tab-RecapitulatifArguments}.
+		\begin{Table}{Tableau récapitulatif des arguments}{tab-RecapitulatifArguments}{|l|l|}
+			\hline
+			Nom de l'argument & Valeur de l'argument \\
+			\hline
+			\hline
+			\verb$argv[0]$ & \verb$arguments$ \\
+			\hline
+			\verb$argv[1]$ & \red\verb$"Chaine assez longue"$ \\
+			\hline
+			\verb$argv[2]$ & \verb$8$ \\
+			\hline
+			\verb$argv[3]$ & \verb$25$ \\
+			\hline
+		\end{Table}
+		
+		\textbf{Attention -- }Même si les arguments sont des chiffres, ils seront sauvegardés comme des caractères.
+		\begin{Exo}
+			Écrire un programme qui prend en entrée 3~paramètres.
+			Le premier paramètre est une chaîne de caractères.
+			Le second et le troisième paramètres sont des entiers compris entre~0 et~9.
+
+			Le programme devra écrire seulement les caractères de la chaîne compris entre les deux entiers.
+			Il faudra donc vérifier que le premier entier est inférieur au second.
+			Voici quelques exemples d'exécution de ce programme \CodRef[v]{cod-ExempleExecution}.
+			\FichierCode[caption={Exemple d'exécution},label={cod-ExempleExecution},numbers=none,language={}]{Arguments.txt}{cod-ArgumentsTXT}
+		\end{Exo}
+		\begin{Correction}
+			Une petite astuce est nécessaire pour ce programme.
+			En effet, nous lisons des paramètres qui sont des caractères hors nous devons utiliser des nombres.
+			Étant donné que nous nous limitons aux valeurs entre~0 et~9 qui sont constitué de caractères simples, il nous faut donc convertir ces caractères en chiffres.
+			Regardons dans la table \Nom{ascii}, les caractères de~0 à~9 se suivent dans cet ordre.
+			Si on enlève la valeur entière correspondant au caractère \code{'0'} à chacun des caractère, on obtiendra la valeur désirée.
+			Cette valeur est~48.
+			Par exemple, enlevons~48 au caractère \code{'1'} (qui est égal à~49), on obtient bien le chiffre~1.
+			N'oublions pas que cette opération est autorisée car les \code{char} sont des valeurs entières.
+			De même, si on enlève~48 au caractère \code{'8'} qui a pour valeur décimale~56, on obtient la valeur~8.
+			Cependant, on peut également enlever directement la valeur de \code{'0'} sans jamais écrire la valeur décimale correspondante.
+			\FichierCode{Arguments.c}{cod-ArgumentsC}
+		\end{Correction}
+
+\end{document}

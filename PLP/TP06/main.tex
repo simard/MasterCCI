@@ -1,0 +1,88 @@
+\documentclass[a4paper]{article}
+	\usepackage{Lapin}
+	\newtheorem{Exo}{Exercice}
+	\newenvironment{Correction}{\par\tiny\blue\rule[1ex]{\textwidth}{1pt}\par\normalsize\textbf{Correction de l'exercice~\theExo{} -- }}{\par\tiny\blue\rule[1ex]{\textwidth}{1pt}\par}
+	\title{Fonctions}
+	\author{Philippe \Nom{Rinaudo}\and{}Jean \Nom{Simard}}
+	\date{\Date[l]{20}{10}{2009}}
+\begin{document}
+	\maketitle
+	\section{Les fonctions}
+		Nous allons enfin voir aujourd'hui comment déclarer et définir une fonction.
+		En effet, une fonction doit tout d'abord être déclarée, comme une variable, puis ensuite elle est définie.
+		De la même façon qu'une variable, une fonction possède un type.
+		Ce type sera la nature de la valeur que la fonction renverra.
+		Tous les types utilisés pour les variables peuvent être utilisés pour les fonctions (\code{int}, \code{float}, \code{char}\dots{}).
+		Cependant, un type supplémentaire est disponible, le type \code{void}.
+		Ce type permet d'écrire des fonctions qui ne renvoie pas de valeur.
+		Ce type de fonction est appelé procédure.
+
+		On peut par exemple créer une fonction qui affiche une matrice $\mathcal{M}_{3,3}$ qui ne renvoie pas de valeur.
+		\FichierCode{AfficherMatrice.c}{cod-AfficherMatriceC}
+		Ce genre de fonctions ne retournant pas de valeur, la clause \code{return} sans valeur peut être utilisé pour terminer la fonction.
+		Le \CodRef{cod-AfficherMatriceC} est la définition de la fonction.
+		La déclaration de cette même fonction est
+		\begin{Code*}
+void AfficherMatrice();
+		\end{Code*}
+
+		\begin{Exo}
+			Nous allons aujourd'hui travailler sur les nombres complexes.
+			L'objectif de cet exercice est de créer une structure pour les nombres complexes puis d'ajouter une fonction qui permette l'affichage de ces nombres complexes.
+			Cette fonction d'affichage affichera une variable globale de type complexe.
+			Dans la suite de ce TP, nous allons améliorer ce programme en évoluant la fonction et en ajoutant d'autres.
+		\end{Exo}
+		\begin{Correction}
+			\FichierCode{AfficherComplexeVoid.c}{cod-AfficherComplexeVoidC}
+		\end{Correction}
+	\section{Les paramètres}
+		À présent, nous allons introduire les paramètres d'une fonction.
+		De la même façon que la fonction \code{main} possède les arguments \code{argc} et \code{argv}, nous allons ajouter de tels paramètres dans notre précédente fonction.
+		Pour ajouter un paramètre, il suffit de le déclarer dans le nom de la fonction entre les parenthèses.
+		
+		Par exemple, on peut désirer afficher les nombres d'une matrice avec une précision de trois chiffres après la virgule.
+		On aura donc recours à une fonction déclarée de la façon suivante
+		\begin{Code*}
+void AfficherMatrice( unsigned int iNbChiffres );
+		\end{Code*}
+		La ligne écrite ci-dessus constitue le prototype de la fonction.
+		On appelle aussi cela la signature.
+		La signature permet d'identifier n'importe quelle fonction par son nom, ses paramètres et la valeur qu'elle renvoie.
+		\begin{Exo}
+			Nous allons améliorer la fonction précédente d'affichage d'un complexe en ajoutant en paramètre un complexe.
+			En effet, actuellement, la fonction peut être utilisée seulement pour le complexe global déclaré.
+			Nous allons transformer la fonction pour qu'elle puisse être utilisée avec n'importe quel nombre complexe.
+		\end{Exo}
+		\begin{Correction}
+			\FichierCode{AfficherComplexe.c}{cod-AfficherComplexeC}
+		\end{Correction}
+		\begin{Exo}
+			Nous allons effectuer l'amélioration proposée pour l'affichage des matrices, c'est-à-dire ajouter un paramètre permettant de préciser la nombre de chiffres à afficher après la virgule.
+			Pour cela, on peut déclarer un tableau de caractères qui contiendra le caractère de contrôle nécessaire à la fonction \code{printf}.
+			Ensuite, au lieu de donner une chaîne de caractère à la fonction \code{printf}, on donnera le nom de ce tableau en paramètre.
+		\end{Exo}
+		\begin{Correction}
+			\FichierCode{AfficherComplexeChiffre.c}{cod-AfficherComplexeChiffreC}
+		\end{Correction}
+	\section{La valeur renvoyée}
+		Les fonctions permettent également de renvoyer une valeur comme nous l'avons déjà vu avec les fonctions \code{sqrt} \code{pow} par exemple ou même la fonction \code{main} dont nous n'utilisons pas la valeur.
+		La valeur désirée peut donc être renvoyée grâce au mot-clef \code{return}.
+
+		Par exemple, une fonction donnant la factorielle (que nous avons déjà vu) pourrait s'écrire
+		\FichierCode{Factorielle.c}{cod-FactorielleC}
+		\begin{Exo}
+			Nous allons donc écrire quelques fonctions qui nous permettrons d'effectuer les différentes opérations de base sur les nombres complexes.
+			Ajouter au programme d'affichage des nombres complexes, les fonctions suivantes :
+			\begin{enumerate}
+				\item Fonction qui renvoie le résultat de l'addition de deux nombres complexes;
+				\item Fonction qui renvoie le résultat de la multiplication de deux nombres complexes;
+				\item Fonction qui renvoie le conjugué d'un nombre complexe;
+				\item Fonction qui renvoie la division d'un nombre complexe par un nombre réel simple;
+				\item Fonction qui renvoie le résultat de la division de deux nombres complexes;
+				\item Fonction qui affiche la forme polaire d'un nombre complexe (avec les unités en degrés).
+			\end{enumerate}
+		\end{Exo}
+		\begin{Correction}
+			\FichierCode{Complexes.c}{cod-ComplexesC}
+		\end{Correction}
+\end{document}

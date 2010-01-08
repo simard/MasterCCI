@@ -1,0 +1,190 @@
+\documentclass[a4paper]{article}
+	\usepackage{Lapin}
+	\newenvironment{Correction}{\par\tiny\blue\rule[1ex]{\textwidth}{1pt}\par\normalsize\textbf{\sffamily{}Correction de l'exercice~\theExo{} -- }}{\par\tiny\blue\rule[1ex]{\textwidth}{1pt}\par}
+	\newtheorem{Exo}{{\sffamily{Exercice}}}
+	\title{Introduction}
+	\author{Philippe \Nom{Rinaudo} \and{} Jean \Nom{Simard}}
+	\date{\Date[l]{01}{10}{2009}}
+\begin{document}
+	\maketitle
+	\section{Commencer avec un terminal}
+		Le terminal de commandes va vous permettre d'effectuer toutes les opérations nécessaires pour utiliser un ordinateur et en particulier la programmation.
+		Nous allons donc simplement rappeler les quelques commandes simples pour travailler sur un terminal.
+		\subsection{\code{ls}}
+			La commande \code{ls} permet de lister le contenu d'un répertoire, de connaître le contenu.
+			Quelques options additionnelles peuvent s'avérer utiles.
+			Si vous tapez \code{ls -l}, vous obtiendrez des informations supplémentaires.
+			En tapant \code{ls -a}, les fichiers et répertoires cachés seront également listés
+			Les options peuvent être combinés.
+			Par exemple, \code{ls -alh} vous permettra de lister tous les fichier et répertoires, même ceux cachés, de façon détaillée et en affichant la taille des fichiers.
+
+			Pour vous rappeler de cette commande, \code{ls} sont les lettres utilisées dans \emph{LiSt}.
+		\subsection{\code{cd}}
+			Cette commande \code{cd} va vous permettre de vous déplacer dans les différents répertoires.
+			\code{cd} correspond à \emph{Change Directory}.
+
+			Par exemple, si avez un répertoire \code{TP1} et que vous désirez vous y déplacer, tapez \code{cd TP1}.
+			Puis si vous voulez revenir dans le répertoire parent, entrez \code{cd ../}.
+			En effet, le répertoire \code{../} correspond au répertoire parent.
+			Le répertoire \code{./} correspond au répertoire courant.
+		\subsection{\code{pwd}}
+			La commande \code{pwd} permet de savoir où on se trouve dans l'arborescence de répertoires.
+			\code{pwd} correspond à \emph{Print Working Directory}.
+			Si votre login est \code{toto} et que vous venez de démarrer un terminal, la commande \code{pwd} vous donnera \code{/home/toto}.
+		\subsection{\code{mkdir}}
+			\code{mkdir} Permet de créer un nouveau répertoire dans le répertoire courant (le répertoire dans lequel vous vous trouvez).
+			\code{mkdir} correspond à \emph{MaKe DIRectory}.
+			Par exemple, si vous désirez créer un nouveau répertoire \code{TP1}, entrez la commande \code{mkdir TP1}.
+		\subsection{\code{man}}
+			Cette commande vous permettra de vous renseigner sur n'importe quelle autre commande.
+			Vous découvrirez également les différentes options possibles de chaque commande.
+			\code{man} correspond à \emph{MANual}.
+
+			Vérifiez et découvrez les options de la commande \code{ls} en entrant \code{man ls}.
+	\section{Éditeur de texte}
+		Avant de commencer à écrire vos programmes, il vous faut un éditeur de texte.
+		Plusieurs sont disponibles, nous allons essayer les deux éditeurs les plus répandus sur les système de type \Nom{unix} : \code{emacs} et \code{vi}. 
+		Bien que d'autres éditeurs existent, ces deux éditeurs font parti de la plupart des systèmes \Nom{Unix}.
+		\code{emacs} comme \code{vim} bénéficient de la majorité des avantages nécessaires pour la programmation tels que la coloration syntaxique, l'indentation intelligente, la complétion automatique\dots{}
+		\subsection{\code{emacs}}
+			Pour utiliser \code{emacs}, de nombreux raccourcis claviers sont nécessaires.
+			Découvrons les par un exemple.
+			\begin{itemize}
+				\item Créer le fichier \code{TP1-emacs.c} par la commande \code{emacs TP1-emacs.c};
+				\item Ajouter un commentaire \code{/* Commentaires */} dans le fichier vide;
+				\item Effectuer une recherche de texte avec \code{Ctrl-s};
+				\item Remplacer \code{Commentaire} par \code{Bonjour tout le monde} en utilisant \code{Esc %};
+				\item Enregistrer le fichier en pressant \code{Ctrl-x Ctrl-s};
+				\item Quitter avec \code{Ctrl-x Ctrl-c}.
+			\end{itemize}
+			\subsubsection{Commandes utiles}
+				\begin{description}
+					\item[\texttt{Ctrl-x Ctrl-f} --] ouvrir un fichier dans le buffer courant;
+					\item[\texttt{Ctrl-x k} --] fermer un buffer;
+					\item[\texttt{Ctrl-x Ctrl-c} --] quitter;
+					\item[\texttt{Ctrl-x i} --] insérer un fichier dans le buffer courant;
+					\item[\texttt{Ctrl-x b} --] passer à un autre buffer;
+					\item[\texttt{Ctrl-x 1} --] aucune division de la fenêtre;
+					\item[\texttt{Ctrl-x 2} --] division horizontale de la fenêtre;
+					\item[\texttt{Ctrl-x 3} --] division verticale de la fenêtre;
+					\item[\texttt{Ctrl-x o} --] passer dans la prochaine sous-fenêtre;
+					\item[\texttt{Ctrl-h i} --] affichage des pages \code{info} (version améliorer de \code{man}).
+				\end{description}
+		\subsection{\code{vim}}
+			\code{vim} est un éditeur de texte dit \emph{modal}.
+			Ce type d'éditeur de texte permet d'entrer des commandes dans le mode \emph{normal}, d'écrire dans le fichier dans le mode \emph{insertion} ou \emph{remplacement}.b
+			Nous allons effectuer le même exemple que précédemment.
+			\begin{itemize}
+				\item Créer le fichier \code{TP1-vim.c} par la commande \code{vim TP1-vim.c};
+				\item Pour insérer la chaîne de commentaire, il faut entrer dans le mode \emph{insertion} en tapant \code{i};
+				\item Entrer normalement la chaîne de commentaire \code{/* Commentaire */};
+				\item Pour effectuer une recherche, on sort du mode \emph{insertion} avec \code{Esc};
+				\item Rechercher le texte \code{Commentaire} avec \code{/Commentaire};
+				\item Remplacer avec \code{:%s/Commentaire/Bonjour tout le monde/};
+				\item Enregistrer et quitter avec \code{:wq}.
+			\end{itemize}
+			\subsubsection{Commandes utiles}
+				Toutes les commandes résumées ci-dessous sont valables dans le mode \emph{normal}.
+				\begin{description}
+					\item[\texttt{:w} --] sauvegarder;
+					\item[\texttt{:q} --] quitter;
+					\item[\texttt{:q!} --] quitter même si le fichier n'a pas été sauvegarder;
+					\item[\texttt{:wq} --] sauvegarder et quitter;
+					\item[\texttt{:x} --] sauvegarder et quitter;
+					\item[\texttt{ZZ} --] sauvegarder et quitter;
+					\item[\texttt{x} --] supprimer un caractère;
+					\item[\texttt{dd} --] supprimer une ligne;
+					\item[\texttt{yy} --] copier une ligne;
+					\item[\texttt{p} --] coller une ligne;
+					\item[\texttt{/} --] rechercher.
+				\end{description}
+	\section{Premier programme}
+		Nous allons maintenant commencer la programmation par un petit exemple de programme simple.
+		Créer un répertoire \code{TP1} puis placez vous dans ce nouveau répertoire.
+		Puis éditez avec votre éditeur de texte un fichier \code{TP1-toto.c} en remplaçant \code{toto} par votre propre login.
+		\subsection{Hello World !}
+			Pourquoi ce titre ?
+			Commençons par un petit peu de culture informatique.
+			\emph{Hello World !} est l'expression utilisée en informatique pour tout programme élementaire.
+			C'est l'exemple de base.
+			Écrivez le programme \CodRef{cod-HelloWorld}.
+			\begin{Code}{Hello World!}{cod-HelloWorld}
+# include <stdio.h>
+
+int main( int argc, char ** argv )
+{
+	printf( "Hello World!" );
+	return 0;	
+}
+			\end{Code}
+
+			Recopiez les lignes de ce programme dans le fichier précédemment ouvert.
+			On expliquera les différentes lignes de ce programme ultérieurement.
+			Pour l'instant, nous allons compiler puis exécuter ce programme.
+		\subsection{Compilation}
+			La compilation est une étape nécessaire pour la création d'un programme.
+			Cette phase consiste à traduire le fichier précédemment écrit dans un langage compréhensible par un ordinateur.
+			Ce langage se nomme l'assembleur.
+			Le compilateur par excellence sur un système \Nom{unix} est \code{gcc}.
+
+			Nous allons donc compiler avec la commande
+			\begin{Code*}
+$~$ gcc -o tp1 TP1.c -Wall -ansi
+			\end{Code*}
+			L'option \code{-o tp1} permet de donner le nom au programme qui va être créé.
+			L'option \code{-Wall} permet d'informer plus précisément sur des erreurs et d'en prévoir d'autres.
+			L'option \code{-ansi} permet de vérifier que le code source respecte les normes de programmation.
+
+			À présent, nous allons exécuter le programme en entrant la commande
+			\begin{Code*}
+$~$ ./tp1
+			\end{Code*}
+			Vous devriez voir quelque chose s'afficher.
+			Cependant, la mise en page du message laisse à désirer; il serait intéressant de pouvoir passer à la ligne à la fin du message.
+			Pour effectuer un passage à la ligne dans une chaîne de caractère, on ajoute le caractère \code{'\n'} qui représente une fin de ligne.
+			On modifie donc la ligne~5 du programme par
+			\begin{Code*}[numbers=left,firstnumber=5]
+	printf( "Hello World!\n" );
+			\end{Code*}
+			Maintenant, reprenons la compilation et l'exécution
+			\begin{Code*}
+$~$ gcc -o tp1 TP1.c -Wall -ansi
+$~$ ./td1
+Hello World!
+$~$
+			\end{Code*}
+		\subsection{La fonction \code{printf}}
+			La fonction \code{printf} est une fonction offerte par défaut dans tous les environnements de développement.
+			Elle est très utile pour afficher différents types de données.
+			Par exemple, elle va nous permettre d'afficher des nombres.
+
+			Imaginons que nous désirons afficher la valeur \code{1}.
+			Bien sûr, on peut se contenter d'écrire \code{printf("1")}.
+			Mais si \code{1} est le résultat d'un calcul, comment fait-on ?
+
+			Pour cela, on va utiliser les \emph{caractères de contrôle} qui s'insèrent dans la chaîne de caractères.
+			Un caractère de contrôle commence par le caractère \code{'%'}.
+			À la suite de ce caractère se trouve la nature de la valeur qui sera affichée :
+			\begin{itemize}
+				\item \code{d} pour afficher un entier;
+				\item \code{f} pour afficher un réel;
+				\item \code{c} pour afficher un caractère;
+				\item \code{s} pour afficher une chaîne de caractères.
+			\end{itemize}
+			Pour afficher un entier, on écrira donc \code{printf( "%d", 1 );}.
+			Dans notre cas, nous allons afficher la date.
+			Modifions à nouveau la ligne~5 par
+			\begin{Code*}[numbers=left,firstnumber=5]
+	printf( "La date du jour est %d-%d-%d\n", 3, 9, 2008 );
+			\end{Code*}
+
+			On peut également afficher un réel avec \code{"%f"}.
+			Il est possible de paramétrer le nombre de chiffre à afficher après la virgule en écrivant \code{"%.3f"} (pour 3 chiffres après la virgule).
+			Modifier le programme pour afficher le chiffre \nombre{1,23456789} avec 4~chiffres après la virgule.
+
+			D'autres possibilités avec la fonction \code{printf} existent.
+			Je vous invite à regarder sur Internet la documentation de la fonction \code{printf} et répondre aux questions suivantes : comment écrit-on un entier en hexadécimal ?
+			Et en octal ?
+			La recherche sur Internet fait partie intégrante du travail d'un programmeur donc n'hésitez pas à aller fouiller sur la toile pour trouver des solutions à vos problèmes de programmation.
+
+\end{document}

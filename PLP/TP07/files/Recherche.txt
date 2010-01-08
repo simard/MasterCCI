@@ -1,0 +1,11 @@
+> ./recherche "Bonjour tout le monde." "jour"
+La chaine "jour" dans "Bonjour tout le monde." est a la position 4
+>
+> ./recherche "Bonjour tout le monde." "nuit"
+La chaine "nuit" n'est pas dans "Bonjour tout le monde."
+>
+> ./recherche "Bonjour tout le monde." "Bonjour"
+La chaine "Bonjour" dans "Bonjour tout le monde." est a la position 1
+>
+> ./recherche "Bonjour tout le monde." "ond"
+La chaine "ond" dans "Bonjour tout le monde." est a la position 18

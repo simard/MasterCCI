@@ -1,0 +1,204 @@
+\documentclass[a4paper]{article}
+	\usepackage{Lapin}
+	\newtheorem{Exo}{Exercice}
+	\newenvironment{Correction}{\par\tiny\blue\rule[1ex]{\textwidth}{1pt}\par\normalsize\textbf{Correction de l'exercice~\theExo{} -- }}{\par\tiny\blue\rule[1ex]{\textwidth}{1pt}\par}
+	\title{Allocation de mémoire}
+	\author{Philippe \Nom {Rinaudo}\and{}Jean \Nom{Simard}}
+	\date{\Date[l]{03}{11}{2009}}
+\begin{document}
+	\maketitle
+	\section{Fonction \code{malloc}}
+		La fonction \code{malloc} va nous permettre d'allouer de l'espace mémoire pour sauvegarder des variables.
+		Cette fonction sera obtenue par l'appel de la bibliothèque \code{stdlib}.
+		\begin{Code*}
+# include <stdlib.h>
+		\end{Code*}
+		Dans quels cas cette fonction peut-elle être utilisée ?
+		En effet, on est en droit de se poser cette question car jusqu'à aujourd'hui, nous n'en avons jamais eu besoin.
+		Pour répondre à cette question, prenons un exemple.
+
+		Imaginons un carnet d'adresses.
+		L'utilisateur de ce programme peut au choix ajouter, modifier ou supprimer un contact dans ce carnet d'adresses.
+		Un contact est constitué par une structure contenant par exemple, le nom, le prénom, l'adresse, le numéro de téléphone et l'adresse de courriel.
+		Avec nos connaissances actuelles, nous devrions déclarer un tableau de grande taille $N$ en espérant que l'utilisateur n'enregistre pas plus de $N$ contacts.
+		Mais comment faire lorsque $N+1$ contacts sont enregistrés ?
+		Autre problème, pourquoi déclarer un tableau de taille $N=10000$ lorsque l'utilisateur n'enregistre que \nombre{20}~contacts ?
+
+		Nous allons donc choisir une autre stratégie et allouer ou libérer la mémoire au-fur-et-à-mesure que l'utilisateur créé ou supprime des contacts.
+		Pour allouer la mémoire, nous allons utiliser la fonction \code{malloc}.
+		Il faut également maîtriser la notion de pointeurs.
+		Reprenons l'exemple des structures déclarées dans les TP précédents pour les nombres complexes.
+		La fonction \code{malloc} prend en argument la taille de l'espace mémoire à allouer en octets.
+		Pour plus de simplicité, il faut utiliser la fonction \code{sizeof}.
+		Et la fonction \code{malloc} renvoie l'adresse de l'espace mémoire nouvellement alloué.
+		On récupérera donc la valeur de cette fonction dans un pointeur.
+		\FichierCode{AllocationComplexe.c}{cod-AllocationComplexeC}
+		Cependant, le \CodRef{cod-AllocationComplexeC} comporte un problème de conversion.
+		En effet, la fonction \code{malloc} pouvant être utilisée pour allouer de l'espace mémoire pour n'importe quel type (structure, \code{int}, \code{char}, \code{float *}\dots{}) elle renvoie un pointeur de type neutre \code{void *}.
+		Il va donc falloir convertir ce pointeur dans le type que l'on désire \CodRef[v]{cod-AllocationComplexeConvertiC}.
+		\FichierCode{AllocationComplexeConverti.c}{cod-AllocationComplexeConvertiC}
+		
+		Avant la fin du programme, il va falloir libérer cette mémoire.
+		En effet, pour les variables déclarées dynamiquement, la mémoire ne se libère pas automatiquement à la fin d'un bloc.
+		L'espace est alloué pour toute la durée du programme.
+		Pour cela, on utilise la fonction \code{free}.
+		On donne en paramètre un pointeur sur l'espace mémoire alloué.
+		Dans le cas précédent, on écrira
+		\begin{Code*}
+	free( pComplexe );
+		\end{Code*}
+
+		\begin{Exo}
+			Le programme devra demander à l'utilisateur son nom, son prénom et son adresse de courriel.
+			L'objectif sera de limiter l'espace mémoire utilisé pour sauvegarder ces informations en allouant dynamiquement l'espace mémoire pour l'ajuster à la longueur des chaînes de caractères.
+			Nous utiliserons la structure \code{Contact} \CodRef[v]{cod-StructContactC}.
+			\FichierCode[caption={Structure d'un contact},numbers=none,firstline=5,lastline=11]{Contacts.c}{cod-StructContactC}
+			Vous remarquerez dans cette structure que les chaînes de caractères sont représentés par de simples pointeurs.
+			On peut en déduire qu'aucun espace mémoire n'est disponible pour sauvegarder des caractères.
+			Il va donc falloir effectuer les allocations mémoires.
+
+			On utilisera la fonction \code{scanf} pour lire une chaîne de caractères.
+			\textbf{Attention~-- }Le caractère de contrôle \code{%s} arrête la lecture de caractères dès qu'elle rencontre un blanc (espace, tablature, passage à la ligne).
+			Un nom ou un prénom en deux parties ne fonctionnera donc pas.
+			Vous pouvez par exemple utiliser le caractère \emph{souligné} \code{'_'} au moment où vous donner votre nom (ou votre prénom) pour contrer ce problème.
+
+			Afin d'utiliser la fonction \code{scanf} avec le caractère de contrôle \code{%s}, il va nous falloir une variable pouvant contenir une chaîne de caractères.
+			Ne connaissant pas à l'avance la taille du prénom, du nom ou de l'adresse de courriel, on utilisera un tableau de caractères temporaire de taille suffisamment grande pour contenir tous les caractères (signalons toutefois que c'est une manière non sûre de procéder !).
+			Ensuite, on pourra allouer l'espace mémoire grâce à la fonction \code{strlen}.
+			Puis nous pourrons recopier la chaîne dans la structure à l'aide de la fonction \code{strcpy}.
+			On écrira également une fonction qui permettra d'afficher les chaînes de caractères de la structure.
+			Ce sera une fonction qui prendra une structure \code{Contact} avec un passage par référence \CodRef[v]{cod-ExempleContactsTXT}.
+			\FichierCode[language={},caption={Exemple d'exécution}]{ExempleContacts.txt}{cod-ExempleContactsTXT}
+		\end{Exo}
+		\begin{Correction}
+			\FichierCode{Contacts.c}{cod-ContactsC}
+		\end{Correction}
+	\section{Liste chaînée}
+		Dans le langage \Nom{c}, les listes chaînées sont obtenues à l'aide de structures.
+		Chaque instance de la structure est un des maillons de la chaîne.
+		Afin de connaître le maillon suivant, la structure contient un pointeur qui contient l'adresse de la structure suivante dans la chaîne.
+		\begin{Code*}
+typedef struct sMot
+{
+	char * cMot;
+	Mot * pMotSuivant;
+} Mot;
+		\end{Code*}
+		Cependant, il ne faut pas oublier qu'au moment de déclarer ce pointeur sur la structure, nous sommes en train de déclarer cette même structure.
+		Nous sommes donc en train d'essayer de déclarer un pointeur sur un type qui n'existe pas encore.
+		L'écriture ci-dessus n'est donc pas autorisée car on utilise le type \code{Mot} alors qu'il n'existe pas encore.
+		Heureusement, le langage \Nom{c} va nous permettre de contourner ce problème car même si le type \code{Mot} n'existe pas encore, le type \code{struct sMot} existe déjà.
+		Nous allons donc écrire
+		\begin{Code*}
+typedef struct sMot
+{
+	char * cMot;
+	struct sMot * pMotSuivant;
+} Mot;
+		\end{Code*}
+		Ensuite, il suffit de bien initialiser la valeur du champ \code{pMotSuivant} avec le pointeur correspondant.
+
+		Dans le programme, une variable sera déclarée pour toujours contenir l'adresse du premier maillon de la liste chaînée (sinon, on perd l'endroit où se trouve la liste chaînée dans la mémoire).
+
+		On notera que le pointeur du dernier maillon de la chaîne ne doit pointer sur rien.
+		Dans le langage \Nom{c}, un pointeur qui ne pointe sur rien est initialisé avec la valeur \code{NULL}.
+		De la même façon que la caractère \code{'\0'} dans les chaînes de caractères, la valeur \code{NULL} sera un indicateur pour indiquer la fin de la liste chaînée \FigRef[v]{fig-ListeChainee}.
+		\begin{FigurePS}{Liste chaînée}{fig-ListeChainee}{(-6,-0.5)(6,3)}
+			\psset{arrows=->,linecolor=black,framesize=2cm 0.5cm}
+			\fnode(-4,2){EF45}\uput[180](-5,2){\code~EF45~}\rput(-4,2){\code~DEAD~}\uput[90](-4,2.25){\code~TeteListe~}
+
+			\fnode(-4,0.5){DEAD}\uput[180](-5,0.5){\code~DEAD~}\rput(-4,0.5){\code~"Arbre"~}
+			\fnode(-4,0){DEAC}\uput[180](-5,0){\code~DEAC~}\rput(-4,0){\code~BEEF~}
+
+			\fnode(0,0.5){BEEF}\uput[180](-1,0.5){\code~BEEF~}\rput(0,0.5){\code~"Maison"~}
+			\fnode(0,0){BEEE}\uput[180](-1,0){\code~BEEE~}\rput(0,0){\code~9090~}
+
+			\fnode(4,0.5){9090}\uput[180](3,0.5){\code~9090~}\rput(4,0.5){\code~"Vache"~}
+			\fnode(4,0){908F}\uput[180](3,0){\code~908F~}\rput(4,0){\code~NULL~}
+
+			\ncangles[angleA=0,angleB=90,linearc=1pt,armB=0.5cm]{EF45}{DEAD}
+			\psset{armA=0.5cm}
+			\ncangles[angleA=0,angleB=90,linearc=1pt]{DEAC}{BEEF}
+			\ncangles[angleA=0,angleB=90,linearc=1pt]{BEEE}{9090}
+		\end{FigurePS}
+		\begin{Exo}
+			Nous allons créer un programme qui sauvegarde tous les mots donnés en arguments dans des maillons de listes chaînées.
+			Par exemple, on exécute le programme avec la ligne de commande suivante
+			\begin{Code*}
+> ./dictionnaire Bonjour tout le monde
+			\end{Code*}
+			Les mots devront être sauvegardés dans une liste chaînée dont les maillons seront de type \code{Mot} déclarée ci-dessus.
+			Le résultat sera une liste chaînée contenant quatre maillons contenant \code{"Bonjour"}, \code{"tout"}, \code{"le"} et \code{"monde"} (le nom du programme sera ignoré).
+			On créera une fonction qui permettra d'afficher chaque mot de cette liste chaînée \CodRef[v]{cod-ExempleDictionnaireTXT}.
+			\FichierCode[language={},caption={Exemple d'exécution}]{ExempleDictionnaire.txt}{cod-ExempleDictionnaireTXT}
+			On remarque que l'ordre des mots n'est pas respecté.
+			Cela dépendra de la façon dont vous ajouterez un maillon dans votre liste chaînée et de la manière dont vous procédez à l'affichage de la liste chaînée.
+		\end{Exo}
+		\begin{Correction}
+			\FichierCode{Dictionnaire.c}{cod-DictionnaireC}
+		\end{Correction}
+	\section{Les pointeurs de pointeurs}
+		Nous avons déjà vu comment fonctionnait les pointeurs.
+		On déclare une variable qui contient l'adresse d'une autre variable.
+		Que se passe-t-il si cette autre variable est déjà un pointeur ?
+		Rien de spécial, cette opération est totalement autorisée.
+		Mais alors quelle peut en être l'utilité ?
+		Nous allons le voir sur l'exemple de la matrice.
+		En effet, les allocations mémoires nous on fait découvrir comment déclarer des tableaux à une dimension de façon dynamique.
+		Dans le cas de tableaux à deux dimensions, nous allons avoir des pointeurs de pointeurs.
+		Et dans le cas de tableaux à trois dimensions, des pointeurs de pointeurs de pointeurs.
+		Par exemple, la matrice suivante
+		\begin{Equation}
+			M = \left(
+				\begin{array}{ccc}
+					1 & 2 & 3 \\
+					4 & 5 & 6 \\
+					7 & 8 & 9
+				\end{array}
+				\right)
+		\end{Equation}
+		sera sauvegardée en mémoire selon la graphique présent sur \FigRef{fig-PointeursDePointeurs}.
+		\begin{FigurePS}{Pointeurs de pointeurs}{fig-PointeursDePointeurs}{(-6,-3.5)(6,3)}
+			\psset{arrows=->,linecolor=black,framesize=2cm 0.5cm}
+			\fnode(-4,0){DEAD}\uput[180](-5,0){\code~DEAD~}\rput(-4,0){\code~BEEF~}
+
+			\fnode(0,0.5){BEEF}\uput[180](-1,0.5){\code~BEEF~}\rput(0,0.5){\code~ABBA~}
+			\fnode(0,0){BEEE}\uput[180](-1,0){\code~BEEE~}\rput(0,0){\code~9090~}
+			\fnode(0,-0.5){BEED}\uput[180](-1,-0.5){\code~BEED~}\rput(0,-0.5){\code~7777~}
+
+			\fnode(4,2.5){ABBA}\uput[180](3,2.5){\code~ABBA~}\rput(4,2.5){\code~1~}
+			\fnode(4,2){ABB9}\uput[180](3,2){\code~ABB9~}\rput(4,2){\code~2~}
+			\fnode(4,1.5){ABB8}\uput[180](3,1.5){\code~ABB8~}\rput(4,1.5){\code~3~}
+
+			\fnode(4,0.5){9090}\uput[180](3,0.5){\code~9090~}\rput(4,0.5){\code~4~}
+			\fnode(4,0){908F}\uput[180](3,0){\code~908F~}\rput(4,0){\code~5~}
+			\fnode(4,-0.5){908E}\uput[180](3,-0.5){\code~908E~}\rput(4,-0.5){\code~6~}
+
+			\fnode(4,-1.5){7777}\uput[180](3,-1.5){\code~7777~}\rput(4,-1.5){\code~7~}
+			\fnode(4,-2){7776}\uput[180](3,-2){\code~7776~}\rput(4,-2){\code~8~}
+			\fnode(4,-2.5){7775}\uput[180](3,-2.5){\code~7775~}\rput(4,-2.5){\code~9~}
+
+			\ncangles[angleA=0,angleB=90,linearc=1pt]{DEAD}{BEEF}
+			\ncangles[angleA=0,angleB=90,linearc=1pt]{BEEF}{ABBA}
+			\ncangles[angleA=0,angleB=90,linearc=1pt,armA=0.5cm]{BEEE}{9090}
+			\ncangles[angleA=0,angleB=90,linearc=1pt]{BEED}{7777}
+
+			\psset{linecolor=blue,arrows=-}
+			\psline[linestyle=dashed](-2,-3.5)(-2,3)
+			\psline[linestyle=dashed](2,-3.5)(2,3)
+			\rput(-4,-3){\blue\texttt{double **}}
+			\rput(0,-3){\blue\texttt{double *}}
+			\rput(4,-3){\blue\texttt{double}}
+		\end{FigurePS}
+		\begin{Exo}
+			Nous prendrons la structure de matrice définie par le \CodRef{cod-StructMatriceC}.
+			\FichierCode[numbers=none,caption={Structure de matrice},firstline=4,lastline=10]{AllocationMatrice.c}{cod-StructMatriceC}
+			L'objectif est d'écrire un programme qui demandera à l'utilisateur de donner le nombre de lignes et le nombre de colonnes de la matrice puis d'allouer l'espace de mémoire nécessaire en fonction des valeurs lues.
+		\end{Exo}
+		\begin{Correction}
+			Pour allouer de l'espace mémoire pour une matrice, il faut allouer l'espace en plusieurs fois.
+			Tout d'abord, on alloue un tableau de pointeurs (de type \code{double *}).
+			Puis ensuite, on alloue pour chaque case de ce tableau un autre tableau de valeurs de la matrice (de type \code{double}).
+			\FichierCode{AllocationMatrice.c}{cod-AllocationMatriceC}
+		\end{Correction}
+\end{document}

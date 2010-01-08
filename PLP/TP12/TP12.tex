@@ -1,0 +1,175 @@
+\documentclass[a4paper]{article}
+	\usepackage{PackPerso}
+	\newenvironment{Correction}{\par\tiny\blue\rule[1ex]{\textwidth}{1pt}\par\normalsize\textbf{Correction de l'exercice~\theExo{} -- }}{\par\tiny\blue\rule[1ex]{\textwidth}{1pt}\par}
+	\newtheorem{Exo}{Exercice}
+	\title{Mini-projet~3}
+	\author{Jean \Nom{Simard}}
+	\date{\Date[l]{06}{11}{2008} -- \Date[l]{07}{11}{2008}}
+\begin{document}
+	\maketitle
+	\section{Rendre le TP}
+		Vous commencerez par commenter votre programme dans un fichier \code{README}.
+		Vous n'oublierez pas d'indiquer votre nom dans ce fichier et tous les détails que vous jugerez nécessaires.
+
+		Après avoir mis vos fichiers dans un répertoire nommé \code{Simard_Jean} (vous remplacerez par votre nom et votre prénom), vous compresserez le répertoire dans un fichier \code{TP12-Simard_Jean.tar.bz2} (remplacez également par votre nom et votre prénom).
+		\begin{Code*}
+tar -cvjf TP12-Simard_Jean.tar.bz2 ./Simard_Jean/
+		\end{Code*}
+		Ensuite, envoyez ce fichier dans un mail ayant pour sujet (en remplaçant les noms et prénoms).
+		\begin{Code*}
+[CCI] TP12 Simard Jean
+		\end{Code*}
+		
+		\textbf{Tâchez de respecter précisément le format des noms de fichiers, de répertoires et de mail.}
+		
+		%Le travail devra être rendu 17h00 le \Date[l]{07}{11}{2008}.
+	\section{Rappel sur les fichiers}
+		Pour écrire dans un fichier, nous allons utiliser le type \code{FILE}.
+		Pour être plus précis, un simple pointeur sur ce type sera suffisant.
+		
+		Afin d'ouvrir un fichier ou de créer ce fichier le cas échéant, nous allons utiliser la fonction \code{fopen}.
+		Cette fonction prend en argument le nom du fichier puis une chaîne de caractère indiquant la manière dont le fichier est ouvert : en écriture ou en lecture.
+		D'autres options sont disponibles mais ne seront pas traitées ici.
+		La fonction renvoie un pointeur sur un \code{FILE}.
+		Par exemple, pour ouvrir un fichier \code{TP12.txt} en lecture (on ne veut pas le modifier), on écrira
+		\begin{Code*}
+FILE * pFichier = NULL;
+pFichier = fopen( "TP12.txt", "r" );
+		\end{Code*}
+
+		Ensuite, on va pouvoir fermer le fichier à l'aide de la fonction \code{close}.
+		Cette fonction prend simplement le pointeur sur un \code{FILE} en entrée.
+		\begin{Code*}
+fclose( pFichier );
+		\end{Code*}
+
+		Entre le moment où le fichier s'ouvre et le moment où il se ferme, nous allons pouvoir effectuer des opérations de lectures ou des opérations d'écriture en fonction du mode d'ouverture du fichier.
+
+		Pour écrire dans un fichier, nous utiliserons la variante \code{fprintf} de la fonction \code{printf}.
+		Cette fonction va écrire dans un fichier au lieu d'afficher à l'écran.
+		Elle prend un argument supplémentaire qui sera le pointeur de fichier.
+		\begin{Code*}
+int i = 7;
+fprintf( pFichier, "i = %d\n", i );
+		\end{Code*}
+		Nous venons donc d'écrire \code{i = 7} dans le fichier en ajoutant un passage à la ligne à la fin de la ligne.
+
+		Imaginons maintenant que nous désirions lire ce même fichier.
+		Nous utiliserions alors une variante de la fonction \code{scanf} qui est la fonction \code{fscanf}.
+		De la même façon que la fonction \code{fprintf}, cette fonction prend simplement un argument supplémentaire pour indiquer le fichier.
+		\begin{Code*}
+fscanf( pFichier, "i = %d\n", &i );
+		\end{Code*}
+		Ici, au lieu de lire les caractères entrés au clavier comme dans la fonction \code{scanf}, on lit les caractères dans le fichier.
+	\section{Carnet d'adresses de courriel}
+		Nous allons ici créer un programme permettant la gestion d'un carnet d'adresses de courriel.
+		Pour la création d'un tel programme, plusieurs fonctions peuvent être utiles.
+		Je vais donc proposer plusieurs fonctions possibles.
+		\subsection{La structure}
+			Nous allons travailler dans cet exercice avec des listes simplement chaînées.
+			L'ensemble des contacts seront contenus dans cette liste simplement chaînée.
+			\begin{Exo}
+				Écrire une structure pour qu'elle puisse contenir trois chaînes de caractères : le nom, le prénom et l'adresse de courriel.
+				On pourra utiliser une chaîne de caractères de grande taille temporaire pour lire les noms, prénoms et adresses de courriel (comme déjà vu dans les TP précédents).
+				Cette structure devra constituer les maillons de notre liste simplement chaînée.
+			\end{Exo}
+			\begin{Correction}
+				\FichierCode[firstline=5,lastline=12]{Contacts.c}
+			\end{Correction}
+		\subsection{Le menu}
+			Pour ce programme, nous avons avoir besoin d'un menu déroulant pour choisir les différentes opérations qu'on va pouvoir effectuer.
+			\begin{Exo}
+				Écrire la fonction \code{main} de telle manière qu'elle permette d'afficher un menu pour l'utilisateur.
+				Ce menu affichera les différentes opérations proposées par le programme.
+				Il faudra une structure \code{switch} qui appellera les différentes opérations possibles en fonction du choix de l'utilisateur.
+				Après chaque opération, il faudra que le menu s'affiche de nouveau.
+			\end{Exo}
+			\begin{Correction}
+				\FichierCode[firstline=267,lastline=321]{Contacts.c}
+			\end{Correction}
+		\subsection{Création d'un contact}
+			Nous pouvons tout d'abord écrire une fonction permettant de créer un nouveau contact.
+			En effet, cette fonction va permettre de remplir notre liste chaînée.
+			\begin{Exo}
+				Écrire une fonction afin de créer un nouveau contact et de l'ajouter dans la liste chaînée.
+				Cette fonction devra demander à l'utilisateur un nom, un prénom puis une adresse de courriel correspondante.
+				À partir de ces informations, on ajoutera ce nouveau contact dans la liste chaînée (au début, à la fin ou à l'endroit qui vous arrange).
+				Il faudra donc utiliser la fonction \code{malloc} pour allouer l'espace mémoire nécessaire à la création d'un nouveau contact.
+			\end{Exo}
+			\begin{Correction}
+				\FichierCode[firstline=32,lastline=66]{Contacts.c}
+			\end{Correction}
+		\subsection{Libérer l'espace mémoire}
+			Nous créons une liste simplement chaînée en créant de nouveaux contacts au-fur-et-à-mesure que l'utilisateur les enregistre.
+			À la fin du programme, nous allons donc devoir libérer cette mémoire.
+			\begin{Exo}
+				Écrire une fonction qui libère la mémoire de la liste chaînée.
+				Pour cela, il faudra écrire une fonction supplémentaire pour libérer l'espace mémoire d'un seul maillon de la liste.
+			Il faudra donc utiliser la fonction \code{free} afin de libérer cette mémoire.
+			Attention, il ne faudra pas oublier de libérer les chaînes de caractères dans chaque maillon avant de libérer la mémoire d'un maillon.
+			\end{Exo}
+			\begin{Correction}
+				\FichierCode[firstline=13,lastline=24]{Contacts.c}
+				\FichierCode[firstline=192,lastline=207]{Contacts.c}
+			\end{Correction}
+		\subsection{Afficher les contacts}
+			Nous sommes en train de créer un carnet d'adresses de courriel.
+			Il peut donc être utile d'afficher les noms et les adresses correspondantes.
+			\begin{Exo}
+				Écrire une fonction qui affiche tous les contacts présents dans le carnet d'adresses.
+			\end{Exo}
+			\begin{Correction}
+				\FichierCode[firstline=181,lastline=191]{Contacts.c}
+			\end{Correction}
+		\subsection{Enregistrer le carnet d'adresses}
+			Dans ce programme, nous sommes capables de créer une liste chaînée au sein du programme.
+			Mais lorsque nous allons quitter le programme, la liste n'existera plus.
+			C'est pour cette raison que nous devons pouvoir enregistrer le carnet d'adresses dans un fichier.
+			\begin{Exo}
+				Écrire une fonction qui enregistre les noms, prénoms et adresses de courriel dans un fichier.
+				La fonction demandera à l'utilisateur de donner le nom du fichier.
+				Pour le format du fichier, on écrira le nom, le prénom et l'adresse de courriel sur trois lignes distinctes.
+				Une ligne vide sera écrite pour séparer deux contacts dans le fichier.
+			\end{Exo}
+			\begin{Correction}
+				\FichierCode[firstline=208,lastline=225]{Contacts.c}
+			\end{Correction}
+		\subsection{Charger un carnet d'adresses}
+			Si nous sommes capables d'enregistrer un carnet d'adresses dans un fichier, nous devrions également pouvoir lire un fichier pour créer un carnet d'adresses.
+			\begin{Exo}
+				Écrire une fonction qui chargera les noms, prénoms et adresses de courriel depuis un fichier.
+				La fonction demandera à l'utilisateur de donner le nom du fichier.
+				Cette fonction devra créer la liste chaînée contenant toutes les informations présentes dans le fichier.
+			\end{Exo}
+			\begin{Correction}
+				\FichierCode[firstline=227,lastline=266]{Contacts.c}
+			\end{Correction}
+		\subsection{Suppression d'un contact}
+			Dans ce carnet, nous devrions pouvoir supprimer un contact.
+			Pour effectuer cette opération, vous allez devoir utiliser la fonction \code{strcmp} de la bibliothèque \code{string}.
+			Cette fonction va vous permettre de comparer deux chaînes de caractères.
+			La fonction prend deux arguments qui seront les deux chaînes de caractères à comparer et renvoie la valeur zéro si les deux chaînes sont identiques.
+			\begin{Exo}
+				Écrire une fonction qui permette de supprimer une contact du carnet d'adresses.
+				Cette fonction devra demander à l'utilisateur le nom du contact à supprimer.
+				Il est possible que plusieurs contacts correspondent au nom dans le carnet.
+				C'est pour cette raison que le programme devra proposer de confirmer ou non la suppression pour chaque contact dont le nom correspond.
+			\end{Exo}
+			\begin{Correction}
+				\FichierCode[firstline=67,lastline=111]{Contacts.c}
+			\end{Correction}
+		\subsection{Modification d'un contact}
+			Dans le cas où l'utilisateur effectue une erreur de saisie ou modifie l'adresse de courriel d'un contact, il doit pouvoir modifier un contact.
+			\begin{Exo}
+				Écrire une fonction qui permette de modifier un contact.
+				Cette fonction devra demander à l'utilisateur le nom du contact à modifier.
+				Il est possible que plusieurs contacts correspondent au nom dans le carnet.
+				C'est pour cette raison que le programme devra proposer de modifier ou non chaque contact dont le nom correspond.
+
+				Lorsque le programme propose de modifier un contact, il lui propose de modifier soit le nom, soit le prénom, soit l'adresse de courriel.
+				Il doit donc également proposer de ne pas modifier le contact pour le cas où plusieurs contacts correspondent au nom donné par l'utilisateur.
+			\end{Exo}
+			\begin{Correction}
+				\FichierCode[firstline=112,lastline=180]{Contacts.c}
+			\end{Correction}
+\end{document}

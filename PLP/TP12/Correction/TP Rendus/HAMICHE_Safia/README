@@ -1,0 +1,41 @@
+
+Auteur Safia Hamiche 
+
+Master II Compétences Complémentaire en Informatique 
+
+Mini-projet n°:3
+
+Le TP 12 s'est fait suivant les étapes suivantes :
+
+	1- Chargement des bibliothèques <stdio.h>, <stlib.h>, <string.h> ;
+
+	2- Création d'une structure "struct sContact" comportant le nom, le prenom et l'adresse courriel du contact ;
+
+	3- Utilisation de fonctions selon le choix voulu :
+		
+		1- Fonction ajouter contact (au debut ou à la fin de la chaine) selon un l'emplacement voulu ;
+
+		2- Fonction qui affiche un seul contact;
+		 - Fonction qui affiche tous les contacts du carnet d'adresses ;
+
+		3- Fonction qui modifie un contact ;
+
+		4- Fonction qui supprime un contact ;
+
+		5- Enregistrer la liste des contact du carnet d'adresses dans un fichier TP12.txt ;
+
+		6- Charger un carnet d'adresses à partir du fichier "TP12.txt" ;
+
+		7- Liberer l'espace mémoire. Le dernier espace a été alloué pour rien dans les deux cas soit le le Fichier est Vide ou alors on est arrivé vers la fin du fichier.
+
+		8 - Quitter le programme avec libération de l'espace.
+
+Le programme affiche "Erreur: Ce choix ne figure pas dans le menu. Veuillez taper un chiffre entre 1 et 8.
+
+Je compile mon programme avec la commande : gcc TP12-Hamiche_Safia.c -o tp12 -Wall -ansi
+
+Exécution du programme : ./tp12
+
+tar -cvjf TP12-Hamiche_Safia.tar.bz2 ./Hamiche_Safia/
+		
+		

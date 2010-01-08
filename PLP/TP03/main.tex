@@ -1,0 +1,194 @@
+\documentclass[a4paper]{article}
+	\usepackage{Lapin}
+	\newenvironment{Correction}{\par\tiny\blue\rule[1ex]{\textwidth}{1pt}\par\normalsize\textbf{\sffamily{}Correction de l'exercice~\theExo{} -- }}{\par\tiny\blue\rule[1ex]{\textwidth}{1pt}\par}
+	\newtheorem{Exo}{{\sffamily{Exercice}}}
+	\title{Branchements conditionnels}
+	\author{Philippe \Nom{Rinaudo}\and{}Jean \Nom{Simard}}
+	\date{\Date[l]{08}{10}{2009}}
+\begin{document}
+	\maketitle
+	\section{Le branchement \code{if}}
+		Le branchement \code{if} est appelé \emph{branchement conditionnel}.
+		C'est le branchement conditionnel de base.
+		Il permet d'effectuer une opération seulement si une condition est respectée.
+		Si cette condition n'est pas respectée, il est possible d'effectuer une autre opération.
+
+		Commençons par la clause \code{if}.
+		On rédigera
+		\begin{Code*}
+if( <condition> )
+{
+	<operation 1>;
+}
+		\end{Code*}
+
+		Dans le cas où on désire qu'une autre opération soit effectuée si la condition n'est pas respectée, on utilisera la clause \code{else}.
+		\begin{Code*}
+if( <condition> )
+{
+	<operation 1>;
+}
+else
+{
+	<operation 2>;
+}
+		\end{Code*}
+
+		\code{<condition>} est une expression booléenne qui retourne soit \code{1}, soit \code{0}.
+		La condition est considérée comme vraie si l'expression booléenne retourne \code{1}.
+		On en déduit que la clause \code{else} (\code{<operation 2>}) est exécutée si \code{<condition>} retourne \code{0}.
+
+		\begin{Exo}
+			Écrire un programme qui propose d'entrer son âge et qui affiche, selon l'âge, si la personne est majeure ou non.
+			\textbf{Rappel} : L'âge de la majorité en \bsc{France} est 18~ans.
+		\end{Exo}
+		\begin{Correction}
+			Pour la correction de cet exercice, on peut utiliser quelques notions vues au TP précédent.
+			Dans ce cas, un âge ne peut pas être un nombre négatif donc on va utiliser le mot-clef \code{unsigned}.
+			\FichierCode{MajeurMineur.c}{cod-MajeurMineur}
+		\end{Correction}
+		\begin{Exo}
+			Écrire un programme qui demande d'entrer un nombre entre $0$ et $10$ correspondant à une note.
+			Si le nombre est inférieur à $5$, afficher «~\emph{Vous n'avez pas la moyenne}~», si le nombre est supérieur ou égal à la moyenne, afficher «~\emph{Vous avez la moyenne}~».
+			Vérifiez également que le nombre entré est compris entre $0$ et $10$, sinon, afficher «~\emph{Note incorrecte}~».
+		\end{Exo}
+		\begin{Correction}
+			Ici nous allons utiliser pour la première fois des opérateurs booléens (\code{&&}).
+			\FichierCode{Note.c}{cod-NoteC}
+		\end{Correction}
+
+	\section{Le branchement \code{switch}}
+		Le branchement conditionnel \code{switch} permet d'effectuer différentes opérations en fonction de la valeur d'une variable.
+		Contrairement au branchement \code{if}, la condition testée n'est pas booléenne mais numérique.
+		On peut donc accéder à de multiples branches.
+		\begin{Code*}
+switch( <expression> )
+{
+	case <valeur 1> :
+		<operation 1>;
+	case <valeur 2> :
+		<operation 2>;
+	case <valeur 3> :
+		<operation 3>;
+	...
+	default :
+		<operation n>;
+
+}
+		\end{Code*}
+
+		Si \code{<expression>} est égal à \code{<valeur 2>}, alors c'est \code{<operation 2>} qui est exécuté.
+		Si \code{<expression>} ne correspond à aucune valeur, alors \code{<operation n>} est exécuté (clause \code{default}).
+		Cependant, lorsqu'une branche est validée, toutes les opérations qui suivent sont exécutées.
+		Par exemple, si \code{<expression>} est égal à \code{<valeur 1>}, alors \code{<operation 1>} est executé mais aussi \code{<operation 2>}, \code{<operation 3>}\dots{} jusqu'à \code{<operation n>}.
+		Bien souvent, un tel fonctionnement n'est pas très utile.
+		Mais le langage \bsc{c} propose le mot-clef \code{break} pour résoudre ce problème.
+		Lorsque le programme rencontre le mot \code{break} au sein du branchement conditionnel \code{switch}, il sort directement de ce branchement conditionnel.
+		On peut donc écrire à nouveau un modèle plus complet du branchement conditionnel \code{switch}.
+		\begin{Code*}
+switch( <expression> )
+{
+	case <valeur 1> :
+		<operation 1>;
+		break;
+	case <valeur 2> :
+		<operation 2>;
+		break;
+	case <valeur 3> :
+		<operation 3>;
+		break;
+	...
+	default :
+		<operation n>;
+		break;
+
+}
+		\end{Code*}
+
+		\begin{Exo}\label{exo-MenuAChoix}
+			Écrire un programme qui lit un caractère en entrée et :
+			\begin{itemize}
+				\item propose d'entrer son âge et affiche «~\emph{Majeur}~» ou «~\emph{Mineur}~» (suivant l'âge entré) lorsque le caractère \code{'a'} est entré;
+				\item affiche «~\emph{Au revoir}~» lorsque le caractère \code{'q'} est entré;
+				\item affiche «~\emph{Choix non-autorise}~» lorsqu'un autre caractère est entré.
+			\end{itemize}
+		\end{Exo}
+		\begin{Correction}
+			Pour le choix du caractère \code{'a'}, on va réutiliser le code source de l'exercice précédent \CodRef[v]{cod-MajeurMineur}.
+			\FichierCode{SwitchMenu.c}{cod-SwitchMenu}
+		\end{Correction}
+		\begin{Exo}
+			Reprendre l'exercice~\vref{exo-MenuAChoix} et le modifier pour que les lettres prises en compte soient les minuscules et les majuscules.
+		\end{Exo}
+		\begin{Correction}
+			Pour ajouter les majuscules dans le programme, on va reprendre le programme précédent \CodRef[v]{cod-SwitchMenu}.
+			On va simplement rajouter le cas de la majuscule à côté de la lettre en minuscule.
+			\begin{Code*}
+	...
+	switch( getchar() )
+	{
+		case 'a' :
+		case 'A' :
+		{
+			...
+		}
+		case 'q' :
+		case 'Q' :
+		{
+			...
+		}
+	}
+			\end{Code*}
+		\end{Correction}
+	\section{Approfondissement}
+		\begin{Exo}[Conversions]
+			Nous allons créer un programme qui va nous permettre de convertir une température entre l'échelle de \bsc{Celsius}, l'échelle de \bsc{Fahrenheit} ou l'échelle de \bsc{Kelvin}\footnote{Pour connaître les formules de conversion, allez voir le site \url{http://fr.wikipedia.org}}.
+
+			Le programme doit commencer par proposer une échelle pour la température à convertir.
+			Ensuite, l'utilisateur doit pouvoir entrer la valeur de la température à convertir.
+			Enfin, le programme doit proposer l'échelle dans laquelle la température doit être convertie.
+
+			Voici un exemple d'exécution du programme.
+			\begin{Code*}[language=]
+$~$ ./conversion
+### Programme de conversion ###
+1 - Kelvin
+2 - Celsius
+3 - Fahrenheit
+Choisissez l'echelle de la temperature a convertir : 1
+Entrez la temperature a convertir : 273.15
+1 - Celsius
+2 - Fahrenheit
+Choisissez l'echelle de conversion : 1
+
+Une temperature de 273.15K correspond a 0.0C.
+### Fin du programme ###
+$~$
+			\end{Code*}
+		\end{Exo}
+		\begin{Correction}
+			\FichierCode{Conversion.c}{cod-ConversionC}
+		\end{Correction}
+		\begin{Exo}[Calculatrice]
+			Nous avons vu au dernier TP un exemple de calculatrice assez basique.
+			Nous allons maintenant combiner nos connaissances pour créer une calculatrice un peu plus interactive.
+			L'utilisateur devra pouvoir entrer une expression du type \code{34+45} et le programme devra lui donner le résultat.
+			Les opérateurs qui devront être pris en compte sont \code{'+'}, \code{'-'}, \code{'*'} et \code{'/'}.
+
+			Voici un exemple d'exécution du programme.
+			\begin{Code*}[language=]
+$~$ ./calculatrice
+### Calculatrice ###
+Entrez un calcul (A<operateur>B)
+12+25
+Le resultat est 37.
+### Fin du programme ###
+$~$
+			\end{Code*}
+			Utilisez pour cela la fonction \code{scanf} et récupérez la valeur renvoyée par cette fonction afin de quitter lors d'une erreur.
+		\end{Exo}
+		\begin{Correction}
+			Dans cet exemple, on va utiliser d'une façon plus complexe la fonction \code{scanf} pour lire et initialiser plusieurs variables en une seule instruction.
+			\FichierCode{Calculatrice.c}{cod-CalculatriceC}
+		\end{Correction}
+\end{document}

@@ -1,0 +1,249 @@
+                                         ********************************
+                                         *  Université de Paris-Sud 11  *                              16 / 10 / 09
+                                         * Faculté des Sciences d'Orsay *                                                  
+                                         *  Master CCI 2009-2010        *
+                                         *+++++++++++++++++++++++++++++++                             
+                                         *------KARRAB Houcine------    *                        
+                                         ********************************
+                                          *********************************************************************************************************************************                  
+*                                         --- Mini-projet 1 ------                                                                   *********************************************************************************************************************************
+
+
+Exercice 1 :Crible d'Eratosthène
+
+ a) Explications et commentaires
+
+
+-librairie permettant l'utilisation les fonctions printf et scanf
+
+-définitions des constantes du programme 
+
+-déclaration des variables utilisées
+
+-fonction principale
+
+
+
+
+
+
+ b) Commandes utilisées 
+
+
+Compilation :  gcc crible.c  -o crible
+Exécution   :  ./crible
+
+--------------------------------
+Exemple d'exécution du programme
+--------------------------------
+
+Exemple1
+--------
+
+### Crible d'Eratosthène ###
+Entrer un entier : 20
+Voici le crible d' Eratosthene jusqu'à l' entier 20 	 
+ 2
+ 3
+ 5
+ 7
+ 11
+ 13
+ 17
+ 19
+[hkarrab@dc03 Projet01]$ 
+
+
+Exemple2
+--------
+[hkarrab@dc03 Projet01]$ ./crible
+
+### Crible d'Eratosthène ###
+Entrer un entier : -1
+Il faut choisir un nombre entier superieur a 2.
+[hkarrab@dc03 Projet01]$ ./crible
+
+### Crible d'Eratosthène ###
+Entrer un entier : 0
+Il faut choisir un nombre entier superieur a 2.
+[hkarrab@dc03 Projet01]$ ./crible
+
+### Crible d'Eratosthène ###
+Entrer un entier : y
+Il faut choisir un nombre entier superieur a 2.
+
+Exemple 3
+
+[hkarrab@dc03 Projet01]$ ./crible
+
+### Crible d'Eratosthène ###
+Entrer un entier : 50
+Voici le crible d' Eratosthene jusqu'à l' entier 50 	 
+ 2
+ 3
+ 5
+ 7
+ 11
+ 13
+ 17
+ 19
+ 23
+ 29
+ 31
+ 37
+ 41
+ 43
+ 47
+
+
+Exercice 2 : Jeu de Blackjac.
+
+
+ a) Explications et commentaires
+   ------------------------------
+-librairie permettant l'utilisation des fonctions printf et scanf
+
+-déclaration du type enuméré
+
+-déclaration des variables utilisées 
+
+-fonction principale
+
+    
+
+
+
+b) Commandes utilisées 
+-----------------------
+[hkarrab@dc03 Projet01]$ gcc jeu.c -o jeu
+[hkarrab@dc03 Projet01]$ ./jeu
+
+
+--------------------------------
+Exemple d'exécution du programme
+--------------------------------
+[hkarrab@dc03 Projet01]$ gcc jeu.c -o jeu
+[hkarrab@dc03 Projet01]$ ./jeu
+Votre score est : 0
+Voulez-vous tirer une nouvelle carte [y/n] ? y
+
+Vous tirez un dame trefle 
+Votre score est : 10
+Voulez-vous tirer une nouvelle carte [y/n] ? y
+
+Vous tirez un 7 pique 
+Votre score est : 17
+Voulez-vous tirer une nouvelle carte [y/n] ? y
+
+Vous tirez un 6 carreau 
+Score Banque est   : 	 20 
+ votre score est : 23 	, PERDU 
+[hkarrab@dc03 Projet01]$ 
+
+Exemple 2
+
+[hkarrab@dc03 Projet01]$ gcc jeu.c -o jeu
+[hkarrab@dc03 Projet01]$ ./jeu
+Votre score est : 0
+Voulez-vous tirer une nouvelle carte [y/n] ? y
+
+Vous tirez un as carreau 
+Votre score est : 11
+Voulez-vous tirer une nouvelle carte [y/n] ? y
+
+Vous tirez un 9 trefle 
+Votre score est : 20
+Voulez-vous tirer une nouvelle carte [y/n] ? g
+
+Voulez-vous tirer une nouvelle carte [y/n] ? h
+
+Voulez-vous tirer une nouvelle carte [y/n] ? y
+
+Vous tirez un roi Coeur 
+Votre score est : 20
+Voulez-vous tirer une nouvelle carte [y/n] ? y
+
+Vous tirez un 8 carreau 
+Score Banque est   : 	 19 
+ votre score est : 28 	, PERDU 
+[hkarrab@dc03 Projet01]$ 
+
+Exemple 3:
+[hkarrab@dc03 Projet01]$ ./jeu
+Votre score est : 0
+Voulez-vous tirer une nouvelle carte [y/n] ? y
+
+Vous tirez un 10 pique 
+Votre score est : 10
+Voulez-vous tirer une nouvelle carte [y/n] ? y
+
+Vous tirez un as pique 
+Score Banque est   : 	 20 
+votre score est : 21 	, GAGNE 
+[hkarrab@dc03 Projet01]$ 
+
+Exemple 4
+[hkarrab@dc03 Projet01]$ gcc jeu.c -o jeu
+[hkarrab@dc03 Projet01]$ ./jeu
+Votre score est : 0
+Voulez-vous tirer une nouvelle carte [y/n] ? y
+
+Vous tirez un 7 trefle 
+Votre score est : 7
+Voulez-vous tirer une nouvelle carte [y/n] ? y
+
+Vous tirez un roi Coeur 
+Votre score est : 17
+Voulez-vous tirer une nouvelle carte [y/n] ? y
+
+Vous tirez un 3 carreau 
+Votre score est : 20
+Voulez-vous tirer une nouvelle carte [y/n] ? y
+
+Vous tirez un 6 pique 
+Score Banque est   : 	 20 
+ votre score est : 26 	, PERDU 
+[hkarrab@dc03 Projet01]$ 
+
+Exemple 5
+
+[hkarrab@dc03 Projet01]$ gcc jeu.c -o jeu
+[hkarrab@dc03 Projet01]$ ./jeu
+Votre score est : 0
+Voulez-vous tirer une nouvelle carte [y/n] ? y
+
+Vous tirez un dame carreau 
+Votre score est : 10
+Voulez-vous tirer une nouvelle carte [y/n] ? y
+
+Vous tirez un 8 carreau 
+Votre score est : 18
+Voulez-vous tirer une nouvelle carte [y/n] ? n
+
+Score Banque est   : 	 19 
+ votre score est : 18 	, PERDU 
+[hkarrab@dc03 Projet01]$ 
+
+Exemple 6 
+
+[hkarrab@dc03 Projet01]$ ./jeu
+Votre score est : 0
+Voulez-vous tirer une nouvelle carte [y/n] ? y
+
+Vous tirez un roi carreau
+Votre score est : 10
+Voulez-vous tirer une nouvelle carte [y/n] ? y
+
+Vous tirez un 6 Coeur 
+Votre score est : 16
+Voulez-vous tirer une nouvelle carte [y/n] ? y
+
+Vous tirez un 2 Coeur 
+Votre score est : 18
+Voulez-vous tirer une nouvelle carte [y/n] ? n
+
+Score Banque est   : 	 16 
+votre score est : 18 	, GAGNE 
+[hkarrab@dc03 Projet01]$ 
+
+

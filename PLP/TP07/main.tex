@@ -1,0 +1,155 @@
+\documentclass[a4paper]{article}
+	\usepackage{Lapin}
+	\newtheorem{Exo}{Exercice}
+	\newenvironment{Correction}{\par\tiny\blue\rule[1ex]{\textwidth}{1pt}\par\normalsize\textbf{Correction de l'exercice~\theExo{} -- }}{\par\tiny\blue\rule[1ex]{\textwidth}{1pt}\par}
+	\title{Les pointeurs, une courte introduction}
+	\author{Philippe \Nom{Rinaudo}\and{}Jean \Nom{Simard}}
+	\date{\Date[l]{23}{10}{2009}}
+\begin{document}
+	\maketitle
+	\section{Rappel sur les pointeurs}
+		Nous allons à présent travailler pendant plusieurs séances sur les pointeurs.
+		Ils vont nous permettre de manipuler la mémoire de façon plus contrôlée, mais aussi de façon plus dangereuse si on ne prend pas quelques précautions.
+		Cela va également nous permettre enfin d'expliquer certaines notations déjà vues mais encore inexpliquées comme le caractère \code{'&'} utilisé dans la fonction \code{scanf} ou encore le mystérieux \code{char ** argv} de la fonction \code{main}.
+
+		Jusqu'à présent, nous utilisons de nombreuses variables qui utilise un espace mémoire bien défini.
+		Nous avons par exemple vu que le type \code{char} utilise 1~octet d'espace mémoire (soit 8~bits).
+		L'introduction des pointeurs va nous permettre de savoir quel endroit de la mémoire est utilisé pour enregistrer une variable.
+
+		Il faut savoir que chaque espace de la mémoire est référencé par une adresse, souvent exprimée en hexadécimal \TabRef[v]{tab-AdressesMemoire}.
+		\begin{Table}{Adresses de la mémoire}{tab-AdressesMemoire}{r|c|}
+			\cline{2-2}
+			\verb~FFFF~ & \verb~01010101~ \\
+			\cline{2-2}
+			\verb~FFFE~ & \verb~11111111~ \\
+			\cline{2-2}
+			\verb~FFFD~ & \verb~00000001~ \\
+			\cline{2-2}
+			& \dots{} \\
+			\cline{2-2}
+			\verb~0001~ & \verb~10011001~ \\
+			\cline{2-2}
+			\verb~0000~ & \verb~00110010~ \\
+			\cline{2-2}
+		\end{Table}
+
+		Ainsi, en déclarant une quelconque variable \code{iInt} de type \code{int} par exemple, on peut accéder à l'adresse mémoire de cette variable avec la notation \code{&iInt}.
+		On peut récupérer cette nouvelle valeur dans une autre variable de type pointeur.
+		Dans ce cas, ce sera un pointeur d'entier (un pointeur de \code{int}) qu'on déclarera de la façon suivante
+		\begin{Code*}
+int iInt = 0;
+int * piPointeurInt = &iInt;
+		\end{Code*}
+		À partir de ce pointeur, il nous est possible d'accéder à deux valeurs concernant la variable \code{iInt}.
+		Tout d'abord, on peut accéder à l'adresse en mémoire de cette variable qui est la valeur de la variable \code{piPointeurInt}.
+		Mais on peut également accéder à la valeur \emph{pointée} par cette adresse en écrivant \code{*piPointeurInt} \FigRef[v]{fig-IllustrationDesPointeurs}.
+		\begin{itemize}
+			\item \code{piPointeurInt} : adresse;
+			\item \code{*piPointeurInt} : valeur pointée par l'adresse désignée par \code{piPointeurInt}.
+		\end{itemize}
+		\begin{FigurePS}{Illustration des pointeurs}{fig-IllustrationDesPointeurs}{(-4,-2.5)(4,2.5)}
+			\psset{linecolor=gray,framesize=2cm 0.5cm}
+			\fnode[linecolor=gray,linestyle=dashed,framesize=2cm 0.5cm](0,2){D581}
+			\fnode[linecolor=gray,framesize=2cm 0.5cm](0,1.5){D580}
+			\fnode[linecolor=gray,framesize=2cm 0.5cm](0,0.5){D57E}
+			\fnode[linecolor=gray,framesize=2cm 0.5cm](0,0){D57D}
+			\fnode[linecolor=gray,framesize=2cm 0.5cm](0,-0.5){D57C}
+			\fnode[linecolor=gray,framesize=2cm 0.5cm](0,-1.5){D57A}
+			\fnode[linecolor=gray,linestyle=dashed,framesize=2cm 0.5cm](0,-2){D579}
+			\psset{linecolor=black,linewidth=1pt}
+			\fnode[framesize=2cm 0.5cm](0,1){D57F}
+			\fnode[framesize=2cm 0.5cm](0,-1){D57B}
+			\uput[180](-1,1.5){\gray \code~D580~}
+			\uput[180](-1,0.5){\gray \code~D57E~}
+			\uput[180](-1,0){\gray \code~D57D~}
+			\uput[180](-1,-0.5){\gray \code~D57C~}
+			\uput[180](-1,-1.5){\gray \code~D57A~}
+			\uput[180](-1,1){\code~D57F~}
+			\uput[180](-1,-1){\code~D57B~}
+			\uput[45](1,1){\code~piPointeurInt~}
+			\rput(0,1){\code~D57B~}
+			\uput[-45](1,-1){\code~iInt~}
+			\rput(0,-1){\code~65536~}
+			\ncangle[angleA=0,angleB=0,linearc=.1,arrows=->]{D57F}{D57B}
+			\naput{\code~*piPointeurInt~}
+		\end{FigurePS}
+		\begin{Exo}
+			Écrire un programme demandant à l'utilisateur d'entrer un chiffre entier et l'enregistre dans une variable de type \code{int}.
+			Afficher sa valeur et l'adresse mémoire (en hexadécimal) de cette variable.
+		\end{Exo}
+		\begin{Correction}
+			\FichierCode{AfficherMemoire.c}{cod-AfficherMemoireC}
+		\end{Correction}
+		\begin{Exo}
+			Transformer le programme précédent en utilisant des variables de type pointeur.
+		\end{Exo}
+		\begin{Correction}
+			\FichierCode{AfficherMemoirePointeur.c}{cod-AfficherMemoirePointeurC}
+		\end{Correction}
+	\section{Passage par valeur, passage par référence}
+		Nous connaissons à présent le fonctionnement des pointeurs.
+		Mais quel est l'intérêt de ces objets en programmation.
+		Dans ce TP, nous allons découvrir un premier intérêt des pointeurs.
+
+		Revenons rapidement au TP précédent qui avait pour objectif la découverte des fonctions.
+		Nous avons vu que les fonctions pouvaient être appelée avec des arguments.
+		Par exemple, lorsqu'on écrit \code{factorielle( iN )}, on fait appel à la fonction \code{factorielle} avec la valeur \code{iN} en argument.
+		On appelle cela le \emph{passage par valeur} des arguments.
+		Lorsqu'on fait cet appel, on fait une copie de la valeur \code{iN} dans la variable locale \code{n} utilisé localement dans la fonction \code{factorielle} (voir TP précédent pour le code source de la fonction \code{factorielle}).
+		Que se passe-t-il si nous voulons modifier la valeur de \code{iN} -- qui est une variable locale à la fonction \code{main} -- dans la fonction \code{factorielle}.
+		On pourrait par exemple mettre le résultat directement dans la variable \code{iN}.
+		Les pointeurs vont nous permettre de faire cette opération.
+
+		Pour résoudre ce problème, on va envoyer l'adresse de la variable au lieu de la valeur.
+		On appelle cela le \emph{passage par référence}.
+		La fonction \code{factorielle} va donc prendre en argument un pointeur d'entier en modifier directement la valeur de \code{iN}.
+		On surpasse donc les notions de local ou global en connaissant directement l'adresse de la variable.
+
+		On trouve un autre avantage à ce passage par référence.
+		Dans le cas où on désire donner une structure complexe, le passage par valeur effectue une copie de toutes les valeurs de la structure ce qui prend du temps et de la mémoire.
+		Si on effectue un passage par référence, une seule valeur est transmise à la fonction et l'espace mémoire de la structure reste inchangée.
+		\begin{Exo}
+			Créer une structure \code{struct} pour un point à deux dimensions, écrire une fonction qui permette d'effectuer
+			\begin{itemize}
+				\item un affichage des coordonnées;
+				\item une translation;
+				\item une rotation;
+				\item une symétrie par rapport à un point.
+			\end{itemize}
+		\end{Exo}
+		\begin{Correction}
+			Pour accéder aux champs d'une structure, on utilise la notation \code{UneStruct.UnChamp}.
+			Tout naturellement, on écrira donc avec les pointeurs \code{(*UneStruct).UnChamp}.
+			En langage \Nom{c}, une autre écriture strictement équivalente existe.
+			Cette écriture est \code{UneStruct->UnChamp}.
+			\FichierCode{Point.c}{cod-PointC}
+		\end{Correction}
+	\section{Pointeurs et chaînes de caractères}
+		En utilisant les chaînes de caractères, nous avons déjà utilisé les notions de pointeurs sans s'en rendre compte.
+		En effet, lorsqu'on déclare un tableau de \code{char} pour y enregistrer une chaîne de caractère, on créé un pointeur avec l'espace mémoire qui lui correspond.
+
+		Par exemple, si on déclare une variable \code{cChaine} de la façon suivante
+		\begin{Code*}
+char cChaine[64] = "Bonjour tout le monde !";
+		\end{Code*}
+		la variable est alors un pointeur sur une donnée de type \code{char}.
+		C'est l'adresse du premier caractère de la chaîne donc l'adresse du caractère \code{'B'}.
+		On va donc pouvoir utiliser cette adresse pour accéder au caractère suivant.
+		Ainsi, si \code{*cChaine} correspond au caractère \code{'B'}, \code{*(cChaine + 1)} va correspondre au caractère suivant \code{'o'} et \code{*(cChaine + 2)} au caractère \code{'n'}\dots{}
+		On constate alors que les écritures \code{cChaine[n]} et \code{*(cChaine + n)} sont équivalentes.
+
+		\begin{Exo}
+			Écrire un programme de recherche de chaîne de caractères au sein d'une autre.
+			Par exemple, on veut trouver la position de la première lettre de \code{"jour"} dans la chaîne de caractères \code{"Bonjour tout le monde !"}.
+			Pour cela, il faudra créer une fonction qui demande comme argument, la chaîne de caractères totale et la chaîne de caractères 
+			 chercher.
+			 La fonction renverra la position du premier caractère de la chaîne cherchée dans la chaîne principale.
+			 Si la chaîne n'est pas trouvée, la fonction renvoie la valeur zéro.
+			 Voici un exemple d'exécution du programme \CodRef[v]{cod-RechercheTXT}.
+			 \FichierCode[caption={Exemple d'exécution du programme de recherche},numbers=none,language={}]{Recherche.txt}{cod-RechercheTXT}
+		\end{Exo}
+		\begin{Correction}
+			Les corrections de cet exercice peuvent être nombreuses et celle proposée ici n'est qu'un exemple parmi d'autres.
+			\FichierCode{Recherche.c}{cod-RechercheC}
+		\end{Correction}
+\end{document}

@@ -1,0 +1,536 @@
+\documentclass[a4paper]{article}
+	\usepackage{Lapin}
+	\newenvironment{Correction}{\par\tiny\blue\rule[1ex]{\textwidth}{1pt}\par\normalsize\textbf{\sffamily{}Correction de l'exercice~\theExo{} -- }}{\par\tiny\blue\rule[1ex]{\textwidth}{1pt}\par}
+	\newtheorem{Exo}{{\sffamily{Exercice}}}
+	\title{Type de données}
+	\author{Philippe \Nom{Rinaudo}\and{}Jean \Nom{Simard}}
+	\date{\Date[l]{06}{10}{2009}}
+\begin{document}
+	\maketitle
+	\section{Quelques conseils pour bien programmer}
+		Nous allons commencer par donner quelques bonnes habitudes à prendre pour avoir une programmation lisible et simplifiée.
+		Une des premières bonne manière de programmer est d'utiliser un éditeur de texte doté de la coloration syntaxique.
+		Une chance, la plupart sont déjà pourvu de cette fonctionnalité et vous n'avez rien à faire.
+		Mais parlons des habitudes que vous aurez à prendre.
+		\subsection{L'indentation}
+			Qu'est-ce que l'indentation ?
+			Vous avez eu l'occasion de découvrir que le langage \bsc{c} s'écrit avec des blocs délimités par \code+{+ et \code+}+.
+			D'ailleurs, il en de même pour la plupart des langages de programmation.
+			Il est donc intéressant de pouvoir apercevoir au premier coup d'œil ces blocs.
+			L'indentation va nous permettre de mettre en page le code source de façon à faire ressortir ces blocs.
+
+			Un exemple est plus parlant alors donnons un exemple.
+			Nous allons reprendre le programme \emph{Hello World} vu au TP précédent.
+			Voici la version non-indentée de ce programme.
+			\begin{Code}{\emph{Hello World} non-indenté}{cod-HelloWorldNonIndente}
+# include <stdio.h>
+int main( int argc, char ** argv )
+{
+printf( "Hello World!\n" );
+return 0;
+}
+			\end{Code}
+			et voici la version indentée de ce programme.
+			\begin{Code}{\emph{Hello World} indenté}{cod-HelloWorldIndente}
+# include <stdio.h>
+int main( int argc, char ** argv )
+{
+	printf( "Hello World!\n" );
+	return 0;
+}
+			\end{Code}
+
+			Bien sûr, la différence sur un petit programme comme celui-ci n'est pas énorme mais vous constaterez rapidement que sur des programmes plus complexes avec plusieurs blocs imbriqués, la lisibilité d'un code source indenté est bien meilleure.
+		\subsection{Le nom des variables}
+			Aujourd'hui, nous allons aborder les variables.
+			Les variables d'un programme sont déclarées au début d'un bloc ou au début du programme.
+			Ensuite, elles peuvent apparaître à n'importe quel endroit dans le programme.
+			Il est donc très important de pouvoir savoir à n'importe quel endroit à quoi correspond une variable.
+			C'est pour cette raison qu'il est nécessaire de lui donner un nom explicite dès le début.
+
+			De nouveau, prenons un exemple.
+			Considérons les trois variables de \emph{jour}, \emph{mois} et \emph{année} pour définir une date.
+			Nous pouvons donc donner comme nom de variable \code{Jour}, \code{Mois} et \code{Annee} au trois variables.
+			\textbf{Attention, n'utilisez pas d'accents dans un programme en \bsc{c}.}
+			Il faut absolument éviter de donner des noms tels que \code{A}, \code{B} et \code{C} ou encore \code{tata}, \code{titi} et \code{toto}.
+
+			Allons un peu plus loin.
+			Vous avez pu constater que les variables en \bsc{c} sont typées.
+			Pourquoi ne pas indiquer également le type de la variable dans son nom.
+			Dans notre précédent exemple, \code{Jour}, \code{Mois} et \code{Annee} sont trois entiers donc de type \code{int}.
+			Nous pourrions donc utiliser par exemple la première lettre pour indiquer le type comme par exemple \code{iJour}, \code{iMois} et \code{iAnnee}.
+
+			Ce que je donne comme exemple ci-dessus ne sont que des propositions.
+			À vous de choisir votre méthode pour choisir les noms de variables.
+		\subsection{L'espacement}
+			Il est également conseillé d'écrire de façon aérée.
+			Ne pas être fainéant sur la touche espace donne également une meilleure lisibilité à votre code source.
+			Là aussi, à vous de choisir une bonne habitude et de vous y tenir.
+			L'essentiel est que vous soyez cohérent tout au long du fichier.
+
+			Par exemple, pour l'initialisation d'une variable
+			\begin{Code*}
+float fMoyenne = fSomme / 10.0f;
+			\end{Code*}
+			est plus lisible que
+			\begin{Code*}
+float fMoyenne=fSomme/10.0f;
+			\end{Code*}
+		\subsection{Exemple / Contre-exemple}
+			Je vais donner ici in exemple de code source où j'ai appliqué les règles énoncées ci-dessus et un autre où j'ai exagéré les mauvaises habitudes de programmation.
+			\begin{Code}{Code avec les règles}{cod-CodeAvecLesRegles}
+# include <stdio.h>
+
+int main( int argc, char ** argv )
+{
+	int iJour = 7, iMois = 10, iAnnee = 2008;
+	printf( "La date du jour est %d-%d-%d.\n",\
+		iJour, iMois, iAnnee );
+
+	return 0;
+}
+			\end{Code}
+			\begin{Code}{Code sans les règles}{cod-CodeSansLesRegles}
+# include <stdio.h>
+int main(int argc, char **argv){int i=7,j=10,k=2008;
+printf("La date du jour est %d-%d-%d.\n",i,j,k);
+return 0;}
+			\end{Code}
+
+			Bien que les programmes fonctionnent tous les deux et qu'ils donnent le même résultat, il sera plus facile de relire le premier pour le modifier ultérieurement.
+
+	\section{Les variables et leur type}
+		Nous allons aujourd'hui nous familiariser avec le concept de variable qui est un concept très important de la programmation.
+		Une variable est un espace de la mémoire dans lequel on souhaite sauvegarder une valeur d'un type particulier.
+		Commençons par voir comment déclarer une telle variable.
+		\subsection{Déclaration d'une variable}
+			Afin qu'un programme \bsc{c} puisse accéder à une variable, il faut au préalable lui déclarer cette variable.
+			On va donc signaler au compilateur qu'une variable existe en précisant :
+			\begin{itemize}
+				\item son nom qu'on appelle \emph{identificateur}\footnote{Un \emph{identificateur} peut être constitué de lettres, de chiffres ou du caractère \code{'_'}.
+			Cependant, le premier caractère de la variable ne doit pas être un chiffre.};
+				\item son type qui décrit la nature de la variable (\code{int}, \code{char}, \code{float}\dots{});
+				\item sa valeur qui est facultative au moment de la déclaration\footnote{Bien que la valeur d'une variable soit facultative au moment de la déclaration, il est fortement conseillé de lui indiquer une valeur dès la déclaration.
+				Cela permet d'éviter d'éventuelles erreurs dans la suite du programme.
+				On parle alors d'initialisation de la variable.
+				Cette pratique fait partie des bonnes habitudes de programmation.}.
+			\end{itemize}
+
+			Pour déclarer une variable, on commence par indiquer le type, puis on donne le nom et enfin, on l'initialise.
+			Par exemple, pour déclarer une variable \code{iJour} de type entier initialisé avec la valeur \code{7}, on écrira
+			\begin{Code*}
+int iJour = 7;
+			\end{Code*}
+
+			De plus, dans le précédent TP, nous avons vu comment utiliser la fonction \code{printf} afin qu'elle affiche des valeurs.
+			En l'occurence, pour afficher un entier, on avait utilisé le caractère de contrôle \code{%d}.
+			\begin{Exo}
+				Recopiez le \CodRef{cod-CodeAvecLesRegles} et compilez-le.
+			\end{Exo}
+			\begin{Correction}
+				L'exécution du programme donne le résultat suivant.
+				\begin{Code*}
+La date du jour est 6-10-2009.
+				\end{Code*}
+			\end{Correction}
+
+			Dans le programme que vous venez de compiler, à chaque endroit où apparaît le nom de la variable \code{iJour}, le compilateur comprend qu'il faut qu'il utilise la valeur qui correspond à cette variable, c'est-à-dire \code{7}.
+			Il opère de la même façon pour les variables \code{iMois} et \code{iAnnee}.
+
+			On peut également modifier une variable au cours du programme.
+			Ceci peut être fait en écrivant
+			\begin{Code*}
+iJour = 2;
+			\end{Code*}
+			Par exemple, utilisons un programme en \bsc{c} en guise de calculatrice.
+			\begin{Code}{Calculatrice simple}{cod-CalculatriceSimple}
+# include <stdio.h>
+
+int main( int argc, char ** argv )
+{
+	/* On commence par initialiser la variable a zero */
+	int iResultat = 0;
+	/* On effectue un calcul */
+	iResultat = ( 87 + 113 ) * 2;
+	/* Puis on affiche le resultat */
+	printf( "( 87 + 113 ) * 2 = %d\n", iResultat );
+
+	return 0;
+}
+			\end{Code}
+
+			\begin{Exo}
+				Recopiez le \CodRef{cod-CalculatriceSimple} et compilez-le.
+			\end{Exo}
+			\begin{Correction}
+				L'exécution du programme donne le résultat suivant.
+				\begin{Code*}
+( 87 + 113 ) * 2 = 400
+				\end{Code*}
+			\end{Correction}
+
+		\subsection{Portée d'une variable}
+			Un programme \bsc{c} classique est composé de plusieurs blocs.
+			Si une variable est déclarée dans un bloc, elle existera dans ce bloc et seulement dans ce bloc.
+			On dira alors que cette variable est une variable \emph{locale}.
+
+			Par opposition, on dira qu'une variable déclarée en dehors de tout bloc sera une variable \emph{globale}.
+			\begin{Code}{Variable globale vs Variable locale}{cod-VariableGlobalevsVariableLocale}
+# include <stdio.h>
+int iVarGlobale = 0;
+
+int main( int argc, char ** argv )
+{
+	int iVarLocale = 1;
+	/* Nouveau bloc */
+	{
+		int iAutreVarLocale = 2;
+	}
+	printf( "iVarGlobale = %d\n", iVarGlobale );
+	printf( "iVarLocale = %d\n", iVarLocale );
+	printf( "iAutreVarLocale = %d\n", iAutreVarLocale );
+
+	return 0;
+}
+			\end{Code}
+			\begin{Exo}
+				Recopiez le \CodRef{cod-VariableGlobalevsVariableLocale} et compilez-le.
+			\end{Exo}
+			\begin{Correction}
+				La compilation de ce programme nous donne les erreurs suivantes.
+				\begin{Code*}
+GlobalvsLocal.c: In function 'main':
+GlobalvsLocal.c:10: warning: unused variable 'iAutreVarLocale'
+GlobalvsLocal.c:14: error: 'iAutreVarLocale' undeclared (first use in this function)
+GlobalvsLocal.c:14: error: (Each undeclared identifier is reported only once
+GlobalvsLocal.c:14: error: for each function it appears in.)
+				\end{Code*}
+			\end{Correction}
+			\begin{Exo}
+				Pourquoi la compilation donne-t-elle une erreur ? Corrigez le programme pour qu'il compile.
+			\end{Exo}
+			\begin{Correction}
+				La variable \code{iAutreVarLocale} étant déclarée dans un bloc indépendant, elle n'existe que dans ce bloc donc elle n'est pas accessible en dehors de ce bloc.
+				Voici une correction possible de ce code source.
+				\FichierCode{GlobalvsLocal.c}{cod-GlobalVsLocalC}
+			\end{Correction}
+
+		\subsection{Entrées / Sorties}
+			Jusqu'à présent, nous avons vu comment effectuer un affichage sur l'écran à l'aide de la fonction \code{printf}.
+			On appelle cet affichage une \emph{sortie} du programme car le programme effectue une opération qui est visible par l'utilisateur.
+			Maintenant que nous avons vu comment le programme peut communiquer avec l'utilisateur, voyons comment faire pour que l'utilisateur communique avec l'ordinateur.
+
+			Commençons donc par présenter la fonction \code{getchar} qui permet de récupérer un caractère entré par l'utilisateur.
+			Cette fonction renvoie un entier qui correspond à la valeur \bsc{ascii} du caractère.
+			\begin{Code}{Fonction \code{getchar}}{cod-FonctionGetchar}
+# include <stdio.h>
+
+int main( int argc, char ** argv )
+{
+	if( getchar() == 'Y' )
+	{
+		printf("Yes\n") ;
+	} else {
+		printf("No\n") ;
+	}
+
+	return 0;
+}
+			\end{Code}
+			\begin{Exo}
+				Recopiez le \CodRef{cod-FonctionGetchar} et compilez-le.
+			\end{Exo}
+			\begin{Correction}
+				Le programme écrit \code{Yes} lorsque l'utilisateur valide la touche \code{'Y'} et écrit \code{No} pour toutes les autres touches.
+			\end{Correction}
+
+			Pour récupérer des expressions plus complexes, on peut utiliser la fonction \code{scanf}.
+			Cette fonction permet de lire plusieurs champs grâce à des caractères de contrôle qui fonctionnent de la même façon que la fonction \code{printf}
+			\begin{Code}{Fonction \code{scanf}}{cod-FonctionScanf}
+# include <stdio.h>
+
+int main( int argc, char ** argv )
+{
+	int iJour = 0, iMois = 0, iAnnee = 0;
+	printf( "Entrer une date (jj/mm/aaaa)\n" );
+	scanf( "%d/%d/%d", &iJour, &iMois, &iAnnee );
+	printf( "La date est %d-%d-%d\n",\
+		iJour, iMois, iAnnee );
+
+	return 0;
+}
+			\end{Code}
+			\begin{Exo}
+				Recopiez le \CodRef{cod-FonctionScanf} et compilez-le.
+			\end{Exo}
+			\begin{Correction}
+				L'exécution du programme donne le résultat suivant.
+				\begin{Code*}
+Entrer une date (jj/mm/aaaa)
+06/10/2009
+La date est 6-10-2009
+				\end{Code*}
+				À la deuxième ligne, c'est l'utilisateur qui a entré les valeurs.
+			\end{Correction}
+
+	\section{Nombres entiers et réels}
+		Nous avons eu l'occasion de voir comment déclarer une variable.
+		Nous allons à présent nous intéresser aux variables de type numérique.
+		\subsection{Le type \code{int}}
+			Le type \code{int} permet de préciser les variables pour les nombres entiers.
+			La plupart du temps, les variables de type \code{int} sont codées sur 32~bits soit 4~octets mais cela dépend de l'ordinateur utilisé.
+			Les valeurs de types \code{int} sont signées donc la plage de valeur définie est comprise entre $-2^{31}$ et $2^{31}-1$ soit l'intervalle $[-\nombre{2147483648},\nombre{2147483647}]$.
+
+			On peut décliner le type \code{int} avec plusieurs précisions en utilisant des informations supplémentaires.
+			Par exemple, si on veut utiliser un entier non-signé, on utilisera \code{unsigned int}.
+			Ou si la taille d'un entier simple ne suffit pas, on peut utiliser \code{long int}.
+			Pour un petit entier, on utilise \code{short int}.
+			À noter que le type \code{char} est aussi considéré comme un type entier et sauvegarde la valeur entière correspondant au code \bsc{ascii}.
+
+			Pour connaître le nombre d'octets utilisés pour les différents types présenté ci-dessus, on peut utiliser la fonction \code{sizeof}.
+			Cette fonction est une fonction native du langage \bsc{c} contrairement à \code{printf}.
+			Elle peut être utilisée pour calculer le nombre d'octet de différents type de variable.
+			Par exemple, pour déduire la taille de 4~octets pour un entier, on utilise
+			\begin{Code*}
+printf( "Taille de int = %d\n", sizeof( int ) );
+			\end{Code*}
+			
+			\begin{Exo}
+				Écrivez un programme qui donne la taille des différents types entiers présentés ci-dessus.
+			\end{Exo}
+			\begin{Correction}
+				Ici, aucun besoin de déclarer une quelconque variable.
+				Cependant, on peut toutefois souligner que la fonction \code{sizeof} peut aussi prendre en paramètre le nom d'une variable.
+				Dans ce cas, il en déduit le type de la variable et calcul la taille en octets, même pour des types structurés.
+				\FichierCode{TailleTypes.c}{cod-TailleTypesC}
+			\end{Correction}
+			\begin{Exo}
+				En déduire les plages de nombres pour chacun des types.
+			\end{Exo}
+			\begin{Correction}
+				Pour connaître les plages de nombres disponible pour un type entier, il faut utiliser le nombre d'octets $n$ pour définir l'intervalle $[-2^{n-1},2^{n-1}-1]$.
+				Pour le cas particulier des entiers non-signés, l'intervalle sera alors $[0,2^n-1]$.
+
+				Par exemple, pour le type \code{unsigned char} qui est codé sur \nombre{1}~octet, on en déduit un intervalle $[0,255]$.
+			\end{Correction}
+
+		\subsection{Les types \code{float} et \code{double}}
+			Pour les variables de type réel, on utilise \code{float} ou \code{double}.
+			\begin{Exo}
+				À partir du programme précédent, donnez la taille de ces deux types.
+			\end{Exo}
+			\begin{Correction}
+				\FichierCode{TailleReels.c}{cod-TailleReelsC}
+			\end{Correction}
+			Bien que vous veniez de définir le nombre de bits utilisés pour ces deux types, il vous est impossible d'en déduire une plage de nombre.
+			En effet, les nombres sont sauvegardés sous le principe des \emph{nombres à virgule flottante}.
+			Cela signifie que le nombre de bits utilisés pour la partie entière est variable.
+			Ce qui n'est pas utilisé pour la partie entière est reporté pour la partie décimale et vice versa.
+
+			L'utilisation des nombres à virgule flottante est plus complexe et peut souffrir d'approximations provoquant des résultats inexacts.
+			\begin{Code}{Imprécision sur les \code{float}}{cod-ImprecisionSurLesFloat}
+# include <stdio.h>
+
+int main( int argc, char ** argv )
+{
+	printf( "Un surprenant reel : %.17f\n", 1.1 + 2.7 );
+
+	return 0;
+}
+			\end{Code}
+			\begin{Exo}
+				Recopiez le \CodRef{cod-ImprecisionSurLesFloat} et compilez-le.
+			\end{Exo}
+			\begin{Correction}
+				L'exécution du programme donne le résultat suivant.
+				\begin{Code*}
+Un surprenant reel : 3.80000000000000027
+				\end{Code*}
+				Avec \code{%.17f}, la fonction \code{printf} affiche une précision de 17~chiffres après la virgule.
+				On remarque alors que l'addition de \nombre{1.1} et \nombre{2.7} ne donne pas exactement \nombre{3.8} mais n'est qu'une approximation du résultat.
+				Mais peut-être la représentation des nombres \nombre{1.1} et \nombre{2.7} dans l'ordinateur n'est pas exactement celle qu'on imagine également !
+			\end{Correction}
+
+		\subsection{Opérateurs}
+			Les opérateurs en \Nom{c} sont nombreux et variés (voir \TabRef{tab-ListeDOperateurs}).
+			Ils sont valables pour certains types de données et peuvent être incompatible entre types de données mixtes comme par exemple entre un \code{int} et un \code{float}.
+			Le plus souvent, il n'y aura pas d'erreur de compilation car une conversion sera effectuée mais \textbf{attention, les résultats peuvent ne pas être ceux que vous attendez}.
+			Donc veillez toujours à combiner des types compatibles et si le besoin s'en fait sentir, à bien spécifier explicitement des conversions.
+			Ne laissez pas le compilateur le faire à votre place, il faut garder le contrôle sur ce que vous faites.
+			\begin{Table}{Listes d'opérateurs}{tab-ListeDOperateurs}{|l|c|r@{\hspace{0.5cm}$\rightarrow$\hspace{0.5cm}}l|}
+				\hline
+				\multicolumn{1}{|c|}{\textbf{Nom}} & \textbf{Notation} & \multicolumn{2}{|c|}{\textbf{Exemple}} \\
+				\hline
+				\hline
+				\multicolumn{4}{|c|}{Opérateurs arithmétiques}\\
+				\hline
+				Addition & \verb$x + y$ & \verb$8 + 6$ & \verb$14$ \\
+				\hline
+				Soustraction & \verb$x - y$ & \verb$8 - 6$ & \verb$2$ \\
+				\hline
+				Multiplication & \verb$x * y$ & \verb$8 * 6$ & \verb$48$ \\
+				\hline
+				Division entière & \verb$x / y$ & \verb$8 / 6$ & \verb$1$ \\
+				\hline
+				Division réelle & \verb$x / y$ & \verb$8.0 / 6.0$ & \verb$1.333$ \\
+				\hline
+				Modulo (reste euclidien) & \verb$x % y$ & \verb$8 % 6$ & \verb$2$ \\
+				\hline
+				\hline
+				\multicolumn{4}{|c|}{Opérateurs de comparaison}\\
+				\hline
+				Égalité & \verb$x == y$ & \verb$8 == 6$ & \verb$0$ \\
+				\hline
+				Inégalité & \verb$x != y$ & \verb$8 != 6$ & \verb$1$ \\
+				\hline
+				Supérieur & \verb$x > y$ & \verb$8 > 6$ & \verb$1$ \\
+				\hline
+				Inférieur & \verb$x < y$ & \verb$8 < 6$ & \verb$0$ \\
+				\hline
+				Supérieur ou égal & \verb$x >= y$ & \verb$8 >= 6$ & \verb$1$ \\
+				\hline
+				Inférieur ou égal & \verb$x <= y$ & \verb$8 <= 6$ & \verb$0$ \\
+				\hline
+				\hline
+				\multicolumn{4}{|c|}{Opérateurs logiques}\\
+				\hline
+				\bsc{et} & \verb$x && y$ & \verb$8 && 6$ & \verb$1$ \\
+				\hline
+				\bsc{ou} & \verb$x || y$ & \verb$8 || 6$ & \verb$1$ \\
+				\hline
+				\bsc{non} & \verb$!x$ & \verb$!8$ & \verb$0$ \\
+				\hline
+				\hline
+				\multicolumn{4}{|c|}{Opérateurs bit à bit}\\
+				\hline
+				\bsc{et} & \verb$x & y$ & \verb$1000 & 1010$ & \verb$1000$ \\
+				\hline
+				\bsc{ou} inclusif & \verb$x | y$ & \verb$1000 | 1010$ & \verb$1010$ \\
+				\hline
+				\bsc{ou} exclusif & \verb$x ^ y$ & \verb$1000 ^ 1010$ & \verb$0010$ \\
+				\hline
+				Décalage à droite & \verb$x >> y$ & \verb$1000 >> 2$ & \verb$0010$ \\
+				\hline
+				Décalage à gauche & \verb$x << y$ & \verb$0010 << 1$ & \verb$0100$ \\
+				\hline
+				\hline
+				\multicolumn{4}{|c|}{Opérateurs particuliers}\\
+				\hline
+				Incrémentation & \verb$x++$ & \verb$x++$ & \verb$x + 1$ \\
+				\hline
+				Décrémentation & \verb$x--$ & \verb$x--$ & \verb$x - 1$ \\
+				\hline
+			\end{Table}
+
+	\subsection{La conversion de types}
+		Habituellement, les entiers et les réels sont tous les deux des nombres et une opération entre un réel et un entier est correcte dans le domaine des mathématiques.
+		Cependant, étant donné que dans le langage \bsc{c}, les nombres entiers ne sont pas codés de la même façon que les nombres réels, la conversion en devient plus complexe.
+		Heureusement, le langage \bsc{c} nous offre la possibilité de faire les transformations mais en contre-partie, il nous faudra lui indiquer précisément où doivent s'effectuer ces conversions.
+
+		Par exemple, si la variable \code{iEntier} est de type \code{int} et que la variable \code{fReel} est de type \code{float}, on ne pourra pas additionner ces deux variables puisqu'elle ne sont pas de même type.
+		On convertira donc par exemple la variable \code{iEntier} en \code{float} pour ls besoins de cette addition.
+		On écrira alors le nouveau type juste devant le nom de la variable en utilisant des parenthèses.
+		\begin{Code*}
+fResultat = (float)iEntier + fReel;
+		\end{Code*}
+
+		\begin{Code}{Code sans conversion}{cod-CodeSansConversion}
+# include <stdio.h>
+
+int main( int argc, char ** argv )
+{
+	printf( "Le resultat est %f\n", 3 / 2 );
+
+	return 0;
+}
+		\end{Code}
+		\begin{Exo}
+			Recopiez le \CodRef{cod-CodeSansConversion}, compilez-le puis executez-le.
+		\end{Exo}
+			\begin{Correction}
+				L'exécution du programme donne le résultat suivant.
+				\begin{Code*}
+					Le resultat est -1.992378
+				\end{Code*}
+				Puis une deuxième exécution du programme donne le résultat suivant.
+				\begin{Code*}
+					Le resultat est -1.625099
+				\end{Code*}
+				Puis une troisième donne encore un résultat différent.
+				Ce n'est pas du tout le résultat attendu.
+				Cependant, si vous avez utilisé l'option de compilation \code{-Wall}, vous avez pu constater que le compilateur vous avertissait d'une possible erreur.
+				\begin{Code*}
+Conversion.c: In function 'main':
+Conversion.c:5: warning: format '%f' expects type 'double', but argument 2 has type 'int'
+				\end{Code*}
+			\end{Correction}
+		\begin{Exo}
+			Le résultat n'est pas celui attendu ! Corrigez le code pour obtenir le résultat \nombre{1,5} (deux solutions possibles).
+		\end{Exo}
+		\begin{Correction}
+			La première solution consiste à faire une conversion explicite.
+			À noter que dans le jargon informatique, on dit qu'on \emph{force} la valeur ou quelque fois, qu'on \emph{caste} la valeur.
+			Cependant, ce dernier terme est un anglicisme et n'est donc par correct en français.
+			Il provient du terme anglais \emph{casting}.
+			\FichierCode{Conversion1.c}{cod-Conversion1C}
+			Mais on peut également modifier les nombres directement pour les exprimer sous forme de nombre réel.
+			\FichierCode{Conversion2.c}{cod-Conversion2C}
+		\end{Correction}
+
+		Les conversions ne sont pas toujours des opérations obligatoires.
+		En effet, certaines conversions peuvent être effectuées de façon implicite.
+		Cependant, il est fortement déconseillée de faire appel à ce genre de pratique.
+		C'est une nouvelle bonne habitude de programmation d'effectuer des conversions explicites.
+
+	\section{Les structures}
+		Les types \code{int} et \code{float} sont des types de base.
+		Nous verrons qu'il en existe d'autres (comme \code{double} ou \code{char} par exemple).
+		Mais parfois, les types de base ne suffisent pas et des types plus évolués sont nécessaires.
+		Ils peuvent être définis par l'utilisateur et sont appelés \emph{types structurés}.
+		Il existe plusieurs types structurés différents comme les tableaux ou les unions mais ici, nous verrons les structures.
+		\subsection{Définition}
+			Un type structuré est un type constitué de plusieurs type de base.
+			C'est donc une sorte de liste de variables regroupées dans un groupe.
+			Si par exemple, nous voulons définir une structure pour un étudiant, nous pourrions créer la structure suivante
+			\begin{Code*}
+struct sEtudiant
+{
+	int iNumEtudiant;
+	char * cPrenom;
+	char * cNom;
+};
+			\end{Code*}
+
+			\begin{Exo}
+				Créez une structure permettant de représenter un point dans le plan avec les champs \code{fAbscisse} et \code{fOrdonnee}.
+				Les champs seront de type \code{float} et la structure se nommera \code{sPoint}.
+			\end{Exo}
+			\begin{Correction}
+				\begin{Code}{Structure \code{sPoint}}{cod-StructureSPoint}
+struct sPoint
+{
+	float fAbscisse;
+	float fOrdonnee;
+};
+				\end{Code}
+			\end{Correction}
+
+		\subsection{Utilisation}
+			Une fois la structure définie, il faut alors déclarer une variable du type de la structure.
+			Puis on pourra accéder aux champs de cette variable grâce au caractère \code{'.'}.
+			Prenons un exemple où nous écrivons la valeur d'un champ de la structure dans une variable basique.
+			\begin{Code*}
+int iUnNumero = 0;
+struct sEtudiant sQuelquUn = { 123456789, "Jean", "SIMARD" };
+iUnNumero = sQuelquUn.iNumEtudiant;
+			\end{Code*}
+			Dans cet exemple, on peut aussi remarquer la manière d'initialiser une structure.
+			Les champs sont initialisés par des accolades où chaque champ est séparé par une virgule.
+
+			\begin{Exo}
+				Récupérez dans deux variables \code{fX} et \code{fY} les valeurs d'une structure de type \code{sPoint} initialisée par $(0,0)$ (l'origine du repère).
+			\end{Exo}
+			\begin{Correction}
+				\FichierCode{Structure.c}{cod-StructureC}
+			\end{Correction}
+\end{document}

@@ -1,0 +1,414 @@
+\documentclass[a4paper]{article}
+	\usepackage{Lapin}
+	\newenvironment{Correction}{\par\tiny\blue\rule[1ex]{\textwidth}{1pt}\par\normalsize\textbf{\sffamily{}Correction de l'exercice~\theExo{} -- }}{\par\tiny\blue\rule[1ex]{\textwidth}{1pt}\par}
+	\newtheorem{Exo}{{\sffamily{Exercice}}}
+	\makeatletter
+	\newcommand{\ExoRef}[2][]{\def\@Un{#1}\def\@Deux{#2}\def\@Voir{v}%
+		\ifx\@Un\@Voir%
+		(voir Exercice~\vref{#2})%
+		\else%
+		Exercice~\vref{#2}%
+		\fi}
+	\makeatother
+	\title{Mini-projet~3}
+	\author{Philippe \Nom{Rinaudo}\and{}Jean \Nom{Simard}}
+	\date{\Date[l]{06}{11}{2009}}
+\begin{document}
+	\maketitle
+	\section{Rendre le TP}
+		\textbf{Le travail devra être rendu \Date[l]{17}{11}{2009} avant 09h30.}
+		\subsection{Informations}
+			Pour commencer, il faudra commenter votre code source.
+			Il est conseillé de bien commenter chaque fonction.
+			Vous n'oublierez pas d'indiquer en haut du fichier :
+			\begin{itemize}
+				\item votre nom ;
+				\item votre prénom ;
+				\item le nom de l'exercice.
+			\end{itemize}
+			Vous pouvez également ajouter tous les détails que vous jugerez nécessaires.
+
+		\subsection{Contraintes générales}
+			\begin{itemize}
+				\item Le code doit être bien commenté ;
+				\item Le code doit être bien indenté ;
+				\item Le nom des variables doit être judicieusement choisi ;
+				\item Le code doit être aéré (\emph{i.e.} bien espacé).
+			\end{itemize}
+
+		\subsection{Envoyer le projet}
+			Pour rendre les fichiers, un format spécifique devra être respecté.
+			\begin{enumerate}
+				\item Placez tous vos fichiers dans un répertoire nommé par votre nom et votre prénom (sous la forme \code{NOM_Prenom}) ;
+				\item Compressez le répertoire à l'aide de la commande suivante.
+				\begin{Code*}
+$~$ tar -cvjf Projet03-NOM_Prenom.tar.bz2 NOM_Prenom/
+				\end{Code*}
+				Vous pouvez également créer un fichier au format \bsc{zip} ;
+				\item Envoyez le fichier compressé \code{Projet03-NOM_Prenom.tar.bz2} par mail à l'adresse \href{mailto:simard.jean.travail@gmail.com}{simard.jean.travail@gmail.com} avec le sujet suivant.
+				\begin{Code*}
+[CCI] Projet 03 - Nom Prenom
+				\end{Code*}
+			\end{enumerate}
+
+			\textbf{Tâchez de respecter précisément le format des noms de fichiers, de répertoires et de mail.}
+		
+			\newpage
+
+	\section{Le dictionnaire}
+		Pour ce mini-projet, nous allons créer un programme destiné à gérer un dictionnaire de traduction de mots en plusieurs langues.
+		Pour cela, nous allons utiliser les listes chaînées simples.
+		Chaque maillon de cette liste chaînée simple contiendra un identifiant (qui sera unique) et un pointeur sur une liste de mots désignant tous le même terme mais dans des langues différentes.
+		Par exemple, le premier maillon sera destiné au terme \emph{lundi} et à toutes ces traductions (\emph{monday} en anglais, \emph{Montag} en allemand, \dots{}).
+
+		Cette liste de mot sera également une liste chaînée simple.
+		Chaque maillon de cette chaîne contiendra le mot et sa langue\footnote{On utilisera les identifiants à deux lettres comme \emph{fr} pour le français, \emph{en} pour l'anglais, \emph{de} pour l'allemand, \dots{}}.
+
+		Tout d'abord, il faut créer deux nouveaux types.
+
+		\subsection{La structure}
+			La structure des éléments présents vous est déjà donnée dans un fichier annexe \code{dictio.h}.
+			Les sections suivantes sont destinées à vous expliquer comment ils ont été créés et quelle devra être leur utilisation dans votre programme.
+			\subsubsection{Le type \code{Mot}}
+				Pour commencer, la structure \code{Mot} qui doit contenir un mot et deux lettres pour identifier la langue.
+				Elle contient également un pointeur sur une structure de même type afin de créer la liste chaînée.
+				Pour le mot, on utilise une chaîne de caractères de longueur indéterminée donc de type \code{char *}.
+				On allouera l'espace pour cette chaîne au moment opportun.
+				On fera de même pour les deux lettres désignant la langue.
+				Pour les deux lettres désignant la langue, on aurait également pu créer un tableau de caractères de taille~2 car ici, on sait combien de caractères seront présents.
+				Le choix a été fait d'utiliser une variable \code{char *} et vous devez vous y tenir.
+
+				\paragraph{Résumé}
+					Le premier type \code{Mot} \CodRef[v]{cod-DictionnaireCStructMot} est un type composé \code{struct} contenant~:
+					\begin{itemize}
+						\item Un mot ;
+						\item La langue associée au mot (en deux lettres) ;
+						\item Un pointeur sur une structure de même type.
+					\end{itemize}
+					\FichierCode[firstline=10,lastline=15,caption={Type \code{Mot}}]{dictio.h}{cod-DictionnaireCStructMot}
+
+			\subsubsection{Le type \code{Dictionnaire}}
+				Pour la structure \code{Dictionnaire}, l'identifiant sera un simple entier non-signé.
+				Il y aura également un pointeur sur un élément de type \code{Mot}.
+				Puis enfin, afin de créer la liste chaînée, il faudra un pointeur sur une structure de même type.
+
+				\paragraph{Résumé}
+					Le second type \code{Dictionnaire} \CodRef[v]{cod-DictionnaireCStructDictionnaire} est un type composé \code{struct} contenant~:
+					\begin{itemize}
+						\item Un identifiant sous la forme d'un entier non-signé ;
+						\item Un pointeur sur une structure de type \code{Mot} ;
+						\item Un pointeur sur une structure de même type.
+					\end{itemize}
+					\FichierCode[firstline=17,lastline=22,caption={Type \code{Dictionnaire}}]{dictio.h}{cod-DictionnaireCStructDictionnaire}
+
+			\subsubsection{L'organisation}
+				Maintenant que les structures sont définies, il va falloir les agencer entre elles.
+				Ce sera un des objectifs du projet.
+				On peut ici donner un exemple d'un dictionnaire déjà formé et de son agencement \FigRef[v]{fig-StructureDuDictionnaire}.
+				\begin{FigurePS}{Structure du dictionnaire}{fig-StructureDuDictionnaire}{(-2.5,0.5)(9.5,-10.5)}
+					\uput[135](9.5,-1){\blue\code{Dictionnaire *}}
+					\uput[135](9.5,-4){\blue\code{Dictionnaire}}
+					\uput[135](9.5,-10.5){\blue\code{Mot}}
+					\psset{framesize=2cm 0.5cm}
+
+					\psset{labelsep=1pt}
+					\fnode(0,0){BEEF}\uput[180](-1,0){\code{0xBEEF}}\rput(0,0){\code{0xDEAD}}
+
+					% Première branche
+					\fnode(0,-2){DEAD}\uput[180](-1,-2){\code{0xDEAD}}\rput(0,-2){\code{1}}
+					\uput[135](1,-2.25){\scriptsize\code{id}}
+					\fnode(0,-2.5){DEAC}\uput[180](-1,-2.5){\code{0xDEAC}}\rput(0,-2.5){\code{0xACDC}}
+					\uput[135](1,-2.75){\scriptsize\code{suiv}}
+					\fnode(0,-3){DEAB}\uput[180](-1,-3){\code{0xDEAB}}\rput(0,-3){\code{0x9090}}
+					\uput[135](1,-3.25){\scriptsize\code{m}}
+
+					\fnode(0,-5){9090}\uput[180](-1,-5){\code{0x9090}}\rput(0,-5){\code{"maison"}}
+					\uput[135](1,-5.25){\scriptsize\code{mot}}
+					\fnode(0,-5.5){908F}\uput[180](-1,-5.5){\code{0x908F}}\rput(0,-5.5){\code{"fr"}}
+					\uput[135](1,-5.75){\scriptsize\code{lang}}
+					\fnode(0,-6){908E}\uput[180](-1,-6){\code{0x908E}}\rput(0,-6){\code{0x2468}}
+					\uput[135](1,-6.25){\scriptsize\code{suiv}}
+
+					\fnode(0,-7){2468}\uput[180](-1,-7){\code{0x2468}}\rput(0,-7){\code{"house"}}
+					\uput[135](1,-7.25){\scriptsize\code{mot}}
+					\fnode(0,-7.5){2467}\uput[180](-1,-7.5){\code{0x2467}}\rput(0,-7.5){\code{"en"}}
+					\uput[135](1,-7.75){\scriptsize\code{lang}}
+					\fnode(0,-8){2466}\uput[180](-1,-8){\code{0x2466}}\rput(0,-8){\code{0x0845}}
+					\uput[135](1,-8.25){\scriptsize\code{suiv}}
+
+					\fnode(0,-9){0845}\uput[180](-1,-9){\code{0x0845}}\rput(0,-9){\code{"casa"}}
+					\uput[135](1,-9.25){\scriptsize\code{mot}}
+					\fnode(0,-9.5){0844}\uput[180](-1,-9.5){\code{0x0844}}\rput(0,-9.5){\code{"es"}}
+					\uput[135](1,-9.75){\scriptsize\code{lang}}
+					\fnode(0,-10){0843}\uput[180](-1,-10){\code{0x0843}}\rput(0,-10){\code{NULL}}
+					\uput[135](1,-10.25){\scriptsize\code{suiv}}
+
+					% Seconde branche
+					\fnode(4,-2){ACDC}\uput[180](3,-2){\code{0xACDC}}\rput(4,-2){\code{2}}
+					\uput[135](5,-2.25){\scriptsize\code{id}}
+					\fnode(4,-2.5){ACDB}\uput[180](3,-2.5){\code{0xACDB}}\rput(4,-2.5){\code{0x1234}}
+					\uput[135](5,-2.75){\scriptsize\code{suiv}}
+					\fnode(4,-3){ACDA}\uput[180](3,-3){\code{0xACDA}}\rput(4,-3){\code{0x2B4D}}
+					\uput[135](5,-3.25){\scriptsize\code{m}}
+
+					\fnode(4,-5){2B4D}\uput[180](3,-5){\code{0x2B4D}}\rput(4,-5){\code{"jour"}}
+					\uput[135](5,-5.25){\scriptsize\code{mot}}
+					\fnode(4,-5.5){2B4C}\uput[180](3,-5.5){\code{0x2B4C}}\rput(4,-5.5){\code{"fr"}}
+					\uput[135](5,-5.75){\scriptsize\code{lang}}
+					\fnode(4,-6){2B4B}\uput[180](3,-6){\code{0x2B4B}}\rput(4,-6){\code{NULL}}
+					\uput[135](5,-6.25){\scriptsize\code{suiv}}
+
+					% Troisième branche
+					\fnode(8,-2){1234}\uput[180](7,-2){\code{0x1234}}\rput(8,-2){\code{3}}
+					\uput[135](9,-2.25){\scriptsize\code{id}}
+					\fnode(8,-2.5){1233}\uput[180](7,-2.5){\code{0x1233}}\rput(8,-2.5){\code{NULL}}
+					\uput[135](9,-2.75){\scriptsize\code{suiv}}
+					\fnode(8,-3){1232}\uput[180](7,-3){\code{0x1232}}\rput(8,-3){\code{0x9753}}
+					\uput[135](9,-3.25){\scriptsize\code{m}}
+
+					\fnode(8,-5){9753}\uput[180](7,-5){\code{0x9753}}\rput(8,-5){\code{"dog"}}
+					\uput[135](9,-5.25){\scriptsize\code{mot}}
+					\fnode(8,-5.5){9752}\uput[180](7,-5.5){\code{0x9752}}\rput(8,-5.5){\code{"en"}}
+					\uput[135](9,-5.75){\scriptsize\code{lang}}
+					\fnode(8,-6){9751}\uput[180](7,-6){\code{0x9751}}\rput(8,-6){\code{0x1357}}
+					\uput[135](9,-6.25){\scriptsize\code{suiv}}
+
+					\fnode(8,-7){1357}\uput[180](7,-7){\code{0x1357}}\rput(8,-7){\code{"chien"}}
+					\uput[135](9,-7.25){\scriptsize\code{mot}}
+					\fnode(8,-7.5){1356}\uput[180](7,-7.5){\code{0x1356}}\rput(8,-7.5){\code{"fr"}}
+					\uput[135](9,-7.75){\scriptsize\code{lang}}
+					\fnode(8,-8){1355}\uput[180](7,-8){\code{0x1355}}\rput(8,-8){\code{NULL}}
+					\uput[135](9,-8.25){\scriptsize\code{suiv}}
+
+					\psset{arrows=->,angleA=0,angleB=90,linearc=1pt}
+					%Première branche
+					\ncangles[armB=1cm]{BEEF}{DEAD}
+					\ncangles{DEAB}{9090}
+					\ncangles{908E}{2468}
+					\ncangles{2466}{0845}
+					%Seconde branche
+					\ncangles{DEAC}{ACDC}
+					\ncangles{ACDA}{2B4D}
+					%Troisième branche
+					\ncangles{ACDB}{1234}
+					\ncangles{1232}{9753}
+					\ncangles{9751}{1357}
+
+					\psset{arrows=-,linestyle=dashed,linecolor=blue,linewidth=1pt}
+					\psline(-2.5,-1)(9.5,-1)
+					\psline(-2.5,-4)(9.5,-4)
+				\end{FigurePS}
+
+		\subsection{La bibliothèque \code{dictio.h}}
+			Cette bibliothèque contient quelques informations que vous devrez utiliser\footnote{Pour savoir comment intégrer et compiler la bibliothèque avec votre projet, allez voir la \SecRef{sec-CompilationDUnProjetAvecPlusieursFichiers}}.
+			Pour commencer, c'est dans cette bibliothèque que sont définies les structures \code{Mot} et \code{Dictionnaire}.
+			Il est donc inutile que vous les déclariez dans votre code source.
+
+			Ensuite, c'est dans cette bibliothèque que sont déclarées et définies les fonctions \code{ecrire_dictionnaire()} et \code{lire_dictionnaire()} que vous devrez utiliser dans l'\ExoRef{exo-EcrireDictionnaire} et l'\ExoRef{exo-LireDictionnaire}.
+			Vous pouvez donc regarder à quoi ressemble les fonctions mais \textbf{en aucun cas les modifier}.
+
+			Enfin, la bibliothèque définie une constante \code{TAILLE_TAMPON} \CodRef[v]{cod-DictioHDefinitionTAILLETAMPON} qui peut être utilisée dans le cadre d'une chaîne de caractères de longueur indéterminée.
+			Elle servira dans ce cas à définir une taille maximum pour le tableau devant contenir cette chaîne de caractères de longueur indéterminée.
+			\FichierCode[firstline=8,lastline=8,caption={Définition de la constante \code{TAILLE_TAMPON}}]{dictio.h}{cod-DictioHDefinitionTAILLETAMPON}
+
+		\subsection{Les fonctions à développer}
+			\subsubsection{Affichage du dictionnaire}
+				\begin{Exo}
+					Écrire une fonction permettant l'affichage du dictionnaire.
+					Le résultat pourrait par exemple ressembler au \CodRef{cod-AffichageDictionnaireTXT}.
+					\FichierCode[language={},caption={Exemple d'un affichage de dictionnaire}]{AffichageDictionnaire.txt}{cod-AffichageDictionnaireTXT}
+					Vous créerez deux fonctions, une pour afficher une liste chaînée de \code{Mot} puis une pour afficher une liste chaînée de \code{Dictionnaire}.
+					La première, qui permettra d'afficher une liste de mots devra avoir la signature définie dans le \CodRef{cod-DictionnaireCSignatureAfficherMot}.
+					\FichierCode[firstline=4,lastline=4,caption={Signature de la fonction \code{afficher_mot()}}]{dictionnaire.c}{cod-DictionnaireCSignatureAfficherMot}
+					La seconde, qui permettra d'afficher l'ensemble du dictionnaire devra avoir la signature définie dans le \CodRef{cod-DictionnaireCSignatureAfficherDictionnaire}.
+					\FichierCode[firstline=5,lastline=5,caption={Signature de la fonction \code{afficher_dictionnaire()}}]{dictionnaire.c}{cod-DictionnaireCSignatureAfficherDictionnaire}
+				\end{Exo}
+				\begin{Correction}
+					Pour l'affichage du dictionnaire, on va devoir parcourir la liste chaînée de \code{Dictionnaire} et pour chaque maillon de cette liste, on va à nouveau parcourir une liste chaînée de \code{Mot}.
+					On peut donc commencer par créer une fonction qui afficher la liste des mots d'une liste chaînée de \code{Mot} \CodRef[v]{cod-DictionnaireCAfficherMot}.
+					\FichierCode[firstline=72,lastline=81,caption={Fonction pour l'affichage d'un mot}]{dictionnaire.c}{cod-DictionnaireCAfficherMot}
+
+					Puis on créera une fonction qui parcourt la liste chaînée de \code{Dictionnaire} \CodRef[v]{cod-DictionnaireCAfficherDictionnaire}.
+					\FichierCode[firstline=83,lastline=94,caption={Fonction pour l'affichage d'un ensemble de mots}]{dictionnaire.c}{cod-DictionnaireCAfficherDictionnaire}
+				\end{Correction}
+
+			\subsubsection{Libérer l'espace mémoire}
+				\begin{Exo}
+					Étant donné que la création de notre dictionnaire va nous amener à allouer de l'espace dynamiquement, nous allons également devoir libérer cet espace avant de quitter le programme.
+					Pour cela, il faudra écrire une fonction prenant en argument un pointeur sur le dictionnaire (voir la signature définie dans \CodRef{cod-DictionnaireCSignatureFreeDictionnaire}).
+					\FichierCode[firstline=6,lastline=6,caption={Signature de la fonction \code{free_dictionnaire()}}]{dictionnaire.c}{cod-DictionnaireCSignatureFreeDictionnaire}
+				\end{Exo}
+				\begin{Correction}
+					Pour libérer l'espace mémoire du dictionnaire, il va falloir faire bien attention pour libérer toutes les zones mémoires allouées et le faire dans le bon ordre.
+					La procédure doit suivre un ordre bien précis.
+					On va commencer par prendre le premier élément de type \code{Dictionnaire}.
+					Avant de libérer ce maillon, il va nous falloir libérer la liste de mots associée.
+					On va donc récupérer le premier mot de la liste.
+					Dans ce premier mot, nous commençons par libérer les deux chaînes de caractères \code{mot} et \code{lang}.
+					Ensuite, nous pouvons libérer le maillon \code{Mot} en ayant pris soin au préalable de récupérer le nœud suivant dans une autre variable.
+					On réitère l'opération sur tous les nœuds de la liste de mots jusqu'à la fin.
+					Enfin, on peut libérer le maillon \code{Dictionnaire} en ayant pris soin de récupérer le maillon suivant dans une autre variable.
+					On réitère l'ensemble de ce processus sur l'ensemble des maillons de la liste \CodRef[v]{cod-DictionnaireCFreeDictionnaire}.
+					\FichierCode[firstline=96,lastline=113,caption={Fonction \code{free_dictionnaire()}}]{dictionnaire.c}{cod-DictionnaireCFreeDictionnaire}
+					On oubliera pas de faire appel à cette fonction à la fin de la fonction \code{main}.
+				\end{Correction}
+
+			\subsubsection{Ajouter un mot dans le dictionnaire}
+				\begin{Exo}\label{exo-AjouterTrad}
+					Pour ajouter un mot dans le dictionnaire, il va falloir distinguer deux cas.
+					Soit on ajoute une traduction à un mot déjà existant, soit on ajoute une nouvelle traduction.
+
+					Dans le cas de l'ajout d'une nouvelle traduction, l'utilisateur devra entrer un identifiant (champ \code{id} de la structure \code{Dictionnaire}) égal à zéro (ou à n'importe quel valeur différente de celles déjà existantes) pour indiquer que l'identifiant de la traduction n'existe pas encore.
+					Ensuite, la fonction devra créer un nouveau maillon de type \code{Dictionnaire} avec l'identifiant correspondant.
+					Puis elle créera un nœud de type \code{Mot}.
+					On regardera toujours l'identifiant du dernier maillon \code{Dictionnaire} de la liste qu'on incrémentera pour attribuer le nouvel identifiant.
+					La liste sera donc numéroté de façon croissante de~\nombre{1} à~$N$, $N$ étant le nombre total de maillons \code{Dictionnaire} du dictionnaire.
+					Voici l'exemple pour ajouter une nouvelle traduction.
+					\begin{Code*}[language={}]
+Entrer l'indice de la traduction (0 si nouveau mot)>0
+Entrer le mot>cat
+Entrer la langue (2 lettres)>en
+					\end{Code*}
+
+					Dans le cas de l'ajout d'un mot à une traduction déjà existante, on demandera à l'utilisateur d'entrer l'identifiant de la traduction à compléter.
+					Par exemple, si le mot précédent \code{"cat"} à été ajouté à une liste contenant déjà deux maillons, son identifiant sera~\nombre{3}.
+					On peut maintenant ajouter un deuxième mot à cette traduction.
+					\begin{Code*}[language={}]
+Entrer l'indice de la traduction (0 si nouveau mot)>3
+Entrer le mot>chat
+Entrer la langue (2 lettres)>fr
+					\end{Code*}
+
+					Dans les deux cas, les mêmes fonctions seront utilisées.
+					Il faudra commencer par créer une fonction pour ajouter un mot \code{Mot} dans un maillon \code{Dictionnaire}.
+					Cette fonction aura la signature définie dans le \CodRef{cod-DictionnaireCSignatureAjouterMot}.
+					\FichierCode[firstline=7,lastline=7,caption={Signature de la fonction \code{ajouter_mot()}}]{dictionnaire.c}{cod-DictionnaireCSignatureAjouterMot}
+					La fonction \code{ajouter_mot()} doit renvoyer un pointeur sur la tête de la liste chaînée de mots.
+
+					La seconde fonction devra être capable d'ajouter un maillon \code{Dictionnaire} dans la liste chaînée.
+					Elle fera appel à la fonction \code{ajouter_mot()} lorsque ce sera nécessaire.
+					Cette fonction aura la signature définie dans le \CodRef{cod-DictionnaireCSignatureAjouterTrad}.
+					\FichierCode[firstline=8,lastline=8,caption={Signature de la fonction \code{ajouter_trad()}}]{dictionnaire.c}{cod-DictionnaireCSignatureAjouterTrad}
+					La fonction \code{ajouter_trad()} doit renvoyer un pointeur sur la tête de la liste chaînée du dictionnaire.
+				\end{Exo}
+				\begin{Correction}
+					Pour commencer, la fonction \code{ajouter_mot()} devra s'occuper de l'allocation mémoire d'un nœud \code{Mot} \CodRef[v]{cod-DictionnaireCAjouterMot}.
+					Ensuite, il devra distinguer deux cas en fonction de la valeur du pointeur sur le début de la liste de mots (\code{NULL} ou non).
+					\FichierCode[firstline=115,lastline=134,caption={Fonction \code{ajouter_mot()}}]{dictionnaire.c}{cod-DictionnaireCAjouterMot}
+
+					Ensuite, la fonction \code{ajouter_trad()} \CodRef[v]{cod-DictionnaireCAjouterTrad} devra distinguer deux cas.
+					Le premier cas est celui où le dictionnaire n'existe pas encore (le pointeur \code{d} a pour valeur \code{NULL}).
+					Dans ce cas, il faudra créer un nouveau maillon avec un identifiant de valeur~\nombre{1}.
+
+					Si le pointeur n'est pas vide, on distinguera à nouveau deux cas.
+					\begin{itemize}
+						\item l'identifiant entré par l'utilisateur est zéro, alors on doit créer un nouveau maillon \code{Dictionnaire}, le mettre à la fin de la liste et y ajouter le mot ;
+						\item l'identifiant n'est pas zéro, alors on recherche un identifiant identique ;
+						\begin{itemize}
+							\item un identifiant identique a été trouvé, on ajoute donc le mot dans la liste ;
+							\item aucun identifiant identique n'a été trouvé, on créé un nouveau maillon \code{Dictionnaire} et on y ajoute le mot.
+						\end{itemize}
+					\end{itemize}
+					\FichierCode[firstline=136,lastline=180,caption={Fonction \code{ajouter_trad()}}]{dictionnaire.c}{cod-DictionnaireCAjouterTrad}
+				\end{Correction}
+
+			\subsubsection{Appel à la bibliothèque}
+				Pour ces deux derniers exercices, vous allez devoir faire appel à deux fonctions définies dans la bibliothèque qui vous est fournie.
+				\begin{Exo}\label{exo-EcrireDictionnaire}
+					La première fonction à utiliser sera \code{ecrire_dictionnaire()}.
+					Elle permet d'enregistrer le dictionnaire dans un fichier sous un format \bsc{xml}.
+					La signature de cette fonction est définie dans le fichier \code{dictio.h} \CodRef[v]{cod-DictioCSignatureEcrireDictionnaire}.
+					\FichierCode[firstline=27,lastline=27,caption={Signature de la fonction \code{ecrire_dictionnaire()}}]{dictio.h}{cod-DictioCSignatureEcrireDictionnaire}
+
+					Pour utiliser cette fonction, vous aurez un menu à créer qui proposera trois options \CodRef[v]{cod-ExempleAffichageMenu}~:
+					\begin{enumerate}
+						\item Afficher le dictionnaire ;
+						\item Ajouter un mot dans le dictionnaire ;
+						\item Sauvegarder le dictionnaire.
+					\end{enumerate}
+					\begin{Code}[language={}]{Exemple d'affichage du menu}{cod-ExempleAffichageMenu}
+1 - Afficher le dictionnaire
+2 - Ajouter un mot dans le dictionnaire
+3 - Sauvegarder le dictionnaire
+
+0 - Quitter
+Choix>
+					\end{Code}
+					Ce menu sera afficher et géré par une fonction dont la signature est définie dans le \CodRef{cod-DictionnaireCSignatureMenu}.
+					\FichierCode[firstline=3,lastline=3,caption={Signature de la fonction \code{menu()}}]{dictionnaire.c}{cod-DictionnaireCSignatureMenu}
+
+					Pour cet exercice, vous avez déjà créer des fonctions pour répondre aux deux premières options (\emph{afficher} et \emph{ajouter}).
+					Vous devrez ajouter une partie pour l'utilisation de la fonction \code{ecrire_dictionnaire()}.
+					Le programme devra proposer à l'utilisateur de donner un nom pour le fichier.
+				\end{Exo}
+				\begin{Correction}
+					Pour créer le menu, on pourra créer une boucle infinie à l'aide de \code{while} \CodRef[v]{cod-DictionnaireCMenu}.
+					Ensuite, à l'aide d'un \code{switch}, on appellera les différentes fonctions.
+					\FichierCode[firstline=24,lastline=70,caption={Fonction \code{menu()}}]{dictionnaire.c}{cod-DictionnaireCMenu}
+				\end{Correction}
+				\begin{Exo}\label{exo-LireDictionnaire}
+					La seconde fonction à utiliser sera \code{lire_dictionnaire}.
+					Elle permet de lire un dictionnaire à partir d'un fichier au format \bsc{xml} et renvoie une structure de type \code{Dictionnaire}.
+					Cette fonction s'occupe des allocations mémoire.
+					Cependant, elle dépend directement de la fonction \code{ajouter_trad()} que vous devez écrire \ExoRef[v]{exo-AjouterTrad}.
+					C'est pour cette raison que vous devez bien \textbf{respecter les signatures} données dans l'ensemble de ce projet.
+					\FichierCode[firstline=28,lastline=28,caption={Signature de la fonction \code{lire_dictionnaire()}}]{dictio.h}{cod-DictioCSignatureLireDictionnaire}
+
+					Il vous faudra utiliser cette fonction dans le cas où le programme est lancé avec un argument.
+					En effet, on devra donner la possibilité d'exécuter le programme avec en argument, un fichier \bsc{xml} contenant un dictionnaire.
+					\begin{Code*}
+$~$ ./dictionnaire dictionnaire.xml
+					\end{Code*}
+					Dans ce cas, le programme devra réagir de façon différente car il devra lire le fichier avant d'accéder au menu.
+				\end{Exo}
+				\begin{Correction}
+					La solution de cet exercice se trouve dans la fonction \code{main()} \CodRef[v]{cod-DictionnaireCMain}.
+					On va tout d'abord vérifier le nombre d'arguments grâce à \code{argc}.
+					Ensuite, si \code{argc} est supérieur à~\nombre{1}, on va lire le fichier.
+					Sinon, on appellera directement la fonction \code{menuy()}.
+					\FichierCode[firstline=10,lastline=22,caption={Fonction \code{main()}}]{dictionnaire.c}{cod-DictionnaireCMain}
+				\end{Correction}
+
+		\appendix
+	\section{Compilation d'un projet avec plusieurs fichiers}\label{sec-CompilationDUnProjetAvecPlusieursFichiers}
+		Dans ce projet, il vous est fourni deux fichiers en supplément du code source que vous aurez à écrire.
+		Le processus est donc légèrement différent de celui que vous connaissez.
+		En effet, si vous donnez simplement votre fichier \code{dictionnaire.c} à \code{gcc}, il y aura des messages d'erreurs vous expliquant qu'un bon nombre de variables, types ou fonctions sont inconnues.
+		Par exemple, si j'essaye de compiler le code source, j'obtiens le résultat suivant.
+		\begin{Code*}[language={}]
+$~$ gcc -o dictionnaire dictionnaire.c -Wall -ansi
+/tmp/ccME92hH.o: In function `main':
+dictionnaire.c:(.text+0x23): undefined reference to `lire_dictionnaire'
+/tmp/ccME92hH.o: In function `menu':
+dictionnaire.c:(.text+0x1e7): undefined reference to `ecrire_dictionnaire'
+collect2: ld returned 1 exit status
+		\end{Code*}
+		Ces messages veulent dire qu'il ne trouve pas les fonctions \code{lire_dictionnaire} et \code{ecrire_dictionnaire}.
+		Et c'est relativement normal car ces fonctions sont définies dans le fichier \code{dictio.c} et déclarées dans le fichier \code{dictio.h}.
+
+		Et si on essaye de compiler l'autre fichier, on obtient également des erreurs.
+		\begin{Code*}[language={}]
+gcc -o dictio dictio.c -Wall -ansi
+/usr/lib/gcc/i486-linux-gnu/4.4.1/../../../../lib/crt1.o: In function `_start':
+/build/buildd/eglibc-2.10.1/csu/../sysdeps/i386/elf/start.S:115: undefined reference to `main'
+/tmp/ccKuvuQP.o: In function `lire_dictionnaire':
+dictio.c:(.text+0x317): undefined reference to `ajouter_trad'
+dictio.c:(.text+0x352): undefined reference to `ajouter_trad'
+collect2: ld returned 1 exit status
+		\end{Code*}
+		Il nous explique qu'aucune fonction \code{main} n'existe dans cette partie de code source et donc il ne peut créer un programme.
+		Il signale également que la fonction \code{ajouter_trad} n'a pas été définie.
+
+		Pour compiler correctement le code source, il va donc falloir donner à \code{gcc} les deux codes sources en même temps.
+		\begin{Code*}
+gcc -o dictionnaire dictionnaire.c dictio.c -Wall -ansi
+		\end{Code*}
+
+		On remarquera que à aucun moment, on indique l'existence du fichier \code{dictio.h}.
+		En effet, ce fichier est inclus implicitement car il vous faudra inclure ce fichier dans votre programme à l'aide de \code{include}.
+		\begin{Code*}
+# include "dictio.h"
+		\end{Code*}
+		On remarquera la notation \code{"dictio.h"} au lieu de \code{<dictio.h>}.
+
+\end{document}

@@ -1,0 +1,78 @@
+\documentclass[a4paper]{article}
+	\usepackage{Lapin}
+	\newtheorem{Exo}{Exercice}
+	\newenvironment{Correction}{\par\tiny\blue\rule[1ex]{\textwidth}{1pt}\par\normalsize\textbf{Correction de l'exercice~\theExo{} -- }}{\par\tiny\blue\rule[1ex]{\textwidth}{1pt}\par}
+	\title{Algorithmes de tri}
+	\author{Jean \Nom{Simard}}
+	\date{\Date[l]{04}{11}{2009}}
+\begin{document}
+	\maketitle
+	\section{Préalable}
+		Nous allons mettre en place une base de programme sur laquelle nous allons tester nos fonctions de tri.
+		Chaque exercice sera une amélioration apportée à ce qui a déjà été fait.
+		C'est pour cette raison que vous ne devriez avoir qu'un seul fichier source pour l'ensemble des exercices de ce TP.
+
+		Nous allons travailler sur des listes doublement chaînées.
+		Chaque maillon de cette liste sera constitué d'un nombre (puis des pointeurs vers le maillon précédent et suivant).
+		\begin{Exo}
+			Écrire la structure qui remplira la tâche de maillon d'une liste doublement chaînée et contenant un entier non-signé.
+		\end{Exo}
+		\begin{Correction}
+			\FichierCode[firstline=5,lastline=11]{Tri.c}{cod-TriCStructure}
+		\end{Correction}
+
+		Dans notre programme, nous allons devoir initialiser la liste doublement chaînée avec des valeurs.
+		Ces valeurs doivent être variées pour que le tri ait un intérêt.
+		\begin{Exo}
+			Écrire une fonction qui créé et initialise les différents maillons de chaîne doublement chaînée.
+			Cette fonction sera appelée depuis la fonction \code{main} avec un paramètre indiquant le nombre de maillons à créer.
+			Le nombre de maillons à créer sera une valeur que l'utilisateur donnera (au choix, par argument ou par l'intermédiaire de la fonction \code{scanf}).
+			Les maillons seront initialisés avec un entier aléatoire entre zéro et le nombre de maillon.
+		\end{Exo}
+		\begin{Correction}
+			\FichierCode[firstline=12,lastline=33]{Tri.c}{cod-TriCInitialiserListe}
+		\end{Correction}
+		\begin{Exo}
+			Écrire une fonction qui libère l'espace mémoire de cette liste doublement chaînée.
+			Cette fonction sera appelée juste avant de quitter la fonction \code{main}.
+		\end{Exo}
+		\begin{Correction}
+			\FichierCode[firstline=34,lastline=44]{Tri.c}{cod-TriCLibererListe}
+		\end{Correction}
+		\begin{Exo}
+			Écrire une fonction qui permettre l'affichage des valeurs entières non-signées de la liste doublement chaînées.
+			Cette fonction sera utilisée pour afficher la liste aléatoirement créée puis la liste triées.
+		\end{Exo}
+		\begin{Correction}
+			\FichierCode[firstline=45,lastline=55]{Tri.c}{cod-TriCAfficherListe}
+		\end{Correction}
+		
+	\section{Tri à bulles}
+		Pour rappel, l'algorithme de tri à bulles consiste à parcourir la liste en comparant deux à deux les valeurs puis à les inverser si elles ne sont pas dans le bon ordre.
+		On effectue cette opération jusqu'à atteindre la fin de la liste.
+		On parcours de nouveau la liste tant que la liste n'est pas triée.
+		\begin{Exo}
+			Écrire une fonction qui effectue un tri à bulle de la liste doublement chaînée.
+		\end{Exo}
+		\begin{Correction}
+			\FichierCode[firstline=56,lastline=126]{Tri.c}{cod-TriCTriBulle}
+		\end{Correction}
+	\section{Tri par sélection}
+		Le tri par sélection consiste à chercher le maillon dont la valeur est la plus petite puis à le placer au début de la liste.
+		Ensuite, on effectue la même opération sur la liste sur le reste de la liste qui n'est pas encore trié.
+		\begin{Exo}
+			Écrire une fonction qui effectue un tri par sélection de la liste doublement chaînée.
+		\end{Exo}
+		\begin{Correction}
+			\FichierCode[firstline=127,lastline=153]{Tri.c}{cod-TriCTriSelection}
+		\end{Correction}
+	\section{Tri par insertion}
+		Le tri par insertion va le plus souvent être plus efficace que les deux algorithmes précédents.
+		Il va parcourir la liste est lorsqu'il trouve un élément qui n'est pas à la bonne place, il va le ramener dans la liste en l'insérant à sa place.
+		\begin{Exo}
+			Écrire une fonction qui effectue un tri par insertion de la liste doublement chaînée.
+		\end{Exo}
+		\begin{Correction}
+			\FichierCode[firstline=154,lastline=204]{Tri.c}{cod-TriCTriInsertion}
+		\end{Correction}
+\end{document}

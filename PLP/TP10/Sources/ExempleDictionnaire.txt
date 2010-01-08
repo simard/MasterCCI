@@ -1,0 +1,6 @@
+> ./dictionnaire Bonjour tout le monde
+monde
+le
+tout
+Bonjour
+> 

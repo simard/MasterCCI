@@ -1,0 +1,39 @@
+
+
+
+DIARRASSOUBA
+DRISSA
+M2 CCI
+
+
+                        MINI PROJET 3
+
+
+
+Fonction CREER_AJOUT_CONTACT:
+Cette fonction prend en argument la tête de liste puis retourne la 
+nouvelle tête qui sera l'élément ajouté. 
+Elle permet de creer un contact et de l'ajouter à la liste de contact
+en appelant la fonction AJOUT_CONTACT.
+
+Procedure LIBERE:
+Dans cette procedure je parcours toute ma liste et je libères la mémoire
+au fur et à mesure.
+
+Procedure AFFICHE_CONTACT:
+Dans cette procedure je parcours toute ma liste et je les affiche
+au fur et à mesure.
+
+Procedure ECRITURE_FICHIER:
+Cette procedure permet d'écrire dans un fichier la liste.
+
+Pocedure RECHERCHE_SUPPRIME:
+Elle prend en argument la tête de liste et le nom de la personne à supprimer
+Elle appelle une fonction RECHERCHE_PRECEDENT qui prend en argument la tête 
+de liste puis le nom et retourne le contact precedent à celui qui doit être
+supprimé.
+Cette procedure appelle également la procedure SUPPRIME_SUIVANT qui prend
+en argument le contact précédent et supprime celui qui le suit
+
+Procedure MODIFICATION : 
+Elle permet de modifier soit le nom,prenom ou le mail d'un contact

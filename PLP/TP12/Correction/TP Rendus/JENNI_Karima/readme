@@ -1,0 +1,46 @@
+auteur               : Karima Jenni
+date 		: 18/11/2008	
+programmes     : Carnet de contact
+description        : 
+		
+au debut de chaque fonction, on verifie si la liste comporte au moins 1 element.
+
+
+	contact * AjouterContact (contact * pNouveau , contact * pDebut )
+	
+cette fonction place le contact pNouveau à la place de pDebut (si la liste est vide),
+sinon dans l'element suivant pTemp.
+
+
+	contact * CreerContact (contact * pDebut)
+	
+cette fonction alloue de la memoire à un element du type de la structure predéfinie, 
+ainsi qu'aux differents composants de la structure, et y écrit les informations saisies
+par l'utilisateur.
+	
+	
+	contact * LibererContact (contact * pDebut)
+	
+cette fonction supprime un element en gardant un pointeur sur son precedent 
+(ici pOld) qui pointera sur l'element suivant celui à supprimé, et libère la memoire 
+occupée par l'element.
+	
+	
+	void AfficherContact ( contact * pDebut )
+	
+verifie que la liste est non vide, parcourt et affiche les champs designés de 
+chaque element.
+	
+	modifierContact (pDebut);
+j'ai un probleme à ce niveau, la fonction est supposée trouver l'element, 
+contrôler que c'est le bon contact à modifier, et modifier les champs désignés.
+
+
+	Enregistrer (pDebut);
+	
+crée un fichier et y écrit les elements de la liste.
+			
+			
+	ChargerListe ();
+
+créer une liste à partir d'un fichier source.

@@ -1,0 +1,162 @@
+
+
+*****************************
+README MINI PROJET NUMERO 3 *
+Yacine TAIBI				*
+master CCI				*
+*****************************
+
+
+*************
+I*ntroduction:*
+*************
+
+
+Ce projet nous a permis de faire le point sur l'ensemble des connaissances aquises en langages C.
+Nous avons aisi pu faire un récapitulatif de nos connaissances et decouvrir de nouvelles applications 
+du language tel que l'ecriture et la lecture dans des fichiers.
+Le projet proposé consisté a creer un carnet d'adresse de type répertoire comprenant, 
+offrant la possibilité a l'utilisateur de géré l'ensemble de ces contact.
+
+****************************************************
+*Commande de Compilation et d'exécution du programme:*
+****************************************************
+	
+	
+	--Compilation: gcc -Wall -o carnet mini_projet3.c
+	
+	--Execution:./carnet
+	
+	
+**************	
+*Outils utilisés:*
+**************
+
+
+--La réalisation de ce programme a necessité:
+
+			1-l'utilisation des bibliothèques:
+
+					# include<stdio.h>
+					# include<stdlib.h>
+					# include<string.h>
+					
+					
+			2-la création d'une structure: pour la manipulation d'une liste chainée
+
+				typedef struct scontact
+
+				{	char  *cNom;
+					char  *cPrenom;
+					char  *cMail;
+					struct scontact * ptSuivant;
+				} Contact;
+
+
+			3-La déclaration de variable global: de type pointeur sur structure et int
+				Mais également d'une nouvelle variable pointeur sur fichier.
+				
+				int Nb_contacts = 0;
+				Contact *pt_Temp = NULL;
+				Contact *pDebut = NULL;
+				FILE * pt_Carnet =NULL;
+			
+			
+			4-Utilisation des fonction:
+				fopen:ouverture d'un fichier avec le parametre a+ pour creer un fichier et lui ajouter du texte.
+				fclose:fermeture du fichier.
+				fprintf:ecrire dans le fichier.
+				fscanf:lire dans le fichier.
+				
+			5-La creation de fonction.
+				
+				
+			6-Manipulation de pointeur.
+				
+			
+			7-Manipulation des boucles while, et des branchement switch et if.
+				
+			
+*************************			
+*Présentation des fonctions:*
+*************************
+
+			
+			1- Fonction: creer contact
+				prototype: Contact * Creer_contact (void)
+				Cette fonction ne prend aucun argument et renvoie un pointeur sur contact.
+				Elle permet de creer une liste chainée.
+				L'appel de cette fonction va permettre à l'utilisateur de rentrer le nom prénom et adresse mail de son contact.
+			
+			
+			2- Fonction: Liberer mémoire
+				prototype:void free_Memoire (void)
+				Cette procedue va permettre de désallouer la mémoire en quittant l'application.
+			
+			3-Fonction: afficher la liste des contacts
+				prototype:void Afficher_contacts (void)
+				cette fonction ne prend aucun paramettre elle utilise une variable global de type poiteur sur liste qui affichera 
+				tout les elements de notre liste simplement chainée aisi que le nombre de contact.
+				
+			4-Foncion:Enregistrement du Carnet 
+				prototype:FILE* EnregistrerCarnet (void)
+				Cette fonction ne prend aucun paramettre et renvoie un pointeur sur un fichier.
+				permet l'enregistrement d'un carnet d'adresse dans un fichier nommé carnet d'adresse.
+				
+				
+			5-Fonction: Charger carnet 
+			prototype: void ChargerCarnet (void)
+			Permet de charger le carnet d'adresse.
+			
+			6-Fonction: Supprimer un element du carnet d'adresse
+			prototype:void supprimer_contact(void)
+			permet a l'utilisateur d'entrer un nom et de supprimer son contenu.
+			
+************************			
+*Utilisation du programme:*
+************************
+
+			--Le programme affiche un menu interactive l'utilisateur en fonction de son choix poura:
+			
+					1-creer un contact.
+					2-afficher un contact.
+					3-supprimer un contact.
+					4-charger un carnet.
+					5-enregistrer un contact.
+					6-quitter le programme.
+
+
+
+***********
+Conclusion:*
+***********
+
+
+--Ce programme nous a permis de faire un point sur l'ensemble de nos connaissances et découvrir la notion de fichier en programmaton.
+--Amelioration du programme:
+	la fonction charger adresse ne permet pas l'ouverture, le cahrgement du carnet d'adresse et son affichage a l'ecran
+	la creation d'une fonction modification d'un contact.; permettant la recherche selon les trois critere nom,prenom et mail.
+	une fonction suppression de tout les contact.
+
+
+
+
+
+
+**************				
+*Bibliographie:*
+**************
+
+//http://www.commentcamarche.net/forum/affich-924139-lire-et-ecrire-dans-un-fichier-en-c.
+//http://routes-linux.scooba.org/ecrire_dans_un_fichier.php.
+//http://forum.ubuntu-fr.org/viewtopic.php?id=168142.
+
+
+
+
+					
+					
+
+
+
+

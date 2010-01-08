@@ -1,0 +1,14 @@
+- 1 -
+(fr) lundi
+(en) monday
+(de) Montag
+- 2 -
+(fr) maison
+(es) casa
+(en) house
+(de) Haus
+- 3 -
+(en) dog
+(fr) chien
+-----
+Appuyez sur n'importe quelle touche...

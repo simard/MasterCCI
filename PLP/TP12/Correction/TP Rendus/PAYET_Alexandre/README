@@ -1,0 +1,10 @@
+TP noté n°3
+
+compilation gcc prog.c
+
+Ce programme ne permet pas d'executer la 5° commande a savoir charger les contacts d'une liste déja enregister.
+
+De ma nière general le programme est stable bien que l'utilisation de chiffre dans des noms ou des mails peuvent conduire a des erreurs d'intepretation dut au scanf suivant .
+
+Les fonction sont explicités dans les ligne de code.
+

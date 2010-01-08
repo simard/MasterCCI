@@ -1,0 +1,324 @@
+\documentclass[a4paper]{article}
+	\usepackage{Lapin}
+	\newenvironment{Correction}{\par\tiny\blue\rule[1ex]{\textwidth}{1pt}\par\normalsize\textbf{\sffamily{}Correction de l'exercice~\theExo{} -- }}{\par\tiny\blue\rule[1ex]{\textwidth}{1pt}\par}
+	\newtheorem{Exo}{{\sffamily{Exercice}}}
+	\title{Mini-projet~1}
+	\author{Philippe \Nom{Rinaudo}\and{}Jean \Nom{Simard}}
+	\date{\Date[l]{14}{10}{2009}}
+\begin{document}
+	\maketitle
+	\section{Rendre le TP}
+		\textbf{Le travail devra être rendu \Date[l]{16}{10}{2009} avant 14h00.}
+		\subsection{Informations}
+			Pour commencer, il faudra commenter votre code source.
+			Il est conseillé de bien commenter chaque fonction.
+			Vous n'oublierez pas d'indiquer en haut du fichier :
+			\begin{itemize}
+				\item votre nom ;
+				\item votre prénom ;
+				\item le nom de l'exercice.
+			\end{itemize}
+			Vous pouvez également ajouter tous les détails que vous jugerez nécessaires.
+
+		\subsection{Contraintes générales}
+			\begin{itemize}
+				\item Le code doit être bien commenté ;
+				\item Le code doit être bien indenté ;
+				\item Le nom des variables doit être judicieusement choisi ;
+				\item Le code doit être aéré (\emph{i.e.} bien espacé).
+			\end{itemize}
+
+		\subsection{Envoyer le projet}
+			Pour rendre les fichiers, un format spécifique devra être respecté.
+			\begin{enumerate}
+				\item Placez tous vos fichiers dans un répertoire nommé par votre nom et votre prénom (sous la forme \code{NOM_Prenom}) ;
+				\item Compressez le répertoire à l'aide de la commande suivante.
+				\begin{Code*}
+$~$ tar -cvjf Projet01-NOM_Prenom.tar.bz2 NOM_Prenom/
+				\end{Code*}
+				Vous pouvez également créer un fichier au format \bsc{zip} ;
+				\item Envoyez le fichier compressé \code{Projet01-NOM_Prenom.tar.bz2} par mail à l'adresse \href{mailto:simard.jean.travail@gmail.com}{simard.jean.travail@gmail.com} avec le sujet suivant.
+				\begin{Code*}
+[CCI] Projet 01 - Nom Prenom
+				\end{Code*}
+			\end{enumerate}
+
+			\textbf{Tâchez de respecter précisément le format des noms de fichiers, de répertoires et de mail.}
+		
+			\newpage
+
+	\section{Le crible d'Ératosthène}
+		Ératosthène est un vieux savant grec (voir \FigRef{fig-Eratosthene}) qui avait trouvé une manière rapide de trouver les nombres premiers.
+		Pour cela, son seul besoin est de savoir que \nombre{2} est un nombre premier et ensuite, il en déduit tous les autres.
+
+		\begin{Figure}{Ératosthène (\nombre{276} -- \nombre{194} av. \Nom{J.-C.})}{fig-Eratosthene}
+			\Image[width=4cm]{Eratosthene}
+		\end{Figure}
+
+		L'algorithme pour trouver tous les nombres premiers est le suivant.
+		\begin{enumerate}
+			\item \nombre{2} est un nombre premier (voir \FigRef{fig-EtapeUn}) ;
+			\item On supprime tous les diviseurs du nombre \nombre{2} (voir \FigRef{fig-EtapeDeux}) ;
+			\item On en déduit que le nombre \nombre{3} -- qui n'est pas diviseur de \nombre{2} -- est un nombre premier (voir \FigRef{fig-EtapeTrois}) ;
+			\item On supprime tous les diviseurs du nombre \nombre{3} (voir \FigRef{fig-EtapeQuatre}) ;
+			\item On en déduit que le nombre \nombre{5} est premier et on supprime les diviseurs de \nombre{5} (voir \FigRef{fig-EtapeCinq}) ;
+			\item On continue ainsi de suite et on découvre que tous les nombres restants sont des nombres premiers (voir \FigRef{fig-EtapeSix}).
+		\end{enumerate}
+
+		\begin{Figure}{Crible d'Ératosthène des \nombre{20} premiers nombres}{fig-GrilleDesVingtPremiersNombres}
+			\newcommand{\GrilleNombre}{%
+				\rput(1.5,4.5){\nombre{2}}%
+				\rput(2.5,4.5){\nombre{3}}%
+				\rput(3.5,4.5){\nombre{4}}%
+				\rput(4.5,4.5){\nombre{5}}%
+				\rput(0.5,3.5){\nombre{6}}%
+				\rput(1.5,3.5){\nombre{7}}%
+				\rput(2.5,3.5){\nombre{8}}%
+				\rput(3.5,3.5){\nombre{9}}%
+				\rput(4.5,3.5){\nombre{10}}%
+				\rput(0.5,2.5){\nombre{11}}%
+				\rput(1.5,2.5){\nombre{12}}%
+				\rput(2.5,2.5){\nombre{13}}%
+				\rput(3.5,2.5){\nombre{14}}%
+				\rput(4.5,2.5){\nombre{15}}%
+				\rput(0.5,1.5){\nombre{16}}%
+				\rput(1.5,1.5){\nombre{17}}%
+				\rput(2.5,1.5){\nombre{18}}%
+				\rput(3.5,1.5){\nombre{19}}%
+				\rput(4.5,1.5){\nombre{20}}%
+				\rput(0.5,0.5){\nombre{21}}%
+				\rput(1.5,0.5){\nombre{22}}%
+				\rput(2.5,0.5){\nombre{23}}%
+				\rput(3.5,0.5){\nombre{24}}%
+				\rput(4.5,0.5){\nombre{25}}%
+				\psset{linecolor=black,linewidth=1pt}
+				\psline(0,0)(5,0)%
+				\psline(0,1)(5,1)%
+				\psline(0,2)(5,2)%
+				\psline(0,3)(5,3)%
+				\psline(0,4)(5,4)%
+				\psline(1,5)(5,5)%
+				\psline(0,0)(0,4)%
+				\psline(1,0)(1,5)%
+				\psline(2,0)(2,5)%
+				\psline(3,0)(3,5)%
+				\psline(4,0)(4,5)%
+				\psline(5,0)(5,5)%
+				}
+			\newcommand{\CribleDeux}{%
+				\psline(3,4)(4,5)\psline(3,5)(4,4)%
+				\psline(0,3)(1,4)\psline(0,4)(1,3)%
+				\psline(2,3)(3,4)\psline(2,4)(3,3)%
+				\psline(4,3)(5,4)\psline(4,4)(5,3)%
+				\psline(1,2)(2,3)\psline(1,3)(2,2)%
+				\psline(3,2)(4,3)\psline(3,3)(4,2)%
+				\psline(0,1)(1,2)\psline(0,2)(1,1)%
+				\psline(2,1)(3,2)\psline(2,2)(3,1)%
+				\psline(4,1)(5,2)\psline(4,2)(5,1)%
+				\psline(1,0)(2,1)\psline(1,1)(2,0)%
+				\psline(3,0)(4,1)\psline(3,1)(4,0)%
+				}
+			\newcommand{\CribleTrois}{%
+				\psline(3,3)(4,4)\psline(3,4)(4,3)%
+				\psline(4,2)(5,3)\psline(5,2)(4,3)%
+				\psline(0,0)(1,1)\psline(0,1)(1,0)%
+				}
+			\begin{SubFigurePS}{Étape~1}{fig-EtapeUn}{(-0.5,0)(5.5,5)}
+				\psset{linecolor=red,linewidth=1pt}
+				\pscircle(1.5,4.5){0.45}
+				\GrilleNombre
+			\end{SubFigurePS}
+			\begin{SubFigurePS}{Étape~2}{fig-EtapeDeux}{(-0.5,0)(5.5,5)}
+				\psset{linecolor=red,linewidth=1pt}
+				\pscircle(1.5,4.5){0.45}
+				\CribleDeux
+				\GrilleNombre
+			\end{SubFigurePS}
+			\begin{SubFigurePS}{Étape~3}{fig-EtapeTrois}{(-0.5,0)(5.5,5)}
+				\psset{linecolor=red,linewidth=1pt}
+				\pscircle(1.5,4.5){0.45}
+				\CribleDeux
+				\psset{linecolor=green,linewidth=1pt}
+				\pscircle(2.5,4.5){0.45}
+				\GrilleNombre
+			\end{SubFigurePS}
+			\begin{SubFigurePS}{Étape~4}{fig-EtapeQuatre}{(-0.5,0)(5.5,5)}
+				\psset{linecolor=red,linewidth=1pt}
+				\pscircle(1.5,4.5){0.45}
+				\CribleDeux
+				\psset{linecolor=green,linewidth=1pt}
+				\pscircle(2.5,4.5){0.45}
+				\CribleTrois
+				\GrilleNombre
+			\end{SubFigurePS}
+			\begin{SubFigurePS}{Étape~5}{fig-EtapeCinq}{(-0.5,0)(5.5,5)}
+				\psset{linecolor=red,linewidth=1pt}
+				\pscircle(1.5,4.5){0.45}
+				\CribleDeux
+				\psset{linecolor=green,linewidth=1pt}
+				\pscircle(2.5,4.5){0.45}
+				\CribleTrois
+				\psset{linecolor=blue,linewidth=1pt}
+				\pscircle(4.5,4.5){0.45}
+				\psline(4,0)(5,1)\psline(4,1)(5,0)
+				\GrilleNombre
+			\end{SubFigurePS}
+			\begin{SubFigurePS}{Étape~6}{fig-EtapeSix}{(-0.5,0)(5.5,5)}
+				\psset{linecolor=red,linewidth=1pt}
+				\pscircle(1.5,4.5){0.45}
+				\CribleDeux
+				\psset{linecolor=green,linewidth=1pt}
+				\pscircle(2.5,4.5){0.45}
+				\CribleTrois
+				\psset{linecolor=blue,linewidth=1pt}
+				\pscircle(4.5,4.5){0.45}
+				\psline(4,0)(5,1)\psline(4,1)(5,0)
+				\psset{linecolor=orange}
+				\pscircle(1.5,3.5){0.45}
+				\pscircle(0.5,2.5){0.45}
+				\pscircle(2.5,2.5){0.45}
+				\pscircle(1.5,1.5){0.45}
+				\pscircle(3.5,1.5){0.45}
+				\pscircle(2.5,0.5){0.45}
+				\GrilleNombre
+			\end{SubFigurePS}
+		\end{Figure}
+		\begin{Exo}
+			Écrire un programme qui demande à l'utilisateur d'entrer un entier $N$.
+			Le programme devra effectuer le crible d'Ératosthène sur tous les nombres entiers de l'intervalle $[1,N]$.
+			Vous vérifierez que le nombre entré est bien un nombre entier positif, supérieur ou égal à \nombre{2}.
+			Dans le cas contraire, le programme devra quitter avec un message d'erreur.
+
+			\textbf{Conseil --} Pour réaliser correctement ce programme, il peut être utile de créer un tableau entièrement initialisé avec des \nombre{0} et de cocher les cases une par une en y mettant la valeur \nombre{1} si ce n'est pas un nombre premier.
+
+			Plusieurs optimisations sont possibles dans ce programme, n'hésitez pas à en faire le plus possible.
+			\begin{Code*}[language=]
+$~$ ./crible
+Entrer un entier : 1
+Il faut choisir un nombre entier superieur a 2.
+$~$ ./crible
+Entrer un entier : -10
+Il faut choisir un nombre entier superieur a 2.
+$~$ ./crible
+Entrer un entier : 20
+Voici le crible d'Eratosthene jusqu'a l'entier 20
+2
+3
+5
+7
+11
+13
+17
+19
+$~$
+			\end{Code*}
+		\end{Exo}
+		\begin{Correction}
+			\FichierCode{eratosthene.c}{cod-EratostheneC}
+		\end{Correction}
+
+		\subsection{Contraintes}
+			\begin{itemize}
+				\item Vérifier que la valeur entrée par l'utilisateur est supérieure à \nombre{2} ;
+				\item Utiliser un tableau pour le crible d'Ératosthène ;
+				\item Plusieurs optimisations sont possibles -- trouvez au moins une et expliquez là dans vos commentaires.
+			\end{itemize}
+		\clearpage
+
+	\section{Blackjack}
+		Le \emph{Blackjack} est un jeu très populaire dans les casinos.
+		Nous allons donc tenter de reproduire une version simplifiée avec un programme.
+
+		Le \emph{Blackjack} se joue avec un jeu de \nombre{52}~cartes.
+		Chaque carte possède une valeur~:
+		\begin{itemize}
+			\item Les nombres entre \nombre{2} et \nombre{10} valent leur propre valeur ;
+			\item Les têtes (valet, dame et roi) valent \nombre{10} ;
+			\item L'as vaut \nombre{1} ou \nombre{11} selon la valeur qu'on souhaite lui donner.
+		\end{itemize}
+		L'objectif est de cumuler des cartes sans jamais dépasser le score \nombre{21}.
+
+		Le jeu se déroule entre deux personnes (celui qui donne les cartes est appelé \emph{banque}) de la façon suivante~:
+		\begin{enumerate}
+			\item La \emph{banque} propose au joueur s'il veut des cartes ;
+			\item Le joueur peut accepter ou non de prendre une nouvelle carte, son objectif étant d'atteindre le score le plus proche possible de \nombre{21} sans jamais le dépasser ;
+			\item Tant que le joueur ne souhaite pas s'arrêter, il continue l'étape~2 ;
+			\item Lorsque le joueur s'est arrêté, la \emph{banque} joue à son tour en essayant de dépasser le score du joueur, toujours sans dépasser le score de \nombre{21} ;
+			\item Celui qui a atteint le plus haut score en dessous de \nombre{21} gagne la partie.
+		\end{enumerate}
+
+		Prenons un exemple.
+		\begin{enumerate}
+			\item La banque propose une carte ;
+			\item Le joueur accepte la carte -- c'est un trois de trèfle ;
+			\item La valeur de la carte est \nombre{3} donc le score devient \nombre{3} ;
+			\item La banque propose à nouveau une carte ;
+			\item Le joueur accepte la carte -- c'est un as de carreau ;
+			\item La valeur de la carte est \nombre{11} donc le score devient \nombre{14}.
+			Si on dépasse le score de \nombre{21}, on pourra alors donner la valeur \nombre{1} à l'as et continuer ;
+			\item La banque propose à nouveau une carte ;
+			\item Le joueur accepte la carte -- c'est une dame de cœur ;
+			\item La valeur de la carte est \nombre{10} donc le score devient \nombre{24} ;
+			\item Le joueur vient de dépasser le score de \nombre{21} donc théoriquement, c'est perdu.
+			Cependant, il avait un as dans son jeu dont la valeur devient alors \nombre{1}.
+			\item Le score du joueur devient \nombre{14} ;
+			\item La banque propose à nouveau une carte ;
+			\item Le joueur accepte la carte -- c'est un six de cœur ;
+			\item La valeur de la carte est \nombre{6} donc le score devient \nombre{20} ;
+			\item La banque propose à nouveau une carte ;
+			\item Le joueur refuse et décide de s'arrêter avec un score de \nombre{20} ;
+			\item La banque commence donc à jouer ;
+			\item Elle tire un as de cœur -- son score devient \nombre{11} ;
+			\item Elle tire un valet de pique (\emph{Blackjack} !) -- son score devient \nombre{21} ;
+			\item La banque s'arrête et remporte la partie.
+		\end{enumerate}
+
+		\begin{Exo}
+			Nous allons recréer une version simplifiée du \emph{Blackjack}.
+
+			Lorsque le programme s'exécute, il doit proposer à l'utilisateur s'il veut tirer une nouvelle carte ou non.
+			À chaque fois qu'une nouvelle carte est tirée, elle est affichée puis le nouveau score est affiché et enfin, la question "Voulez-vous tirer une nouvelle carte [y/n] ?" est à nouveau posée.
+
+			Lorsque l'utilisateur choisit de ne plus tirer de carte, la banque affiche son score et le compare au score du joueur.
+			Le programme affiche \code{GAGNE} ou \code{PERDU} en fonction des scores puis quitte le programme.
+
+			Pour la banque, nous n'allons pas suivre le vrai déroulement du jeu.
+			La banque aura un score aléatoire entre \nombre{16} et \nombre{21}.
+
+			Dans notre version simplifiée, l'\emph{as} toujours la valeur \nombre{11}.
+			Cependant, si vous vous en sentez capable, vous pouvez également essayer de faire fonctionner l'\emph{as} comme dans le vrai \emph{Blackjack}.
+
+			Voici un exemple d'utilisation du programme.
+			\begin{Code*}[language=]
+Votre score est 0
+Voulez-vous tirer une nouvelle carte [y/n] ? y
+Vous tirez un six de coeur
+Votre score est 6
+Voulez-vous tirer une nouvelle carte [y/n] ? a
+Voulez-vous tirer une nouvelle carte [y/n] ? g
+Voulez-vous tirer une nouvelle carte [y/n] ? y
+Vous tirez un roi de trefle
+Votre score est 16
+Voulez-vous tirer une nouvelle carte [y/n] ? y
+Vous tirez un trois de pique
+Votre score est 19
+Voulez-vous tirer une nouvelle carte [y/n] ? n
+Votre score est 19
+Le score de la banque est 18
+GAGNE
+			\end{Code*}
+		\end{Exo}
+		\begin{Correction}
+			\FichierCode{blackjack.c}{cod-BlackJackC}
+		\end{Correction}
+
+		\subsection{Contraintes}
+			\begin{itemize}
+				\item Utiliser le type \code{enum} pour définir les cartes du jeu ;
+				\item La fonction \code{rand()} sera utilisée pour le tirage aléatoire du score de la banque et le tirage aléatoire des cartes pour le joueur ;
+				\item Le \code{switch} sera utilisé pour afficher la carte tirée ;
+				\item Il faut initialiser le générateur de nombres aléatoires ;
+				\item Tout caractère différent de \code{'y'} et \code{'n'} ne devra pas être pris en compte et affichera simplement la question une nouvelle fois.
+			\end{itemize}
+
+\end{document}

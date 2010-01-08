@@ -1,0 +1,429 @@
+\NeedsTeXFormat{LaTeX2e}[1999/01/01]
+\ProvidesPackage{Lapin}[2008/09/27]
+
+%% Loading of the needed packages
+\RequirePackage[postscript]{ucs}
+\RequirePackage[utf8x]{inputenc}
+\RequirePackage{pifont}
+\RequirePackage[T1]{fontenc}
+\RequirePackage[english,frenchb]{babel}
+\RequirePackage{lmodern}
+\RequirePackage{sectsty}
+\RequirePackage{amsmath}
+\RequirePackage{amsfonts}
+\RequirePackage{latexsym}
+\RequirePackage{xspace}
+\RequirePackage[globalcitecopy,sectionbib]{bibunits}
+\RequirePackage[francais]{varioref}
+\RequirePackage[french]{datenumber}
+\RequirePackage{eurosym}
+\RequirePackage{listings}
+\RequirePackage{fancyhdr}
+\RequirePackage{color}
+\RequirePackage{graphicx}
+\RequirePackage{subfig}
+\RequirePackage{multicol}
+\RequirePackage{pst-eucl}
+\RequirePackage{pst-3dplot}
+\RequirePackage{pst-all}
+\RequirePackage{pstricks-add}
+\RequirePackage{pst-blur}
+\RequirePackage{caption} % Must be after the 'babel' package
+\RequirePackage{hyperref}
+\RequirePackage[francais]{minitoc} % Must be after the 'hyperref' package
+
+%% Options for 'hyperref'
+\hypersetup{%
+  pdfnewwindow=true,%
+  colorlinks=true,%
+  breaklinks=true,%
+  pdfhighlight=/P,%
+  pdfcenterwindow=true,%
+  pdfdisplaydoctitle=true,%
+  pdffitwindow=true,%
+	pdfstartview=FitH,%
+	linkcolor=blue,%
+  citecolor=green,%
+  filecolor=magenta,%
+  urlcolor=red%
+  }%
+
+%% Options for 'listings' (default for C language)
+\lstset{%
+	language=C,%
+	% Numerotation of the each line on the left in tiny size
+	numbers=left, numberstyle=\tiny, stepnumber=1, numbersep=5pt,%
+	% A tabulation is equal to 2 spaces
+	tabsize=2,%
+	% Vertical spaces around the caption
+	abovecaptionskip=\medskipamount,belowcaptionskip=\medskipamount,%
+	% Style definitions
+	basicstyle=\ttfamily,%
+	keywordstyle=\color[rgb]{0.25,0.5,0.5}\bfseries,%
+	stringstyle=\color{red},%
+	identifierstyle=,%
+	commentstyle=\color[rgb]{0,0.5,0}\ttfamily,%
+	showstringspaces=false,%
+	% Define a frame around each part of code
+	frameround=tttt,%
+	% Break each too long line with an antislash
+	prebreak=\unichar{0092}%
+}
+% Definition of a language for algorithms (in french)
+\lstdefinelanguage{algo}{%
+	morekeywords={si,alors,pour,allant,de,a,tant,que,faire,debut,fin,entier,reel,fonction,retour},%
+	sensitive=false}
+
+%% Options for 'graphicx'
+\graphicspath{{images/}}
+\DeclareGraphicsExtensions{.eps,.ps,.pdf,.png,.jpg,.jpeg}
+
+%% Redefine the space of the indentation for the first line of each paragraph
+\setlength{\parindent}{0cm}
+%% Redefine the space between paragraph
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+
+%% Modify the design of section
+% Redefine the chapter headers
+\makeatletter
+\def\@makechapterhead#1{%
+	\vspace*{50\p@}%
+	{\parindent \z@ \raggedleft \normalfont
+	\ifnum \c@secnumdepth >\m@ne
+	\newrgbcolor{Rouge}{0.734 0 0}
+	\psset{unit=1cm}
+	\begin{pspicture}(-6,-1)(1,1.5)
+		\psframe[linewidth=0,linecolor=Rouge,fillstyle=solid,fillcolor=Rouge](-5,-1)(0,0)
+		\psframe[linewidth=0,framearc=.25,linecolor=Rouge,fillstyle=solid,fillcolor=Rouge](-1,-1)(1,1)
+		\psframe[linewidth=0,framearc=.25,linecolor=white,fillstyle=solid,fillcolor=white](-6,-0.95)(-1,1)
+		\uput[45](-5,-1){\large\bfseries\sffamily\textcolor{Rouge}{\@chapapp}}
+		\rput(0,0){\psscaleboxto(1.5,1.5){\white\selectfont\bfseries\sffamily\thechapter}}
+	\end{pspicture}
+	\par\nobreak
+	\fi
+	\interlinepenalty\@M
+	\Huge\bfseries\sffamily #1\par\nobreak
+	\vskip 40\p@
+	}%
+	}
+\makeatother
+% Modify the fonts for sections
+\allsectionsfont{\sffamily}
+% Modify the fonts for chapters
+\chapterfont{\sffamily}
+% Modify the fonts for the title of mini table of contents (see package 'minitoc')
+\mtcsettitlefont{minitoc}{\large\bfseries\sffamily}
+% Modify fonts for titles and labels for figures and tables
+\captionsetup{font={sf},labelfont={bf,sf}}
+
+%%%%%%%%%%%%%%%%%%
+%% NEW COMMANDS %%
+%%%%%%%%%%%%%%%%%%
+
+\makeatletter
+% To include external TeX files (they must be saved in the 'files' subdirectory)
+\newcommand{\Fichier}[1]{\input{files/#1}}
+
+%% To make annotation on incomplet parts of the document
+% To print dotted line in the list of 'todos' between the title and the page number
+\newcommand{\l@todo}{%
+\@dottedtocline{1}{0.5em}{0.5em}}
+% To create the table of 'todos'
+\newcommand{\listoftodos}{%
+	\chapter*{Parties incomplètes}\@starttoc{tdo}}
+% To annotate incomplet part of a document (in-line version)
+\newcommand{\incomplet}[2][]{%
+  \def\@Un{#1}%
+	\def\@Deux{#2}%
+	\ifx\@Un\@empty%
+	\addcontentsline{tdo}{todo}{\@Deux}%
+	\else%
+	\addcontentsline{tdo}{todo}{\@Un}%
+	\fi
+	\textbf{\textcolor{red}{\@Deux}}}
+% To annotate incomplet part of a document (paragraph version)
+\newenvironment{Incomplet}[2][]{%
+  \def\@Un{#1}%
+	\def\@Deux{#2}%
+	\ifx\@Un\@empty%
+	\addcontentsline{tdo}{todo}{\bf\@Deux}%
+	\else%
+	\addcontentsline{tdo}{todo}{\bf\@Un}%
+	\fi
+	{\tiny\textcolor{red}{\rule[1ex]{\textwidth}{2pt}}}\\%
+	\textbf{\textcolor{red}{Incomplet }}\ifx\@Deux\@empty\else\textcolor{red!70}{-- #2}\fi\\%
+  {\tiny\rule[1ex]{\textwidth}{0.5pt}}%
+  \gray\par}%
+	{\par\tiny\textcolor{red}{\rule[1ex]{\textwidth}{2pt}}\par}
+
+% To separate authors with equal spaces
+\newcommand{\et}{\hspace{\stretch{1}}}
+
+% To print names in french style (with small capitals)
+\newcommand{\Nom}[1]{\bsc{#1}}
+
+% To insere a date
+\newcommand{\Date}[4][]{\def\@IsNomJour{l}\def\@Separateur{#1}%
+  \ifx\@empty\@Separateur%
+  {\setdatenumber{#4}{#3}{#2}\datedate}%
+  \else
+  \ifx\@Separateur\@IsNomJour%
+  {\setdatenumber{#4}{#3}{#2}\datedayname\ \datedate}%
+  \else%
+  {#2\@Separateur#3\@Separateur#4}%
+  \fi
+  \fi}
+
+% Table of contents, figures and table (these command insere the an element in order to have the three table in the table of content)
+\newcommand{\TableDesMatieres}{\newpage\phantomsection\addcontentsline{toc}{chapter}{\contentsname}\tableofcontents}
+\newcommand{\TableDesFigures}{\newpage\phantomsection\addcontentsline{toc}{chapter}{\listfigurename}\listoffigures}
+\newcommand{\TableDesTableaux}{\newpage\phantomsection\addcontentsline{toc}{chapter}{\listtablename}\listoftables}
+
+%% For the bibliography
+% Set the default style and file for bibliography
+\newcommand{\DefaultBibliographie}[2][apalike]{\defaultbibliographystyle{#1}\defaultbibliography{#2}}
+% Create a mini bibliography at the end of each chapter
+\newcommand{\minibib}[1][]{\def\@Un{#1}\newpage\phantomsection\addcontentsline{toc}{section}{\bibname}\ifx\@Un\@empty\putbib\else\putbib[#1]\fi}
+% Set the style and the file for the bibliography
+\newcommand{\Bibliographie}[2][apalike]{\newpage\phantomsection\addcontentsline{toc}{chapter}{\bibname}\bibliographystyle{#1}\bibliography{#2}}%
+
+% To include an image
+\newcommand{\Image}[2][]{\includegraphics[#1]{#2}}
+
+% 'Table' environment to create table floating element
+\newenvironment{Table}[3]%
+	{\def\@Un{#1}\def\@Deux{#2}\def\@Trois{#3}
+\begin{table}[htp]\centering\caption{\@Un}\label{\@Deux}\begin{tabular}{\@Trois}}%
+{\end{tabular}\end{table}}
+
+% 'Figure' environment to create figure floating element
+\newenvironment{Figure}[3][]%
+	{\def\@Un{#1}\def\@Deux{#2}\def\@Trois{#3}%
+	\begin{figure}[htp]\centering}%
+	{\caption[\@Deux]{\@Deux\ifx\@Un\@empty\else ~--~\footnotesize \@Un\fi .}\label{\@Trois}\end{figure}}
+
+% 'FigurePS' environment is like a 'Figure' environment but when you can make PostScript figures with PSTricks.
+\newenvironment{FigurePS}[4][]%
+	{\def\@Un{#1}\def\@Deux{#2}\def\@Trois{#3}%
+	\begin{figure}[htp]\centering\begin{pspicture}\psset{unit=1cm}\SpecialCoor #4}%
+	{\end{pspicture}\psset{unit=1}\caption[\@Deux]{\@Deux\ifx\@Un\@empty\else ~--~\footnotesize \@Un\fi .}\label{\@Trois}\end{figure}}
+
+% Redefine an environment for the subfigures
+\newbox\sf@box 
+\newenvironment{SubFloat}[2][]% 
+	{%
+		\def\sf@one{#1}% 
+		\def\sf@two{#2}% 
+		\setbox\sf@box\hbox%
+		\bgroup%
+	}{%
+		\egroup%
+		\ifx\@empty\sf@two\@empty\relax%
+			\def\sf@two{\@empty}%
+		\fi%
+		\ifx\@empty\sf@one\@empty\relax%
+			\subfloat[\sf@two]{\box\sf@box}% 
+		\else%
+			\subfloat[\sf@one][\sf@two]{\box\sf@box}% 
+		\fi%
+	}
+
+% 'SubFigure' environment to create subfigures.
+% Can only be found in a 'Figure' environment
+\newenvironment{SubFigure}[2]%
+	{\begin{SubFloat}{\label{#2}#1}}%
+	{\end{SubFloat}}
+
+% 'SubFigurePS' environment to create subfigure in PostScript with PSTricks.
+% Can only be found in a 'Figure' environment
+\newenvironment{SubFigurePS}[3]%
+	{\begin{SubFloat}{\label{#2}#1}\begin{pspicture}\SpecialCoor #3}%
+	{\end{pspicture}\end{SubFloat}}
+
+%% Commands to include sources codes in a document
+% Create the table of codes
+\newcommand{\listofcodes}{%
+	\chapter*{Codes sources}\@starttoc{tcs}}
+% To print dotted line in the list of 'codes' between the title and the page number
+\newcommand{\l@code}{%
+\@dottedtocline{1}{0.5em}{0.5em}}
+% Redefine the label for the codes
+\renewcommand{\lstlistingname}{Code}
+% To include a source code with an extern file (which must be in the 'files' subdirectory)
+\newcommand{\FichierCode}[3][]{%
+\def\@Un{#1}\def\@Deux{#2}\def\@Trois{#3}%
+	\addcontentsline{tcs}{code}{#2}%
+	\lstset{%
+	frame=single,%
+	breaklines=true%
+	}%
+	\textcolor{black}{\textnormal{%
+	\ifx\@Un\@empty%
+	\lstinputlisting[caption=#2,label=#3]{files/#2}%
+	\else%
+	\lstinputlisting[caption=#2,label=#3,#1]{files/#2}%
+	\fi}}}
+% To include source code (in-line version)
+\newcommand{\code}[1][]{%
+	\lstset{%
+	frame=none,%
+	backgroundcolor=\color{white},%
+	breaklines=false%
+	}%
+	\leavevmode\bgroup% \hbox\bgroup --> \bgroup
+	\def\lst@boxpos{b}%
+	\lsthk@PreSet\lstset{flexiblecolumns,#1}%
+	\lsthk@TextStyle%
+	\@ifnextchar\bgroup{\afterassignment\lst@InlineG \let\@let@token}%
+	\lstinline@}
+% To include source code (paragraph version)
+% This is a numbered version so it will appear in the table of codes
+\lstnewenvironment{Code}[4][]%
+	{\def\@Un{#1}%
+	\addcontentsline{tcs}{code}{#2}%
+	\lstset{%
+	frame=single,%
+	breaklines=true%
+	}%
+	\ifx\@Un\@empty%
+	\lstset{caption={#2},label=#3}%
+	\else%
+	\lstset{#1,caption={#2},label=#3}%
+	\fi%
+	\textcolor{black}\bgroup\textnormal\bgroup%
+	\lst@TestEOLChar{#4}\csname\@lst @SetFirstNumber\endcsname}%
+	{\csname\@lst @SaveFirstNumber\endcsname%
+	\egroup\egroup}
+% To include source code (paragraph version)
+% This is a non-numbered version so it will appear in the table of codes
+\lstnewenvironment{Code*}[1][]%
+	{\def\@Un{#1}%
+	\lstset{%
+	frame=single,%
+	breaklines=true%
+	}%
+	\ifx\@Un\@empty%
+	\lstset{numbers=none}%
+	\else%
+	\lstset{numbers=none,#1}%
+	\fi%
+	\textcolor{black}\bgroup\textnormal\bgroup%
+	\lst@TestEOLChar{#1}\csname\@lst @SetFirstNumber\endcsname}%
+	{\csname\@lst @SaveFirstNumber\endcsname%
+	\egroup\egroup}
+
+% 'Equation' environment
+\newenvironment{Equation}[1][]%
+	{\def\@Un{#1}%
+	\par\begin{equation}%
+		\ifx%
+		\@Un\@empty%
+		\else%
+		\label{#1}\fi}%
+  {\end{equation}\par}
+\newenvironment{Equation*}%
+	{\par\begin{equation*}}%
+	{\end{equation*}}
+
+%% Commands to create reference
+%% The optionnal argument which could only be 'v' is to include '(see Fig. 1)' instead of 'Fig. 1'.
+% To create a reference on a part
+\newcommand{\ParRef}[2][]{\def\@Un{#1}\def\@Deux{#2}\def\@Voir{v}%
+  \ifx\@Un\@Voir%
+  (voir \partname~\vref{#2})%
+  \else%
+  \partname~\vref{#2}%
+  \fi}
+% To create a reference on a chapter
+\newcommand{\ChaRef}[2][]{\def\@Un{#1}\def\@Deux{#2}\def\@Voir{v}%
+  \ifx\@Un\@Voir%
+  (voir \chaptername~\vref{#2})%
+  \else%
+  \chaptername~\vref{#2}%
+  \fi}
+% To create a reference on a section
+\newcommand{\SecRef}[2][]{\def\@Un{#1}\def\@Deux{#2}\def\@Voir{v}%
+  \ifx\@Un\@Voir%
+  (voir Section~\vref{#2})%
+  \else%
+  Section~\vref{#2}%
+  \fi}
+% To create a reference on a subsection
+\newcommand{\SseRef}[2][]{\def\@Un{#1}\def\@Deux{#2}\def\@Voir{v}%
+  \ifx\@Un\@Voir%
+  (voir Section~\vref{#2})%
+  \else%
+  Section~\vref{#2}%
+  \fi}
+% To create a reference on a subsubsection
+\newcommand{\SssRef}[2][]{\def\@Un{#1}\def\@Deux{#2}\def\@Voir{v}%
+  \ifx\@Un\@Voir%
+  (voir Section~\vref{#2})%
+  \else%
+  Section~\vref{#2}%
+  \fi}
+% To create a reference on a figure
+\newcommand{\FigRef}[2][]{\def\@Un{#1}\def\@Deux{#2}\def\@Voir{v}%
+	\renewcommand{\figurename}{{\sffamily{Figure}}}%
+  \ifx\@Un\@Voir%
+  (voir \figurename~\vref{#2})%
+  \else%
+  \figurename~\vref{#2}%
+  \fi}
+% To create a reference on a table
+\newcommand{\TabRef}[2][]{\def\@Un{#1}\def\@Deux{#2}\def\@Voir{v}%
+	\renewcommand{\tablename}{{\sffamily{Tableau}}}%
+  \ifx\@Un\@Voir%
+  (voir \tablename~\vref{#2})%
+  \else%
+  \tablename~\vref{#2}%
+  \fi}
+% To create a reference on a code
+\newcommand{\CodRef}[2][]{\def\@Un{#1}\def\@Deux{#2}\def\@Voir{v}%
+	\renewcommand{\lstlistingname}{{\sffamily{Code}}}%
+  \ifx\@Un\@Voir%
+  (voir \lstlistingname~\vref{#2})%
+  \else%
+  \lstlistingname~\vref{#2}%
+  \fi}
+% To create a reference on an equation
+\newcommand{\EqRef}[2][]{\def\@Un{#1}\def\@Deux{#2}\def\@Voir{v}%
+  \ifx\@Un\@Voir%
+	(voir {sffamily{}équation~(\ref*{#2}))})%
+  \else%
+	{sffamily{}équation~(\vref*{#2})})%
+  \fi}
+
+%% Various commands
+% For mathematics
+\newcommand{\PI}{3.141592653589793 }
+\newcommand{\E}{2.718281828459045 }
+\newcommand{\Exp}[1]{e^{#1}}
+\newcommand{\Expf}[1]{\exp{\left[#1\right]}}
+\renewcommand{\Vec}[2][]{\def\@Un{#1}\def\@Deux{#2}\def\@Simple{s}%
+  \ifx\@Simple\@Un%
+  \overrightarrow{\mathbf{#2}}%
+  \else%
+  \overrightarrow{#2}%
+  \fi}
+\newcommand{\Module}[1]{\left| #1 \right|}
+\newcommand{\Norme}[1]{\left\| #1 \right\|}
+\newcommand{\Gradient}{\vec{\nabla}}
+\newcommand{\Parallele}{\,/\!/\,}
+\newcommand{\Implique}{\quad\Rightarrow\quad}
+% For graphics
+\newcommand{\DataPlot}[3][]{\readdata{#2}{Donnees/#3}\dataplot[#1]{#2}}
+\newcommand{\DataPlotThreeD}[3][]{\readdata{#2}{Donnees/#3}\dataplotThreeD[#1]{#2}}
+% Others
+\newcommand{\Registered}{\textregistered}
+\newcommand{\Trademark}{\texttrademark}
+\newcommand{\ie}{\emph{i.e.}\xspace}
+
+\makeatother
+
+% Default value for author and date
+\author{Jean \Nom{Simard}}
+\date{\today}
+
+% End of package
+\endinput
